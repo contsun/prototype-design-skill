@@ -1,6 +1,6 @@
 # Prototype Design Skill - AI 辅助原型设计技能
 
-> 基于多种设计风格（默认Figma 风格） UI 的复杂性 HTML 原型开发技能（如wms等），58+ 设计系统支持
+> 基于多种设计风格（默认Figma 风格） UI 的复杂型 HTML 原型开发技能（如wms等），58+ 设计系统支持
 
 ![Preview](docs/preview.png)
 
