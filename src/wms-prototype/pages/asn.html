@@ -1,0 +1,609 @@
+      <div id="page-asn" class="page">
+        <header class="header">
+          <div class="header-left">
+            <h2>ASN单管理</h2>
+            <div class="breadcrumb"><span>首页</span><span>/</span><span>单据中心</span><span>/</span><span>ASN单管理</span></div>
+          </div>
+          <div class="header-right">
+            <button class="btn btn-outline btn-sm">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              导出
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="openAddAsnModal()">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/></svg>
+              新建ASN
+            </button>
+          </div>
+        </header>
+        <div class="content">
+          <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;">
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">待到货</span></div>
+              <div class="stat-card-value" style="color:#F59E0B;">12</div>
+              <div class="stat-card-change warning">今日新增</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">已到货</span></div>
+              <div class="stat-card-value" style="color:#10B981;">86</div>
+              <div class="stat-card-change up">本月</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">准时率</span></div>
+              <div class="stat-card-value">96.8%</div>
+              <div class="stat-card-change up">+2.3%</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">异常取消</span></div>
+              <div class="stat-card-value" style="color:#EF4444;">5</div>
+              <div class="stat-card-change down">需跟进</div>
+            </div>
+          </div>
+          
+          <div class="tabs" style="margin-bottom:24px;display:flex;gap:8px;">
+            <button class="tab active" onclick="switchAsnTab('list')" style="border:none;background:#EEF2FF;padding:10px 20px;font-size:14px;font-weight:500;color:#4F46E5;border-radius:8px;cursor:pointer;">ASN列表</button>
+            <button class="tab" onclick="switchAsnTab('calendar')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">日历视图</button>
+            <button class="tab" onclick="switchAsnTab('supplier')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">供应商统计</button>
+          </div>
+          
+          <div id="asn-list" class="asn-tab">
+            <div class="table-card">
+              <div class="table-filters">
+                <div class="filter-group">
+                  <label class="filter-label">ASN号/供应商</label>
+                  <input type="text" class="filter-input" placeholder="请输入ASN号或供应商名称" style="width:180px;">
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">SKU编码/商品名称</label>
+                  <input type="text" class="filter-input" placeholder="请输入SKU或商品名称" style="width:180px;">
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">预约日期</label>
+                  <input type="date" class="filter-input" style="width:130px;" value="2026-04-01">
+                  <span style="padding:0 8px;color:#6B7280;">至</span>
+                  <input type="date" class="filter-input" style="width:130px;" value="2026-04-13">
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">月台</label>
+                  <select class="filter-select">
+                    <option>全部月台</option>
+                    <option>1号月台</option>
+                    <option>2号月台</option>
+                    <option>3号月台</option>
+                    <option>4号月台</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">状态</label>
+                  <select class="filter-select">
+                    <option>全部状态</option>
+                    <option>待到货</option>
+                    <option>已到货</option>
+                    <option>已取消</option>
+                    <option>迟到</option>
+                  </select>
+                </div>
+                <div class="filter-group" style="margin-left:auto;">
+                  <button class="btn btn-outline btn-sm">重置</button>
+                  <button class="btn btn-primary btn-sm" style="margin-left:8px;">查询</button>
+                </div>
+              </div>
+              <table>
+                <thead><tr><th>ASN号</th><th>供应商</th><th>关联采购单号</th><th>预计到车时间</th><th>月台</th><th>预报品项</th><th>预报件数</th><th>预报体积(m³)</th><th>预报单件重量</th><th>实际到货时间</th><th>到货偏差</th><th>状态</th><th>操作</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td><span style="font-family:monospace;font-weight:500;">ASN-2026-0410-001</span></td>
+                    <td><span style="font-weight:500;">优鲜供应链有限公司</span></td>
+                    <td><span style="font-family:monospace;color:#4F46E5;">CG-2026-0410-001</span></td>
+                    <td>2026-04-10 14:00</td>
+                    <td><span class="tag" style="background:#EEF2FF;color:#4F46E5;">1号月台</span></td>
+                    <td>32 种</td>
+                    <td>320 件</td>
+                    <td>12.5</td>
+                    <td>2.5 kg</td>
+                    <td><span style="color:#6B7280;">-</span></td>
+                    <td><span style="color:#6B7280;">-</span></td>
+                    <td><span class="tag" style="background:#FEF3C7;color:#D97706;">待到货</span></td>
+                    <td><button class="btn btn-outline btn-sm" onclick="showAsnDetail('ASN-2026-0410-001')">详情</button><button class="btn btn-outline btn-sm" style="margin-left:4px;" onclick="openRescheduleModal('ASN-2026-0410-001')">改约</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-weight:500;">ASN-2026-0410-002</span></td>
+                    <td><span style="font-weight:500;">源生食品贸易商行</span></td>
+                    <td><span style="font-family:monospace;color:#4F46E5;">CG-2026-0410-002</span></td>
+                    <td>2026-04-10 10:00</td>
+                    <td><span class="tag" style="background:#DBEAFE;color:#2563EB;">2号月台</span></td>
+                    <td>18 种</td>
+                    <td>156 件</td>
+                    <td>8.2</td>
+                    <td>1.8 kg</td>
+                    <td>2026-04-10 09:55</td>
+                    <td><span style="color:#10B981;font-weight:500;">-5min</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">已到货</span></td>
+                    <td><button class="btn btn-outline btn-sm" onclick="showAsnDetail('ASN-2026-0410-002')">详情</button><button class="btn btn-outline btn-sm" style="margin-left:4px;" onclick="openRescheduleModal('ASN-2026-0410-002')">改约</button></td>
+                  </tr>
+                  <tr style="background:#FEE2E2;">
+                    <td><span style="font-family:monospace;font-weight:500;">ASN-2026-0409-025</span></td>
+                    <td><span style="font-weight:500;">鲜达冷链配送中心</span></td>
+                    <td><span style="font-family:monospace;color:#4F46E5;">CG-2026-0409-018</span></td>
+                    <td>2026-04-09 08:00</td>
+                    <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">3号月台</span></td>
+                    <td>24 种</td>
+                    <td>280 件</td>
+                    <td>15.6</td>
+                    <td>3.2 kg</td>
+                    <td>2026-04-09 14:30</td>
+                    <td><span style="color:#EF4444;font-weight:500;">+390min</span></td>
+                    <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">迟到</span></td>
+                    <td><button class="btn btn-outline btn-sm" onclick="showAsnDetail('ASN-2026-0409-025')">详情</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">取消</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-weight:500;">ASN-2026-0408-018</span></td>
+                    <td><span style="font-weight:500;">康源食品批发</span></td>
+                    <td><span style="font-family:monospace;color:#4F46E5;">CG-2026-0408-015</span></td>
+                    <td>2026-04-08 09:00</td>
+                    <td><span class="tag" style="background:#EEF2FF;color:#4F46E5;">1号月台</span></td>
+                    <td>15 种</td>
+                    <td>120 件</td>
+                    <td>6.8</td>
+                    <td>2.1 kg</td>
+                    <td>2026-04-08 09:10</td>
+                    <td><span style="color:#F59E0B;font-weight:500;">+10min</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">已到货</span></td>
+                    <td><button class="btn btn-outline btn-sm" onclick="showAsnDetail('ASN-2026-0408-018')">详情</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-weight:500;">ASN-2026-0407-022</span></td>
+                    <td><span style="font-weight:500;">恒通物流仓储</span></td>
+                    <td><span style="font-family:monospace;color:#4F46E5;">CG-2026-0407-016</span></td>
+                    <td>2026-04-07 11:00</td>
+                    <td><span class="tag" style="background:#DBEAFE;color:#2563EB;">4号月台</span></td>
+                    <td>20 种</td>
+                    <td>180 件</td>
+                    <td>9.2</td>
+                    <td>2.0 kg</td>
+                    <td><span style="color:#6B7280;">-</span></td>
+                    <td><span style="color:#6B7280;">-</span></td>
+                    <td><span class="tag" style="background:#F3F4F6;color:#6B7280;">已取消</span></td>
+                    <td><button class="btn btn-outline btn-sm" onclick="showAsnDetail('ASN-2026-0407-022')">详情</button></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="pagination">
+                <div class="pagination-info">显示 1-5 条，共 12 条</div>
+                <div class="pagination-buttons">
+                  <button class="pagination-btn" disabled>‹</button>
+                  <button class="pagination-btn active">1</button>
+                  <button class="pagination-btn">2</button>
+                  <button class="pagination-btn">3</button>
+                  <button class="pagination-btn">›</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="asn-calendar" class="asn-tab" style="display:none;">
+            <div class="table-card">
+              <div class="table-header">
+                <span class="table-title">月台排程日历 - 2026年4月10日</span>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:20px;">
+                <div style="background:#EEF2FF;border-radius:12px;padding:16px;min-height:200px;">
+                  <div style="font-weight:600;color:#4F46E5;margin-bottom:12px;">1号月台</div>
+                  <div style="display:flex;flex-direction:column;gap:8px;">
+                    <div style="background:white;border-radius:8px;padding:10px;">
+                      <div style="font-size:12px;font-weight:500;color:#374151;">09:00-11:00</div>
+                      <div style="font-size:13px;font-weight:500;color:#1F2937;margin-top:4px;">优鲜供应链</div>
+                      <div style="font-size:11px;color:#6B7280;margin-top:2px;">ASN-2026-0410-001</div>
+                    </div>
+                    <div style="background:white;border-radius:8px;padding:10px;">
+                      <div style="font-size:12px;font-weight:500;color:#374151;">14:00-16:00</div>
+                      <div style="font-size:13px;font-weight:500;color:#1F2937;margin-top:4px;">康源食品</div>
+                      <div style="font-size:11px;color:#6B7280;margin-top:2px;">ASN-2026-0410-003</div>
+                    </div>
+                  </div>
+                </div>
+                <div style="background:#DBEAFE;border-radius:12px;padding:16px;min-height:200px;">
+                  <div style="font-weight:600;color:#2563EB;margin-bottom:12px;">2号月台</div>
+                  <div style="display:flex;flex-direction:column;gap:8px;">
+                    <div style="background:white;border-radius:8px;padding:10px;">
+                      <div style="font-size:12px;font-weight:500;color:#374151;">08:00-10:00</div>
+                      <div style="font-size:13px;font-weight:500;color:#1F2937;margin-top:4px;">源生食品</div>
+                      <div style="font-size:11px;color:#6B7280;margin-top:2px;">ASN-2026-0410-002</div>
+                    </div>
+                  </div>
+                </div>
+                <div style="background:#FEF3C7;border-radius:12px;padding:16px;min-height:200px;">
+                  <div style="font-weight:600;color:#D97706;margin-bottom:12px;">3号月台</div>
+                  <div style="display:flex;flex-direction:column;gap:8px;">
+                    <div style="background:white;border-radius:8px;padding:10px;">
+                      <div style="font-size:12px;font-weight:500;color:#374151;">空闲</div>
+                    </div>
+                  </div>
+                </div>
+                <div style="background:#DCFCE7;border-radius:12px;padding:16px;min-height:200px;">
+                  <div style="font-weight:600;color:#16A34A;margin-bottom:12px;">4号月台</div>
+                  <div style="display:flex;flex-direction:column;gap:8px;">
+                    <div style="background:white;border-radius:8px;padding:10px;">
+                      <div style="font-size:12px;font-weight:500;color:#374151;">空闲</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="asn-supplier" class="asn-tab" style="display:none;">
+            <div class="table-card">
+              <div class="table-header">
+                <span class="table-title">供应商ASN统计</span>
+              </div>
+              <table>
+                <thead><tr><th>供应商名称</th><th>ASN数量</th><th>预报件数</th><th>实际件数</th><th>到货准时率</th><th>品质合格率</th><th>评分</th></tr></thead>
+                <tbody>
+                  <tr><td><span style="font-weight:500;">优鲜供应链有限公司</span></td><td>28单</td><td>8,560件</td><td>8,420件</td><td><span style="color:#10B981;font-weight:500;">98.5%</span></td><td><span style="color:#10B981;font-weight:500;">99.2%</span></td><td><span style="color:#F59E0B;">★★★★★</span></td></tr>
+                  <tr><td><span style="font-weight:500;">源生食品贸易商行</span></td><td>22单</td><td>5,680件</td><td>5,520件</td><td><span style="color:#10B981;font-weight:500;">96.8%</span></td><td><span style="color:#10B981;font-weight:500;">98.5%</span></td><td><span style="color:#F59E0B;">★★★★☆</span></td></tr>
+                  <tr><td><span style="font-weight:500;">鲜达冷链配送中心</span></td><td>15单</td><td>4,280件</td><td>4,100件</td><td><span style="color:#EF4444;font-weight:500;">85.2%</span></td><td><span style="color:#F59E0B;font-weight:500;">96.8%</span></td><td><span style="color:#F59E0B;">★★★★☆</span></td></tr>
+                  <tr><td><span style="font-weight:500;">康源食品批发</span></td><td>18单</td><td>3,920件</td><td>3,850件</td><td><span style="color:#10B981;font-weight:500;">97.5%</span></td><td><span style="color:#10B981;font-weight:500;">97.8%</span></td><td><span style="color:#F59E0B;">★★★★☆</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ASN详情页弹窗 -->
+      <div id="asnDetailModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:1100px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="margin:0;font-size:18px;font-weight:600;color:#1F2937;">ASN详情</h3>
+            <button onclick="closeAsnDetail()" style="background:none;border:none;font-size:24px;cursor:pointer;color:#6B7280;">&times;</button>
+          </div>
+          <div style="padding:24px;overflow-y:auto;flex:1;">
+            <!-- 单头信息区 -->
+            <div style="background:#F9FAFB;border-radius:12px;padding:20px;margin-bottom:24px;">
+              <h4 style="margin:0 0 16px 0;font-size:14px;font-weight:600;color:#374151;">基本信息</h4>
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+                <div>
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">ASN号</div>
+                  <div style="font-weight:600;font-family:monospace;color:#4F46E5;" id="detail-asn-no">ASN-2026-0410-001</div>
+                </div>
+                <div>
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">供应商名称</div>
+                  <div style="font-weight:500;color:#1F2937;" id="detail-supplier">优鲜供应链有限公司</div>
+                </div>
+                <div>
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">关联采购单号</div>
+                  <div style="font-weight:500;font-family:monospace;color:#4F46E5;" id="detail-purchase-no">CG-2026-0410-001</div>
+                </div>
+                <div>
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">月台编号</div>
+                  <div style="font-weight:500;" id="detail-platform">1号月台</div>
+                </div>
+                <div>
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">预计到车时间</div>
+                  <div style="font-weight:500;" id="detail-eta">2026-04-10 14:00</div>
+                </div>
+                <div>
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">实际到货时间</div>
+                  <div style="font-weight:500;" id="detail-ata">-</div>
+                </div>
+                <div>
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">到货偏差</div>
+                  <div style="font-weight:500;" id="detail-deviation">-</div>
+                </div>
+                <div>
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">单据状态</div>
+                  <div style="font-weight:500;"><span class="tag" style="background:#FEF3C7;color:#D97706;" id="detail-status">待到货</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 汇总信息区 -->
+            <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:24px;">
+              <div style="background:#EEF2FF;border-radius:8px;padding:12px;text-align:center;">
+                <div style="font-size:12px;color:#6B7280;">预报SKU品项</div>
+                <div style="font-size:20px;font-weight:700;color:#4F46E5;margin-top:4px;" id="detail-sku-count">32</div>
+              </div>
+              <div style="background:#EEF2FF;border-radius:8px;padding:12px;text-align:center;">
+                <div style="font-size:12px;color:#6B7280;">预报总件数</div>
+                <div style="font-size:20px;font-weight:700;color:#4F46E5;margin-top:4px;" id="detail-total-qty">320</div>
+              </div>
+              <div style="background:#EEF2FF;border-radius:8px;padding:12px;text-align:center;">
+                <div style="font-size:12px;color:#6B7280;">预报总体积(m³)</div>
+                <div style="font-size:20px;font-weight:700;color:#4F46E5;margin-top:4px;" id="detail-total-vol">12.5</div>
+              </div>
+              <div style="background:#EEF2FF;border-radius:8px;padding:12px;text-align:center;">
+                <div style="font-size:12px;color:#6B7280;">预报总重量(kg)</div>
+                <div style="font-size:20px;font-weight:700;color:#4F46E5;margin-top:4px;" id="detail-total-weight">800</div>
+              </div>
+              <div style="background:#DCFCE7;border-radius:8px;padding:12px;text-align:center;">
+                <div style="font-size:12px;color:#6B7280;">实到总件数</div>
+                <div style="font-size:20px;font-weight:700;color:#16A34A;margin-top:4px;" id="detail-actual-qty">-</div>
+              </div>
+              <div style="background:#DCFCE7;border-radius:8px;padding:12px;text-align:center;">
+                <div style="font-size:12px;color:#6B7280;">到货履约率</div>
+                <div style="font-size:20px;font-weight:700;color:#16A34A;margin-top:4px;" id="detail-fulfill-rate">-</div>
+              </div>
+            </div>
+
+            <!-- 商品明细列表 -->
+            <div class="table-card">
+              <div class="table-header">
+                <span class="table-title">商品明细</span>
+                <div style="display:flex;gap:12px;">
+                  <input type="text" class="filter-input" placeholder="搜索SKU编码或商品名称..." style="width:200px;">
+                </div>
+              </div>
+              <table>
+                <thead><tr><th>行号</th><th>SKU编码</th><th>商品条码</th><th>商品名称</th><th>规格</th><th>基本单位</th><th>类目</th><th>温层</th><th>预报数量</th><th>预报单件重量</th><th>预报单件体积</th><th>预报行重量</th><th>预报行体积</th><th>批次号</th><th>生产日期</th><th>实到数量</th><th>到货差异</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td><span style="font-family:monospace;font-size:12px;color:#6366F1;">SKU001234</span></td>
+                    <td><span style="font-family:monospace;font-size:11px;color:#9CA3AF;">6901234567890</span></td>
+                    <td><span style="font-weight:500;">新鲜有机苹果</span></td>
+                    <td>特级大果12个装</td>
+                    <td>箱</td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">生鲜水果</span></td>
+                    <td><span style="color:#10B981;">常温</span></td>
+                    <td>100 箱</td>
+                    <td>2.5 kg</td>
+                    <td>0.05 m³</td>
+                    <td>250 kg</td>
+                    <td>5.0 m³</td>
+                    <td><span style="font-family:monospace;font-size:11px;">PC-2026-0410-001</span></td>
+                    <td>2026-04-08</td>
+                    <td><span style="color:#6B7280;">-</span></td>
+                    <td><span style="color:#6B7280;">-</span></td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td><span style="font-family:monospace;font-size:12px;color:#6366F1;">SKU005678</span></td>
+                    <td><span style="font-family:monospace;font-size:11px;color:#9CA3AF;">6901234567891</span></td>
+                    <td><span style="font-weight:500;">金龙鱼花生油 5L</span></td>
+                    <td>5L/桶</td>
+                    <td>箱</td>
+                    <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">粮油调味</span></td>
+                    <td><span style="color:#10B981;">常温</span></td>
+                    <td>50 箱</td>
+                    <td>4.8 kg</td>
+                    <td>0.02 m³</td>
+                    <td>240 kg</td>
+                    <td>1.0 m³</td>
+                    <td><span style="font-family:monospace;font-size:11px;">PC-2026-0410-002</span></td>
+                    <td>2026-03-15</td>
+                    <td><span style="color:#6B7280;">-</span></td>
+                    <td><span style="color:#6B7280;">-</span></td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td><span style="font-family:monospace;font-size:12px;color:#6366F1;">SKU007890</span></td>
+                    <td><span style="font-family:monospace;font-size:11px;color:#9CA3AF;">6901234567892</span></td>
+                    <td><span style="font-weight:500;">伊利纯牛奶</span></td>
+                    <td>250ml*24盒/箱</td>
+                    <td>箱</td>
+                    <td><span class="tag" style="background:#DBEAFE;color:#2563EB;">乳品饮料</span></td>
+                    <td><span style="color:#3B82F6;">冷藏 2-8°C</span></td>
+                    <td>80 箱</td>
+                    <td>6.2 kg</td>
+                    <td>0.03 m³</td>
+                    <td>496 kg</td>
+                    <td>2.4 m³</td>
+                    <td><span style="font-family:monospace;font-size:11px;">PC-2026-0410-003</span></td>
+                    <td>2026-04-05</td>
+                    <td><span style="color:#6B7280;">-</span></td>
+                    <td><span style="color:#6B7280;">-</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button onclick="closeAsnDetail()" class="btn btn-outline btn-sm" style="padding:10px 24px;">关闭</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ASN改约弹窗 -->
+      <div id="rescheduleModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1001;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:500px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="margin:0;font-size:18px;font-weight:600;color:#1F2937;">ASN改约</h3>
+            <button onclick="closeRescheduleModal()" style="background:none;border:none;font-size:24px;cursor:pointer;color:#6B7280;">&times;</button>
+          </div>
+          <div style="padding:24px;overflow-y:auto;flex:1;">
+            <!-- 原预约信息 -->
+            <div style="background:#FEF3C7;border-radius:8px;padding:16px;margin-bottom:24px;">
+              <div style="font-size:12px;color:#92400E;font-weight:500;margin-bottom:8px;">原预约信息</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <div>
+                  <div style="font-size:11px;color:#B45309;">ASN号</div>
+                  <div style="font-weight:600;color:#92400E;" id="reschedule-asn-no">ASN-2026-0410-001</div>
+                </div>
+                <div>
+                  <div style="font-size:11px;color:#B45309;">供应商</div>
+                  <div style="font-weight:500;color:#92400E;" id="reschedule-supplier">优鲜供应链有限公司</div>
+                </div>
+                <div>
+                  <div style="font-size:11px;color:#B45309;">原预约时间</div>
+                  <div style="font-weight:500;color:#92400E;" id="reschedule-original-time">2026-04-10 14:00</div>
+                </div>
+                <div>
+                  <div style="font-size:11px;color:#B45309;">原月台</div>
+                  <div style="font-weight:500;color:#92400E;" id="reschedule-original-platform">1号月台</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 新预约信息 -->
+            <div style="margin-bottom:24px;">
+              <h4 style="margin:0 0 16px 0;font-size:14px;font-weight:600;color:#374151;">新预约信息</h4>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                <div>
+                  <label style="display:block;margin-bottom:6px;font-size:14px;color:#4B5563;">新预约时间 <span style="color:#EF4444;">*</span></label>
+                  <input type="datetime-local" class="filter-input" style="width:100%;" value="2026-04-10T16:00">
+                </div>
+                <div>
+                  <label style="display:block;margin-bottom:6px;font-size:14px;color:#4B5563;">新月台 <span style="color:#EF4444;">*</span></label>
+                  <select class="filter-select" style="width:100%;">
+                    <option>1号月台</option>
+                    <option>2号月台</option>
+                    <option>3号月台</option>
+                    <option>4号月台</option>
+                  </select>
+                </div>
+                <div style="grid-column:span 2;">
+                  <label style="display:block;margin-bottom:6px;font-size:14px;color:#4B5563;">改约原因 <span style="color:#EF4444;">*</span></label>
+                  <textarea class="filter-input" placeholder="请输入改约原因（必填，5-200字）" style="width:100%;height:80px;resize:none;padding:10px;"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button onclick="closeRescheduleModal()" class="btn btn-outline btn-sm" style="padding:10px 24px;">取消</button>
+            <button class="btn btn-primary btn-sm" style="padding:10px 24px;">确认改约</button>
+          </div>
+        </div>
+      </div>
+
+      
+      <div id="addAsnModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:900px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="margin:0;font-size:18px;font-weight:600;color:#1F2937;">新建ASN单</h3>
+            <button onclick="closeAddAsnModal()" style="background:none;border:none;font-size:24px;cursor:pointer;color:#6B7280;">×</button>
+          </div>
+          <div style="padding:24px;overflow-y:auto;flex:1;">
+            <!-- 基本信息 -->
+            <div style="margin-bottom:24px;">
+              <h4 style="margin:0 0 16px 0;font-size:14px;font-weight:600;color:#374151;">基本信息</h4>
+              <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;">
+                <div>
+                  <label style="display:block;margin-bottom:6px;font-size:14px;color:#4B5563;">供应商 <span style="color:#EF4444;">*</span></label>
+                  <select class="filter-select" style="width:100%;">
+                    <option>请选择供应商</option>
+                    <option>优鲜供应链有限公司</option>
+                    <option>源生食品贸易商行</option>
+                    <option>鲜达冷链配送中心</option>
+                    <option>康源食品批发</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="display:block;margin-bottom:6px;font-size:14px;color:#4B5563;">收货仓库 <span style="color:#EF4444;">*</span></label>
+                  <select class="filter-select" style="width:100%;">
+                    <option>请选择仓库</option>
+                    <option>北京仓</option>
+                    <option>上海仓</option>
+                    <option>广州仓</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="display:block;margin-bottom:6px;font-size:14px;color:#4B5563;">预计到货日期 <span style="color:#EF4444;">*</span></label>
+                  <input type="date" class="filter-input" style="width:100%;">
+                </div>
+                <div>
+                  <label style="display:block;margin-bottom:6px;font-size:14px;color:#4B5563;">收货月台</label>
+                  <select class="filter-select" style="width:100%;">
+                    <option>请选择月台</option>
+                    <option>月台A1-收货区</option>
+                    <option>月台A2-收货区</option>
+                    <option>月台B1-冷藏区</option>
+                    <option>月台B2-冷藏区</option>
+                  </select>
+                </div>
+                <div style="grid-column:span 2;">
+                  <label style="display:block;margin-bottom:6px;font-size:14px;color:#4B5563;">备注</label>
+                  <input type="text" class="filter-input" placeholder="请输入备注信息（选填）" style="width:100%;">
+                </div>
+              </div>
+            </div>
+
+            <!-- 商品明细 -->
+            <div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+                <h4 style="margin:0;font-size:14px;font-weight:600;color:#374151;">商品明细 <span style="color:#EF4444;">*</span></h4>
+                <button class="btn btn-outline btn-sm" onclick="addAsnItem()">
+                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  添加商品
+                </button>
+              </div>
+              <table style="width:100%;border-collapse:collapse;font-size:14px;">
+                <thead>
+                  <tr style="background:#F9FAFB;">
+                    <th style="padding:10px 12px;text-align:left;border:1px solid #E5E7EB;color:#6B7280;font-weight:500;">商品</th>
+                    <th style="padding:10px 12px;text-align:left;border:1px solid #E5E7EB;color:#6B7280;font-weight:500;width:120px;">采购数量</th>
+                    <th style="padding:10px 12px;text-align:left;border:1px solid #E5E7EB;color:#6B7280;font-weight:500;width:100px;">单位</th>
+                    <th style="padding:10px 12px;text-align:left;border:1px solid #E5E7EB;color:#6B7280;font-weight:500;width:80px;">操作</th>
+                  </tr>
+                </thead>
+                <tbody id="asnItems">
+                  <tr>
+                    <td style="padding:8px 12px;border:1px solid #E5E7EB;">
+                      <input type="text" placeholder="请输入SKU编码或扫描条码" style="width:100%;padding:6px 8px;border:1px solid #D1D5DB;border-radius:6px;font-size:14px;">
+                    </td>
+                    <td style="padding:8px 12px;border:1px solid #E5E7EB;">
+                      <input type="number" value="100" min="1" style="width:100px;padding:6px 8px;border:1px solid #D1D5DB;border-radius:6px;font-size:14px;">
+                    </td>
+                    <td style="padding:8px 12px;border:1px solid #E5E7EB;">
+                      <span>箱</span>
+                    </td>
+                    <td style="padding:8px 12px;border:1px solid #E5E7EB;">
+                      <button style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:14px;">删除</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button onclick="closeAddAsnModal()" class="btn btn-outline btn-sm" style="padding:10px 24px;">取消</button>
+            <button class="btn btn-primary btn-sm" style="padding:10px 24px;">确认提交</button>
+          </div>
+        </div>
+      </div>
+
+<script>
+      function openAddAsnModal() {
+        document.getElementById('addAsnModal').style.display = 'flex';
+      }
+      function closeAddAsnModal() {
+        document.getElementById('addAsnModal').style.display = 'none';
+      }
+      function addAsnItem() {
+        alert('添加商品功能 - 可选择SKU并添加到列表');
+      }
+      // 点击弹窗背景关闭
+      document.getElementById('addAsnModal').addEventListener('click', function(e) {
+        if (e.target === this) closeAddAsnModal();
+      });
+
+      function switchAsnTab(tabName) {
+        document.querySelectorAll('.asn-tab').forEach(tab => tab.style.display = 'none');
+        document.getElementById('asn-' + tabName).style.display = 'block';
+        const tabs = document.querySelectorAll('.content > .tabs > .tab');
+        tabs.forEach(t => {
+          t.style.background = '#F3F4F6';
+          t.style.color = '#6B7280';
+        });
+        event.target.style.background = '#EEF2FF';
+        event.target.style.color = '#4F46E5';
+      }
+      function showAsnDetail(asnNo) {
+        document.getElementById('asnDetailModal').style.display = 'flex';
+      }
+      function closeAsnDetail() {
+        document.getElementById('asnDetailModal').style.display = 'none';
+      }
+      function openRescheduleModal(asnNo) {
+        document.getElementById('rescheduleModal').style.display = 'flex';
+      }
+      function closeRescheduleModal() {
+        document.getElementById('rescheduleModal').style.display = 'none';
+      }
+      // 点击弹窗背景关闭
+      document.getElementById('asnDetailModal').addEventListener('click', function(e) {
+        if (e.target === this) closeAsnDetail();
+      });
+      document.getElementById('rescheduleModal').addEventListener('click', function(e) {
+        if (e.target === this) closeRescheduleModal();
+      });
+      </script>

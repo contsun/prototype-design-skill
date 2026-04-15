@@ -1,0 +1,259 @@
+      <div id="page-exception_complaint" class="page">
+        <header class="header">
+          <div class="header-left">
+            <h2>客诉与配送异常</h2>
+            <div class="breadcrumb"><span>首页</span><span>/</span><span>异常管理</span><span>/</span><span>客诉与配送异常</span></div>
+          </div>
+          <div class="header-right">
+            <button class="btn btn-outline btn-sm">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              导出
+            </button>
+            <button class="btn btn-primary btn-sm">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              新建工单
+            </button>
+          </div>
+        </header>
+        <div class="content">
+          <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;">
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">待处理</span></div>
+              <div class="stat-card-value" style="color:#F59E0B;">25</div>
+              <div class="stat-card-change warning">需紧急处理</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">处理中</span></div>
+              <div class="stat-card-value" style="color:#4F46E5;">18</div>
+              <div class="stat-card-change">进行中</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">已关闭</span></div>
+              <div class="stat-card-value" style="color:#10B981;">156</div>
+              <div class="stat-card-change up">本月</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">紧急率</span></div>
+              <div class="stat-card-value" style="color:#EF4444;">8.5%</div>
+              <div class="stat-card-change down">较上月 -2.3%</div>
+            </div>
+          </div>
+          
+          <div class="tabs" style="margin-bottom:24px;display:flex;gap:8px;">
+            <button class="tab active" onclick="switchExceptionTab('list')" style="border:none;background:#EEF2FF;padding:10px 20px;font-size:14px;font-weight:500;color:#4F46E5;border-radius:8px;cursor:pointer;">工单列表</button>
+            <button class="tab" onclick="switchExceptionTab('urgent')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">紧急待处理</button>
+            <button class="tab" onclick="switchExceptionTab('timeout')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">超时预警</button>
+            <button class="tab" onclick="switchExceptionTab('stats')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">统计报表</button>
+          </div>
+          
+          <div id="exception-list" class="exception-tab">
+            <div class="table-card">
+              <div class="table-filters">
+                <div class="filter-group">
+                  <label class="filter-label">异常类型</label>
+                  <select class="filter-select">
+                    <option>全部</option>
+                    <option>拒收</option>
+                    <option>少件</option>
+                    <option>漏发</option>
+                    <option>破损</option>
+                    <option>错发</option>
+                    <option>客诉</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">处理状态</label>
+                  <select class="filter-select">
+                    <option>全部</option>
+                    <option>待处理</option>
+                    <option>处理中</option>
+                    <option>待退款</option>
+                    <option>已关闭</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">严重级别</label>
+                  <select class="filter-select">
+                    <option>全部</option>
+                    <option>紧急</option>
+                    <option>高</option>
+                    <option>中</option>
+                    <option>低</option>
+                  </select>
+                </div>
+                <div class="filter-group" style="flex:1;">
+                  <input type="text" class="filter-input" placeholder="搜索工单号或运单号..." style="width:100%;">
+                </div>
+              </div>
+              <table>
+                <thead><tr><th>工单号</th><th>运单号</th><th>异常类型</th><th>严重级别</th><th>客户/团长</th><th>商品摘要</th><th>责任人</th><th>处理状态</th><th>创建时间</th><th>处理时限</th><th>操作</th></tr></thead>
+                <tbody>
+                  <tr style="background:#FEE2E2;">
+                    <td><span style="font-family:monospace;font-weight:500;">EX-2026-0410-001</span></td>
+                    <td><span style="font-family:monospace;color:#4F46E5;">YS-2026-0410-892</span></td>
+                    <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">破损</span></td>
+                    <td><span class="tag" style="background:#DC2626;color:white;">紧急</span></td>
+                    <td><span style="font-weight:500;">张团长</span></td>
+                    <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;">土鸡蛋 30枚装，破损12枚</td>
+                    <td><span style="color:#6B7280;">待指派</span></td>
+                    <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">待处理</span></td>
+                    <td>2026-04-10 11:30</td>
+                    <td><span style="color:#EF4444;font-weight:500;">2小时</span></td>
+                    <td><button class="btn btn-outline btn-sm">详情</button><button class="btn btn-primary btn-sm" style="margin-left:4px;">指派</button></td>
+                  </tr>
+                  <tr style="background:#FEF3C7;">
+                    <td><span style="font-family:monospace;font-weight:500;">EX-2026-0410-002</span></td>
+                    <td><span style="font-family:monospace;color:#4F46E5;">YS-2026-0410-891</span></td>
+                    <td><span class="tag" style="background:#FEF3C7;color:#D97706;">少件</span></td>
+                    <td><span class="tag" style="background:#F59E0B;color:white;">高</span></td>
+                    <td><span style="font-weight:500;">李团长</span></td>
+                    <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;">金龙鱼花生油 5L，少2桶</td>
+                    <td>王强</td>
+                    <td><span class="tag" style="background:#DBEAFE;color:#2563EB;">处理中</span></td>
+                    <td>2026-04-10 10:45</td>
+                    <td><span style="color:#F59E0B;font-weight:500;">4小时</span></td>
+                    <td><button class="btn btn-outline btn-sm">详情</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">处置</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-weight:500;">EX-2026-0409-056</span></td>
+                    <td><span style="font-family:monospace;color:#4F46E5;">YS-2026-0409-786</span></td>
+                    <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">拒收</span></td>
+                    <td><span class="tag" style="background:#F59E0B;color:white;">高</span></td>
+                    <td><span style="font-weight:500;">王团长</span></td>
+                    <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;">伊利纯牛奶 250ml*12，整件拒收</td>
+                    <td>李娜</td>
+                    <td><span class="tag" style="background:#FEF3C7;color:#D97706;">待退款</span></td>
+                    <td>2026-04-09 16:20</td>
+                    <td><span style="color:#6B7280;">已超时</span></td>
+                    <td><button class="btn btn-outline btn-sm">详情</button><button class="btn btn-primary btn-sm" style="margin-left:4px;">退款</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-weight:500;">EX-2026-0409-055</span></td>
+                    <td><span style="font-family:monospace;color:#4F46E5;">YS-2026-0409-785</span></td>
+                    <td><span class="tag" style="background:#DBEAFE;color:#2563EB;">漏发</span></td>
+                    <td><span class="tag" style="background:#6B7280;color:white;">中</span></td>
+                    <td><span style="font-weight:500;">赵团长</span></td>
+                    <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;">三只松鼠坚果礼盒，未收到</td>
+                    <td>张伟</td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">已关闭</span></td>
+                    <td>2026-04-09 14:30</td>
+                    <td><span style="color:#10B981;">已完成</span></td>
+                    <td><button class="btn btn-outline btn-sm">详情</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-weight:500;">EX-2026-0409-054</span></td>
+                    <td><span style="font-family:monospace;color:#4F46E5;">YS-2026-0409-784</span></td>
+                    <td><span class="tag" style="background:#DBEAFE;color:#2563EB;">错发</span></td>
+                    <td><span class="tag" style="background:#6B7280;color:white;">低</span></td>
+                    <td><span style="font-weight:500;">钱团长</span></td>
+                    <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;">收到商品与订单不符</td>
+                    <td>王强</td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">已关闭</span></td>
+                    <td>2026-04-09 11:15</td>
+                    <td><span style="color:#10B981;">已完成</span></td>
+                    <td><button class="btn btn-outline btn-sm">详情</button></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="pagination">
+                <div class="pagination-info">显示 1-5 条，共 43 条</div>
+                <div class="pagination-buttons">
+                  <button class="pagination-btn" disabled>‹</button>
+                  <button class="pagination-btn active">1</button>
+                  <button class="pagination-btn">2</button>
+                  <button class="pagination-btn">3</button>
+                  <button class="pagination-btn">4</button>
+                  <button class="pagination-btn">›</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="exception-urgent" class="exception-tab" style="display:none;">
+            <div class="table-card">
+              <div class="table-header">
+                <span class="table-title" style="color:#DC2626;">🚨 紧急待处理工单</span>
+              </div>
+              <div style="background:#FEE2E2;border-radius:12px;padding:16px;margin-bottom:20px;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span style="font-size:20px;">⚠️</span>
+                  <div>
+                    <div style="font-weight:600;color:#991B1B;">紧急客诉预警</div>
+                    <div style="font-size:13px;color:#B91C1C;margin-top:2px;">以下工单已标记为紧急级别，需要立即处理</div>
+                  </div>
+                </div>
+              </div>
+              <table>
+                <thead><tr><th>工单号</th><th>异常类型</th><th>客户</th><th>商品</th><th>损失金额</th><th>创建时间</th><th>超时</th><th>操作</th></tr></thead>
+                <tbody>
+                  <tr style="background:#FEE2E2;">
+                    <td><span style="font-family:monospace;font-weight:500;">EX-2026-0410-001</span></td>
+                    <td><span class="tag" style="background:#DC2626;color:white;">破损</span></td>
+                    <td>张团长</td>
+                    <td>土鸡蛋 30枚装</td>
+                    <td><span style="color:#EF4444;font-weight:500;">¥ 128.00</span></td>
+                    <td>2026-04-10 11:30</td>
+                    <td><span style="color:#EF4444;font-weight:500;">已超时1小时</span></td>
+                    <td><button class="btn btn-primary btn-sm">立即处理</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div id="exception-timeout" class="exception-tab" style="display:none;">
+            <div class="table-card">
+              <div class="table-header">
+                <span class="table-title" style="color:#F59E0B;">⏰ 超时预警工单</span>
+              </div>
+              <table>
+                <thead><tr><th>工单号</th><th>异常类型</th><th>责任人</th><th>创建时间</th><th>处理时限</th><th>已耗时</th><th>剩余时间</th><th>操作</th></tr></thead>
+                <tbody>
+                  <tr style="background:#FEF3C7;">
+                    <td><span style="font-family:monospace;font-weight:500;">EX-2026-0409-056</span></td>
+                    <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">拒收</span></td>
+                    <td>李娜</td>
+                    <td>2026-04-09 16:20</td>
+                    <td>24小时</td>
+                    <td><span style="color:#EF4444;">28小时</span></td>
+                    <td><span style="color:#EF4444;">-4小时</span></td>
+                    <td><button class="btn btn-primary btn-sm">催办</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div id="exception-stats" class="exception-tab" style="display:none;">
+            <div class="table-card">
+              <div class="table-header">
+                <span class="table-title">异常工单统计 - 2026年4月</span>
+              </div>
+              <table>
+                <thead><tr><th>异常类型</th><th>工单数</th><th>占比</th><th>平均处理时长</th><th>关闭率</th><th>退款金额</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="tag" style="background:#FEE2E2;color:#DC2626;">破损</span></td><td>18单</td><td><div style="display:flex;align-items:center;gap:8px;"><div class="progress" style="width:60px;"><div class="progress-bar" style="width:25%"></div></div><span>25%</span></div></td><td>4.5小时</td><td><span style="color:#10B981;">95%</span></td><td>¥ 8,560</td></tr>
+                  <tr><td><span class="tag" style="background:#FEF3C7;color:#D97706;">少件</span></td><td>15单</td><td><div style="display:flex;align-items:center;gap:8px;"><div class="progress" style="width:60px;"><div class="progress-bar" style="width:21%"></div></div><span>21%</span></div></td><td>3.2小时</td><td><span style="color:#10B981;">98%</span></td><td>¥ 4,280</td></tr>
+                  <tr><td><span class="tag" style="background:#DBEAFE;color:#2563EB;">拒收</span></td><td>12单</td><td><div style="display:flex;align-items:center;gap:8px;"><div class="progress" style="width:60px;"><div class="progress-bar" style="width:17%"></div></div><span>17%</span></div></td><td>6.8小时</td><td><span style="color:#10B981;">92%</span></td><td>¥ 12,800</td></tr>
+                  <tr><td><span class="tag" style="background:#DCFCE7;color:#16A34A;">漏发</span></td><td>8单</td><td><div style="display:flex;align-items:center;gap:8px;"><div class="progress" style="width:60px;"><div class="progress-bar" style="width:11%"></div></div><span>11%</span></div></td><td>2.5小时</td><td><span style="color:#10B981;">100%</span></td><td>¥ 2,160</td></tr>
+                  <tr><td><span class="tag" style="background:#F3F4F6;color:#6B7280;">错发</span></td><td>6单</td><td><div style="display:flex;align-items:center;gap:8px;"><div class="progress" style="width:60px;"><div class="progress-bar" style="width:8%"></div></div><span>8%</span></div></td><td>3.8小时</td><td><span style="color:#10B981;">100%</span></td><td>¥ 1,680</td></tr>
+                  <tr><td><span class="tag" style="background:#F3F4F6;color:#6B7280;">其他</span></td><td>13单</td><td><div style="display:flex;align-items:center;gap:8px;"><div class="progress" style="width:60px;"><div class="progress-bar" style="width:18%"></div></div><span>18%</span></div></td><td>5.2小时</td><td><span style="color:#10B981;">89%</span></td><td>¥ 3,420</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+      function switchExceptionTab(tabName) {
+        document.querySelectorAll('.exception-tab').forEach(tab => tab.style.display = 'none');
+        document.getElementById('exception-' + tabName).style.display = 'block';
+        const tabs = document.querySelectorAll('.content > .tabs > .tab');
+        tabs.forEach(t => {
+          t.style.background = '#F3F4F6';
+          t.style.color = '#6B7280';
+        });
+        event.target.style.background = '#EEF2FF';
+        event.target.style.color = '#4F46E5';
+      }
+      </script>

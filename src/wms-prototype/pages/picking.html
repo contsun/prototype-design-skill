@@ -1,0 +1,603 @@
+      <div id="page-picking" class="page">
+        <header class="header">
+          <div class="header-left">
+            <h2>拣货作业</h2>
+            <div class="breadcrumb">
+              <span>基础档案</span>
+              <span>/</span>
+              <span>作业配置</span>
+              <span>/</span>
+              <span>拣货作业</span>
+            </div>
+          </div>
+          <div class="header-right">
+            <button class="btn btn-outline btn-sm" onclick="exportPicking()">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              导出
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="openAddPickingModal()">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              新建拣货
+            </button>
+          </div>
+        </header>
+        
+        <div class="content">
+          <div class="stats-grid" style="grid-template-columns:repeat(5,1fr);margin-bottom:24px;">
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">进行中波次</span></div>
+              <div class="stat-card-value" style="color:#F59E0B;">12</div>
+              <div class="stat-card-change warning">需关注</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">待拣货单</span></div>
+              <div class="stat-card-value" style="color:#EF4444;">156</div>
+              <div class="stat-card-change down">较昨日 +23</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">今日已完成</span></div>
+              <div class="stat-card-value" style="color:#10B981;">423</div>
+              <div class="stat-card-change up">较昨日 +56</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">拣货员在线</span></div>
+              <div class="stat-card-value">28</div>
+              <div class="stat-card-change">共 32 人</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">完成率</span></div>
+              <div class="stat-card-value">94.2%</div>
+              <div class="stat-card-change up">正常</div>
+            </div>
+          </div>
+          
+          <div class="tabs" style="margin-bottom:24px;">
+            <button class="tab active" onclick="switchPickingView('kanban')" style="border:none;background:#EEF2FF;padding:10px 20px;font-size:14px;font-weight:500;color:#4F46E5;border-radius:8px;cursor:pointer;">看板视图</button>
+            <button class="tab" onclick="switchPickingView('list')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">列表视图</button>
+          </div>
+          
+          <!-- 看板视图 -->
+          <div id="picking-kanban" class="picking-view" style="display:block;">
+            <div class="kanban" style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:24px;">
+              <div class="kanban-column" style="background:#F9FAFB;border-radius:12px;padding:16px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #E5E7EB;">
+                  <span style="font-weight:600;color:#374151;">待开始</span>
+                  <span style="background:#FEE2E2;color:#DC2626;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:500;">5</span>
+                </div>
+                <div style="background:white;border-radius:8px;padding:12px;margin-bottom:12px;border:1px solid #E5E7EB;cursor:pointer;" onclick="showPickingDetail('JH-2026-0410-001')">
+                  <div style="font-weight:600;font-size:14px;margin-bottom:8px;">JH-2026-0410-001</div>
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:8px;">北京-朝阳线路 / 32单</div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;">
+                    <span style="color:#6B7280;">北京仓</span>
+                    <span style="color:#4F46E5;font-weight:500;">张三</span>
+                  </div>
+                </div>
+                <div style="background:white;border-radius:8px;padding:12px;margin-bottom:12px;border:1px solid #E5E7EB;cursor:pointer;" onclick="showPickingDetail('JH-2026-0410-002')">
+                  <div style="font-weight:600;font-size:14px;margin-bottom:8px;">JH-2026-0410-002</div>
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:8px;">北京-朝阳线路 / 28单</div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;">
+                    <span style="color:#6B7280;">北京仓</span>
+                    <span style="color:#4F46E5;font-weight:500;">李四</span>
+                  </div>
+                </div>
+                <div style="background:white;border-radius:8px;padding:12px;margin-bottom:12px;border:1px solid #E5E7EB;cursor:pointer;" onclick="showPickingDetail('JH-2026-0410-003')">
+                  <div style="font-weight:600;font-size:14px;margin-bottom:8px;">JH-2026-0410-003</div>
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:8px;">上海-浦东线路 / 45单</div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;">
+                    <span style="color:#6B7280;">上海仓</span>
+                    <span style="color:#4F46E5;font-weight:500;">王五</span>
+                  </div>
+                </div>
+              </div>
+              <div class="kanban-column" style="background:#FEF3C7;border-radius:12px;padding:16px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #FCD34D;">
+                  <span style="font-weight:600;color:#92400E;">进行中</span>
+                  <span style="background:#FEF3C7;color:#D97706;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:500;">3</span>
+                </div>
+                <div style="background:white;border-radius:8px;padding:12px;margin-bottom:12px;border:1px solid #FCD34D;cursor:pointer;" onclick="showPickingDetail('JH-2026-0409-008')">
+                  <div style="font-weight:600;font-size:14px;margin-bottom:8px;">JH-2026-0409-008</div>
+                  <div style="margin-bottom:8px;">
+                    <div style="display:flex;justify-content:space-between;font-size:12px;color:#6B7280;margin-bottom:4px;">
+                      <span>18/25 单</span>
+                      <span style="color:#D97706;font-weight:500;">72%</span>
+                    </div>
+                    <div class="progress"><div class="progress-bar warning" style="width:72%"></div></div>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;">
+                    <span style="color:#6B7280;">北京仓</span>
+                    <span style="color:#4F46E5;font-weight:500;">赵六</span>
+                  </div>
+                </div>
+                <div style="background:white;border-radius:8px;padding:12px;margin-bottom:12px;border:1px solid #FCD34D;cursor:pointer;" onclick="showPickingDetail('JH-2026-0409-009')">
+                  <div style="font-weight:600;font-size:14px;margin-bottom:8px;">JH-2026-0409-009</div>
+                  <div style="margin-bottom:8px;">
+                    <div style="display:flex;justify-content:space-between;font-size:12px;color:#6B7280;margin-bottom:4px;">
+                      <span>8/30 单</span>
+                      <span style="color:#D97706;font-weight:500;">27%</span>
+                    </div>
+                    <div class="progress"><div class="progress-bar warning" style="width:27%"></div></div>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;">
+                    <span style="color:#6B7280;">上海仓</span>
+                    <span style="color:#4F46E5;font-weight:500;">钱七</span>
+                  </div>
+                </div>
+              </div>
+              <div class="kanban-column" style="background:#DBEAFE;border-radius:12px;padding:16px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #93C5FD;">
+                  <span style="font-weight:600;color:#1E40AF;">复核中</span>
+                  <span style="background:#DBEAFE;color:#2563EB;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:500;">2</span>
+                </div>
+                <div style="background:white;border-radius:8px;padding:12px;margin-bottom:12px;border:1px solid #93C5FD;cursor:pointer;" onclick="showPickingDetail('JH-2026-0409-010')">
+                  <div style="font-weight:600;font-size:14px;margin-bottom:8px;">JH-2026-0409-010</div>
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:8px;">等待集包完成</div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;">
+                    <span style="color:#6B7280;">广州仓</span>
+                    <span style="color:#4F46E5;font-weight:500;">孙八</span>
+                  </div>
+                </div>
+              </div>
+              <div class="kanban-column" style="background:#DCFCE7;border-radius:12px;padding:16px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #86EFAC;">
+                  <span style="font-weight:600;color:#166534;">已完成</span>
+                  <span style="background:#DCFCE7;color:#16A34A;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:500;">8</span>
+                </div>
+                <div style="background:white;border-radius:8px;padding:12px;margin-bottom:12px;border:1px solid #86EFAC;cursor:pointer;" onclick="showPickingDetail('JH-2026-0409-011')">
+                  <div style="font-weight:600;font-size:14px;margin-bottom:8px;">JH-2026-0409-011</div>
+                  <div style="font-size:12px;color:#10B981;margin-bottom:8px;">✓ 已完成 12:35</div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;">
+                    <span style="color:#6B7280;">北京仓</span>
+                    <span style="color:#4F46E5;font-weight:500;">周九</span>
+                  </div>
+                </div>
+              </div>
+              <div class="kanban-column" style="background:#FEE2E2;border-radius:12px;padding:16px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #FCA5A5;">
+                  <span style="font-weight:600;color:#991B1B;">异常件</span>
+                  <span style="background:#FEE2E2;color:#DC2626;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:500;">2</span>
+                </div>
+                <div style="background:white;border-radius:8px;padding:12px;margin-bottom:12px;border:1px solid #FCA5A5;cursor:pointer;" onclick="showPickingDetail('JH-2026-0409-012')">
+                  <div style="font-weight:600;font-size:14px;margin-bottom:8px;">JH-2026-0409-012</div>
+                  <div style="font-size:12px;color:#EF4444;margin-bottom:8px;">⚠ 商品缺货</div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;">
+                    <span style="color:#6B7280;">成都仓</span>
+                    <span style="color:#4F46E5;font-weight:500;">吴十</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 列表视图 -->
+          <div id="picking-list" class="picking-view" style="display:none;">
+            <div class="table-card">
+              <div class="table-filters">
+                <div class="filter-group">
+                  <span class="filter-label">拣货单号</span>
+                  <input type="text" class="filter-input" placeholder="输入拣货单号..." style="width:150px;">
+                </div>
+                <div class="filter-group">
+                  <span class="filter-label">波次号</span>
+                  <input type="text" class="filter-input" placeholder="输入波次号..." style="width:150px;">
+                </div>
+                <div class="filter-group">
+                  <span class="filter-label">线路</span>
+                  <select class="filter-select" style="width:130px;">
+                    <option value="">全部线路</option>
+                    <option>北京-朝阳线路</option>
+                    <option>北京-海淀线路</option>
+                    <option>上海-浦东线路</option>
+                    <option>上海-浦西线路</option>
+                    <option>广州-天河线路</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <span class="filter-label">状态</span>
+                  <select class="filter-select">
+                    <option value="">全部</option>
+                    <option>待开始</option>
+                    <option>进行中</option>
+                    <option>复核中</option>
+                    <option>已完成</option>
+                    <option>异常</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <span class="filter-label">仓库</span>
+                  <select class="filter-select">
+                    <option value="">全部仓库</option>
+                    <option>北京仓</option>
+                    <option>上海仓</option>
+                    <option>广州仓</option>
+                    <option>成都仓</option>
+                  </select>
+                </div>
+                <button class="btn btn-primary btn-sm" style="margin-left:8px;">查询</button>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>拣货单号</th>
+                    <th>波次号</th>
+                    <th>线路</th>
+                    <th>仓库</th>
+                    <th>环节</th>
+                    <th>商品数</th>
+                    <th>订单数</th>
+                    <th>拣货员</th>
+                    <th>已拣/异常</th>
+                    <th>创建时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span style="font-family:monospace;font-weight:500;">JH-2026-0410-001</span></td>
+                    <td><span style="color:#4F46E5;">BW-2026-0410-01</span></td>
+                    <td>北京-朝阳线路</td>
+                    <td>北京仓</td>
+                    <td><span class="tag" style="background:#DBEAFE;color:#2563EB;">拣货</span></td>
+                    <td>128</td>
+                    <td>32</td>
+                    <td>张三</td>
+                    <td>
+                      <div style="display:flex;flex-direction:column;gap:2px;">
+                        <span style="font-size:12px;color:#6B7280;">已拣 0/128</span>
+                        <span style="font-size:11px;color:#EF4444;">异常 0</span>
+                      </div>
+                    </td>
+                    <td>2026-04-10 09:00</td>
+                    <td><span class="status status-default">待开始</span></td>
+                    <td>
+                      <button class="btn btn-outline btn-sm" onclick="showPickingDetail('JH-2026-0410-001')">详情</button>
+                      <button class="btn btn-primary btn-sm" style="margin-left:4px;" onclick="startPicking('JH-2026-0410-001')">开始</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-weight:500;">JH-2026-0410-002</span></td>
+                    <td><span style="color:#4F46E5;">BW-2026-0410-01</span></td>
+                    <td>北京-朝阳线路</td>
+                    <td>北京仓</td>
+                    <td><span class="tag" style="background:#DBEAFE;color:#2563EB;">拣货</span></td>
+                    <td>96</td>
+                    <td>28</td>
+                    <td>李四</td>
+                    <td>
+                      <div style="display:flex;flex-direction:column;gap:2px;">
+                        <span style="font-size:12px;color:#6B7280;">已拣 0/96</span>
+                        <span style="font-size:11px;color:#EF4444;">异常 0</span>
+                      </div>
+                    </td>
+                    <td>2026-04-10 09:15</td>
+                    <td><span class="status status-default">待开始</span></td>
+                    <td>
+                      <button class="btn btn-outline btn-sm" onclick="showPickingDetail('JH-2026-0410-002')">详情</button>
+                      <button class="btn btn-primary btn-sm" style="margin-left:4px;" onclick="startPicking('JH-2026-0410-002')">开始</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-weight:500;color:#DC2626;">JH-2026-0409-008</span></td>
+                    <td><span style="color:#4F46E5;">BW-2026-0409-08</span></td>
+                    <td>北京-海淀线路</td>
+                    <td>北京仓</td>
+                    <td><span class="tag" style="background:#DBEAFE;color:#2563EB;">拣货</span></td>
+                    <td>85</td>
+                    <td>25</td>
+                    <td>赵六</td>
+                    <td>
+                      <div style="display:flex;flex-direction:column;gap:2px;">
+                        <span style="font-size:12px;color:#F59E0B;">已拣 61/85</span>
+                        <span style="font-size:11px;color:#EF4444;">异常 2</span>
+                      </div>
+                    </td>
+                    <td>2026-04-09 14:30</td>
+                    <td><span class="status status-warning">进行中</span></td>
+                    <td>
+                      <button class="btn btn-outline btn-sm" onclick="showPickingDetail('JH-2026-0409-008')">详情</button>
+                      <button class="btn btn-outline btn-sm" style="margin-left:4px;" onclick="markPickingException('JH-2026-0409-008')">标记异常</button>
+                    </td>
+                  </tr>
+                  <tr style="background:#FEF2F2;">
+                    <td><span style="font-family:monospace;font-weight:500;color:#DC2626;">JH-2026-0409-012</span></td>
+                    <td><span style="color:#DC2626;">紧急-0410-01</span></td>
+                    <td>成都-天府线路</td>
+                    <td>成都仓</td>
+                    <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">复核</span></td>
+                    <td>156</td>
+                    <td>45</td>
+                    <td>吴十</td>
+                    <td>
+                      <div style="display:flex;flex-direction:column;gap:2px;">
+                        <span style="font-size:12px;color:#F59E0B;">已拣 130/156</span>
+                        <span style="font-size:11px;color:#EF4444;font-weight:500;">异常 8</span>
+                      </div>
+                    </td>
+                    <td>2026-04-09 15:00</td>
+                    <td><span class="status status-error">异常</span></td>
+                    <td>
+                      <button class="btn btn-outline btn-sm" onclick="showPickingDetail('JH-2026-0409-012')">详情</button>
+                      <button class="btn btn-primary btn-sm" style="margin-left:4px;" onclick="handlePickingException('JH-2026-0409-012')">处理</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-weight:500;">JH-2026-0409-011</span></td>
+                    <td><span style="color:#4F46E5;">BW-2026-0409-11</span></td>
+                    <td>北京-朝阳线路</td>
+                    <td>北京仓</td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">集货</span></td>
+                    <td>68</td>
+                    <td>18</td>
+                    <td>周九</td>
+                    <td>
+                      <div style="display:flex;flex-direction:column;gap:2px;">
+                        <span style="font-size:12px;color:#10B981;">已拣 68/68</span>
+                        <span style="font-size:11px;color:#10B981;">异常 0</span>
+                      </div>
+                    </td>
+                    <td>2026-04-09 10:00</td>
+                    <td><span class="status status-success">已完成</span></td>
+                    <td>
+                      <button class="btn btn-outline btn-sm" onclick="showPickingDetail('JH-2026-0409-011')">详情</button>
+                      <button class="btn btn-outline btn-sm" style="margin-left:4px;" onclick="rePicking('JH-2026-0409-011')">重新拣货</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="pagination">
+                <div class="pagination-info">显示 1-5 条，共 156 条</div>
+                <div class="pagination-buttons">
+                  <button class="pagination-btn" disabled>‹</button>
+                  <button class="pagination-btn active">1</button>
+                  <button class="pagination-btn">2</button>
+                  <button class="pagination-btn">3</button>
+                  <button class="pagination-btn">4</button>
+                  <button class="pagination-btn">›</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 新建拣货弹窗 -->
+      <div id="modal-add-picking" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:90%;max-width:560px;max-height:85vh;overflow-y:auto;box-shadow:0 25px 80px rgba(0,0,0,0.35);">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="font-size:16px;font-weight:600;color:#1F2937;margin:0;">新建拣货</h3>
+            <button onclick="closeAddPickingModal()" style="width:32px;height:32px;border-radius:50%;border:none;background:#F3F4F6;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">×</button>
+          </div>
+          <div style="padding:24px;overflow-y:auto;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">拣货单号</label>
+                <input type="text" class="form-input" placeholder="系统自动生成" disabled style="background:#F3F4F6;font-family:monospace;">
+                <span style="font-size:11px;color:#9CA3AF;margin-top:4px;display:block;">系统自动生成</span>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">仓库 <span style="color:#EF4444;">*</span></label>
+                <select class="form-select" id="picking-warehouse">
+                  <option value="">请选择仓库</option>
+                  <option>北京仓</option>
+                  <option>上海仓</option>
+                  <option>广州仓</option>
+                  <option>成都仓</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">线路 <span style="color:#EF4444;">*</span></label>
+                <select class="form-select" id="picking-line">
+                  <option value="">请选择线路</option>
+                  <option>北京-朝阳线路</option>
+                  <option>北京-海淀线路</option>
+                  <option>上海-浦东线路</option>
+                  <option>上海-浦西线路</option>
+                  <option>广州-天河线路</option>
+                  <option>成都-天府线路</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">波次号</label>
+                <select class="form-select" id="picking-wave">
+                  <option value="">请选择波次</option>
+                  <option>BW-2026-0410-01</option>
+                  <option>BW-2026-0410-02</option>
+                  <option>BW-2026-0410-03</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">拣货环节 <span style="color:#EF4444;">*</span></label>
+                <select class="form-select" id="picking-stage">
+                  <option value="">请选择环节</option>
+                  <option value="pick">拣货</option>
+                  <option value="recheck">复核</option>
+                  <option value="collect">集货</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">拣货员</label>
+                <select class="form-select" id="picking-operator">
+                  <option value="">请选择拣货员</option>
+                  <option>张三</option>
+                  <option>李四</option>
+                  <option>王五</option>
+                  <option>赵六</option>
+                  <option>钱七</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;grid-column:span 2;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">备注</label>
+                <textarea class="form-input" style="resize:vertical;min-height:60px;" rows="2" placeholder="输入备注信息（选填）" id="picking-remark"></textarea>
+              </div>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button class="btn btn-outline" onclick="closeAddPickingModal()">取消</button>
+            <button class="btn btn-primary" onclick="saveAddPicking()">确认创建</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 拣货详情弹窗 -->
+      <div id="modal-picking-detail" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:90%;max-width:640px;max-height:85vh;overflow-y:auto;box-shadow:0 25px 80px rgba(0,0,0,0.35);">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="font-size:16px;font-weight:600;color:#1F2937;margin:0;">拣货单详情</h3>
+            <button onclick="closePickingDetailModal()" style="width:32px;height:32px;border-radius:50%;border:none;background:#F3F4F6;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">×</button>
+          </div>
+          <div style="padding:24px;overflow-y:auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:44px;height:44px;background:#EEF2FF;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;">📦</div>
+                <div>
+                  <div style="font-size:15px;font-weight:600;color:#1F2937;" id="detail-picking-no">JH-2026-0409-008</div>
+                  <div style="font-size:12px;color:#6B7280;margin-top:2px;">2026-04-09 14:30 创建</div>
+                </div>
+              </div>
+              <span class="status status-warning" id="detail-picking-status">进行中</span>
+            </div>
+            
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;">
+              <div style="padding:12px;background:#F9FAFB;border-radius:8px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">波次号</div>
+                <div style="font-size:13px;font-weight:500;color:#4F46E5;" id="detail-picking-wave">BW-2026-0409-08</div>
+              </div>
+              <div style="padding:12px;background:#F9FAFB;border-radius:8px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">仓库</div>
+                <div style="font-size:13px;font-weight:500;color:#374151;" id="detail-picking-warehouse">北京仓</div>
+              </div>
+              <div style="padding:12px;background:#F9FAFB;border-radius:8px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">线路</div>
+                <div style="font-size:13px;font-weight:500;color:#374151;" id="detail-picking-line">北京-海淀线路</div>
+              </div>
+              <div style="padding:12px;background:#F9FAFB;border-radius:8px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">环节</div>
+                <div style="font-size:13px;font-weight:500;color:#374151;" id="detail-picking-stage">拣货</div>
+              </div>
+            </div>
+            
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+              <div style="padding:16px;background:#FEF3C7;border-radius:8px;">
+                <div style="font-size:12px;color:#92400E;margin-bottom:8px;">拣货进度</div>
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+                  <div style="flex:1;height:8px;background:#FCD34D;border-radius:4px;overflow:hidden;">
+                    <div style="width:72%;height:100%;background:#D97706;border-radius:4px;"></div>
+                  </div>
+                  <span style="font-size:16px;font-weight:600;color:#D97706;">72%</span>
+                </div>
+                <div style="font-size:12px;color:#92400E;">61/85 件已拣</div>
+              </div>
+              <div style="padding:16px;background:#FEE2E2;border-radius:8px;">
+                <div style="font-size:12px;color:#991B1B;margin-bottom:8px;">异常记录</div>
+                <div style="font-size:20px;font-weight:600;color:#DC2626;margin-bottom:4px;">2 件</div>
+                <div style="font-size:12px;color:#DC2626;">需处理</div>
+              </div>
+            </div>
+            
+            <div style="margin-bottom:16px;">
+              <div style="font-size:13px;font-weight:500;color:#374151;margin-bottom:10px;">拣货员</div>
+              <div style="display:flex;align-items:center;gap:10px;padding:12px;background:#F9FAFB;border-radius:8px;">
+                <div style="width:36px;height:36px;background:#DBEAFE;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;">👤</div>
+                <div>
+                  <div style="font-size:14px;font-weight:500;color:#374151;">赵六</div>
+                  <div style="font-size:12px;color:#6B7280;">负责拣货环节</div>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <div style="font-size:13px;font-weight:500;color:#374151;margin-bottom:10px;">异常商品</div>
+              <div style="border:1px solid #FCA5A5;background:#FEF2F2;border-radius:8px;padding:12px;">
+                <div style="font-size:12px;color:#DC2626;margin-bottom:8px;">⚠️ 发现 2 件异常商品</div>
+                <div style="font-size:12px;color:#374151;line-height:1.6;">
+                  <div>• 商品「新疆红枣 500g」条码无法识别</div>
+                  <div>• 商品「有机小米 1kg」数量与系统不符（实到3件，系统5件）</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button class="btn btn-outline" onclick="closePickingDetailModal()">关闭</button>
+            <button class="btn btn-outline" onclick="rePicking()">重新拣货</button>
+            <button class="btn btn-outline" onclick="markPickingException()">标记异常</button>
+            <button class="btn btn-primary" onclick="closePickingDetailModal()">确认</button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+      function switchPickingView(view) {
+        document.querySelectorAll('.picking-view').forEach(v => v.style.display = 'none');
+        document.getElementById('picking-' + view).style.display = 'block';
+        const tabs = document.querySelectorAll('.tabs .tab');
+        tabs.forEach((t, i) => {
+          if ((view === 'kanban' && i === 0) || (view === 'list' && i === 1)) {
+            t.style.background = '#EEF2FF';
+            t.style.color = '#4F46E5';
+          } else {
+            t.style.background = '#F3F4F6';
+            t.style.color = '#6B7280';
+          }
+        });
+      }
+      
+      function openAddPickingModal() {
+        var m = document.getElementById('modal-add-picking');
+        m.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function closeAddPickingModal() {
+        var m = document.getElementById('modal-add-picking');
+        m.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+      
+      function showPickingDetail(no) {
+        var m = document.getElementById('modal-picking-detail');
+        m.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function closePickingDetailModal() {
+        var m = document.getElementById('modal-picking-detail');
+        m.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+      
+      function saveAddPicking() {
+        var warehouse = document.getElementById('picking-warehouse').value;
+        var line = document.getElementById('picking-line').value;
+        if (!warehouse || !line) {
+          alert('请选择仓库和线路');
+          return;
+        }
+        alert('拣货单创建成功');
+        closeAddPickingModal();
+      }
+      
+      function startPicking(no) {
+        alert('拣货单 ' + no + ' 开始拣货');
+      }
+      
+      function markPickingException(no) {
+        if (!no) no = '当前拣货单';
+        alert('打开异常标记：' + no);
+      }
+      
+      function rePicking(no) {
+        if (!no) no = '当前拣货单';
+        if (confirm('确定要对拣货单 ' + no + ' 进行重新拣货？')) {
+          alert('已触发重新拣货');
+          closePickingDetailModal();
+        }
+      }
+      
+      function handlePickingException(no) {
+        alert('处理拣货异常：' + no);
+      }
+      
+      function exportPicking() {
+        alert('导出拣货单据');
+      }
+      </script>

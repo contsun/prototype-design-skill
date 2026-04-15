@@ -1,0 +1,488 @@
+<div id="page-after_sales" class="page">
+        <header class="header">
+          <div class="header-left">
+            <h2>售后退货管理</h2>
+            <div class="breadcrumb"><span>首页</span><span>/</span><span>单据中心</span><span>/</span><span>售后退件处理台账</span></div>
+          </div>
+          <div class="header-right">
+            <button class="btn btn-outline btn-sm" onclick="exportAfterSalesList()">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              批量导出
+            </button>
+          </div>
+        </header>
+        <div class="content">
+          <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;">
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">待接收</span></div>
+              <div class="stat-card-value" style="color:#F59E0B;">15</div>
+              <div class="stat-card-change warning">需处理</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">鉴定中</span></div>
+              <div class="stat-card-value" style="color:#4F46E5;">8</div>
+              <div class="stat-card-change">进行中</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">已入库</span></div>
+              <div class="stat-card-value" style="color:#10B981;">86</div>
+              <div class="stat-card-change up">本月</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">退款金额</span></div>
+              <div class="stat-card-value">¥ 128,560</div>
+              <div class="stat-card-change">本月累计</div>
+            </div>
+          </div>
+          
+          <div class="table-card">
+            <div class="table-filters">
+              <div class="filter-group">
+                <label class="filter-label">退件单号/售后单号/订单号</label>
+                <input type="text" class="filter-input" placeholder="输入单号搜索" style="width:160px;">
+              </div>
+              <div class="filter-group">
+                <label class="filter-label">团长/用户名</label>
+                <input type="text" class="filter-input" placeholder="输入团长名" style="width:120px;">
+              </div>
+              <div class="filter-group">
+                <label class="filter-label">SKU编码/商品名称</label>
+                <input type="text" class="filter-input" placeholder="输入SKU或商品名称" style="width:140px;">
+              </div>
+              <div class="filter-group">
+                <label class="filter-label">鉴定结果</label>
+                <select class="filter-select">
+                  <option>全部</option>
+                  <option>良品</option>
+                  <option>次品</option>
+                  <option>报废</option>
+                  <option>疑似欺诈</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label class="filter-label">状态</label>
+                <select class="filter-select">
+                  <option>全部</option>
+                  <option>待接收</option>
+                  <option>鉴定中</option>
+                  <option>已入库</option>
+                  <option>已报废</option>
+                  <option>已拒收</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label class="filter-label">时间范围</label>
+                <input type="date" class="filter-input" value="2026-04-01" style="width:130px;"> ~
+                <input type="date" class="filter-input" value="2026-04-13" style="width:130px;">
+              </div>
+              <div class="filter-group" style="margin-left:auto;display:flex;gap:8px;">
+                <button class="btn btn-primary btn-sm" onclick="searchAfterSalesList()">查询</button>
+                <button class="btn btn-outline btn-sm" onclick="resetAfterSalesList()">重置</button>
+              </div>
+            </div>
+            <table>
+              <thead><tr><th>退件单号</th><th>售后单号</th><th>订单号</th><th>团长/用户名</th><th>SKU品项数</th><th>应退总件数</th><th>实收总件数</th><th>鉴定结果</th><th>入库去向</th><th>退款金额</th><th>操作人</th><th>时间</th><th>状态</th><th>操作</th></tr></thead>
+              <tbody id="aftersales-table-body">
+                <tr data-id="TS-2026-0410-001">
+                  <td><span style="font-family:monospace;font-weight:500;color:#4F46E5;">TS-2026-0410-001</span></td>
+                  <td><span style="font-family:monospace;">SF-2026-0408-156</span></td>
+                  <td><span style="font-family:monospace;">DD-2026-0408-8923</span></td>
+                  <td><span style="font-weight:500;">张团长</span></td>
+                  <td>3 件</td>
+                  <td>12 件</td>
+                  <td><span style="color:#6B7280;">-</span></td>
+                  <td><span style="color:#6B7280;">-</span></td>
+                  <td><span style="color:#6B7280;">-</span></td>
+                  <td><span style="font-weight:600;">¥ 1,280</span></td>
+                  <td>李娜</td>
+                  <td>2026-04-10 09:30</td>
+                  <td><span class="tag" style="background:#FEF3C7;color:#D97706;">待接收</span></td>
+                  <td><button class="btn btn-outline btn-sm" onclick="showAfterSalesDetail('TS-2026-0410-001')">详情</button><button class="btn btn-primary btn-sm" style="margin-left:4px;" onclick="receiveAfterSales('TS-2026-0410-001')">接收</button></td>
+                </tr>
+                <tr data-id="TS-2026-0410-002" style="background:#FEF3C7;">
+                  <td><span style="font-family:monospace;font-weight:500;color:#4F46E5;">TS-2026-0410-002</span></td>
+                  <td><span style="font-family:monospace;">SF-2026-0409-203</span></td>
+                  <td><span style="font-family:monospace;">DD-2026-0409-7654</span></td>
+                  <td><span style="font-weight:500;">李团长</span></td>
+                  <td>5 件</td>
+                  <td>8 件</td>
+                  <td>8 件</td>
+                  <td><span class="tag" style="background:#DBEAFE;color:#2563EB;">鉴定中</span></td>
+                  <td><span style="color:#6B7280;">-</span></td>
+                  <td><span style="font-weight:600;">¥ 960</span></td>
+                  <td>王强</td>
+                  <td>2026-04-10 14:20</td>
+                  <td><span class="tag" style="background:#DBEAFE;color:#2563EB;">鉴定中</span></td>
+                  <td><button class="btn btn-outline btn-sm" onclick="showAfterSalesDetail('TS-2026-0410-002')">详情</button><button class="btn btn-primary btn-sm" style="margin-left:4px;" onclick="appraiseItem('TS-2026-0410-002')">鉴定</button></td>
+                </tr>
+                <tr data-id="TS-2026-0409-056">
+                  <td><span style="font-family:monospace;font-weight:500;color:#4F46E5;">TS-2026-0409-056</span></td>
+                  <td><span style="font-family:monospace;">SF-2026-0407-089</span></td>
+                  <td><span style="font-family:monospace;">DD-2026-0407-5432</span></td>
+                  <td><span style="font-weight:500;">王团长</span></td>
+                  <td>2 件</td>
+                  <td>6 件</td>
+                  <td>6 件</td>
+                  <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">良品</span></td>
+                  <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">良品区</span></td>
+                  <td><span style="font-weight:600;">¥ 680</span></td>
+                  <td>赵鹏</td>
+                  <td>2026-04-09 08:45</td>
+                  <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">已入库</span></td>
+                  <td><button class="btn btn-outline btn-sm" onclick="showAfterSalesDetail('TS-2026-0409-056')">详情</button></td>
+                </tr>
+                <tr data-id="TS-2026-0409-055">
+                  <td><span style="font-family:monospace;font-weight:500;color:#4F46E5;">TS-2026-0409-055</span></td>
+                  <td><span style="font-family:monospace;">SF-2026-0406-178</span></td>
+                  <td><span style="font-family:monospace;">DD-2026-0406-4521</span></td>
+                  <td><span style="font-weight:500;">赵团长</span></td>
+                  <td>4 件</td>
+                  <td>5 件</td>
+                  <td>5 件</td>
+                  <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">次品</span></td>
+                  <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">次品区</span></td>
+                  <td><span style="font-weight:600;">¥ 420</span></td>
+                  <td>张伟</td>
+                  <td>2026-04-09 10:30</td>
+                  <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">已入库</span></td>
+                  <td><button class="btn btn-outline btn-sm" onclick="showAfterSalesDetail('TS-2026-0409-055')">详情</button><button class="btn btn-outline btn-sm" style="margin-left:4px;" onclick="reAppraiseItem('TS-2026-0409-055')">二次鉴定</button></td>
+                </tr>
+                <tr data-id="TS-2026-0408-042" style="background:#FEE2E2;">
+                  <td><span style="font-family:monospace;font-weight:500;color:#EF4444;">TS-2026-0408-042</span></td>
+                  <td><span style="font-family:monospace;color:#EF4444;">SF-2026-0405-234</span></td>
+                  <td><span style="font-family:monospace;">DD-2026-0405-3210</span></td>
+                  <td><span style="font-weight:500;">钱团长</span></td>
+                  <td>2 件</td>
+                  <td>4 件</td>
+                  <td>4 件</td>
+                  <td><span class="tag" style="background:#991B1B;color:white;">疑似欺诈</span></td>
+                  <td><span style="color:#6B7280;">-</span></td>
+                  <td><span style="font-weight:600;">¥ 880</span></td>
+                  <td>陈静</td>
+                  <td>2026-04-08 16:45</td>
+                  <td><span class="tag" style="background:#991B1B;color:white;">待审核</span></td>
+                  <td><button class="btn btn-outline btn-sm" onclick="showAfterSalesDetail('TS-2026-0408-042')">详情</button><button class="btn btn-primary btn-sm" style="margin-left:4px;" onclick="reAppraiseItem('TS-2026-0408-042')">复核</button></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="pagination">
+              <div class="pagination-info">显示 1-5 条，共 15 条</div>
+              <div class="pagination-buttons">
+                <button class="pagination-btn" disabled>‹</button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <button class="pagination-btn">›</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 退件详情弹窗 -->
+      <div id="afterSalesDetailModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:950px;max-height:90vh;overflow-y:auto;">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="font-size:18px;font-weight:600;margin:0;">退件详情</h3>
+            <button onclick="closeAfterSalesDetail()" style="background:none;border:none;font-size:24px;cursor:pointer;color:#6B7280;">×</button>
+          </div>
+          <div style="padding:24px;">
+            <!-- 单头信息区 -->
+            <div style="background:#F9FAFB;padding:16px;border-radius:8px;margin-bottom:20px;">
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+                <div><label style="font-size:12px;color:#6B7280;">退件单号</label><p style="font-weight:600;margin:4px 0;font-family:monospace;" id="detail-as-return-no">TS-2026-0410-001</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">售后单号</label><p style="font-weight:600;margin:4px 0;font-family:monospace;" id="detail-as-sales-no">SF-2026-0408-156</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">原订单号</label><p style="font-weight:600;margin:4px 0;font-family:monospace;" id="detail-as-order-no">DD-2026-0408-8923</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">团长/用户名</label><p style="font-weight:600;margin:4px 0;" id="detail-as-leader">张团长</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">联系电话</label><p style="font-weight:600;margin:4px 0;">138****1234</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">自提点</label><p style="font-weight:600;margin:4px 0;">朝阳区-望京站A</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">退货原因</label><p style="font-weight:600;margin:4px 0;"><span style="color:#EF4444;">商品腐烂</span></p></div>
+                <div><label style="font-size:12px;color:#6B7280;">退件状态</label><p style="font-weight:600;margin:4px 0;"><span class="tag" style="background:#FEF3C7;color:#D97706;">待接收</span></p></div>
+                <div><label style="font-size:12px;color:#6B7280;">接收人</label><p style="font-weight:600;margin:4px 0;" id="detail-as-receiver">-</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">接收时间</label><p style="font-weight:600;margin:4px 0;" id="detail-as-receive-time">-</p></div>
+              </div>
+            </div>
+            
+            <!-- 商品明细列表 -->
+            <h4 style="font-size:14px;font-weight:600;margin:0 0 12px;">商品明细</h4>
+            <table style="width:100%;border-collapse:collapse;font-size:13px;">
+              <thead style="background:#F3F4F6;">
+                <tr>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">行号</th>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">SKU编码</th>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">商品名称</th>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">规格</th>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">单位</th>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">类目</th>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">温层</th>
+                  <th style="padding:10px 12px;text-align:right;border-bottom:1px solid #E5E7EB;">订单购买数量</th>
+                  <th style="padding:10px 12px;text-align:right;border-bottom:1px solid #E5E7EB;">应退数量</th>
+                  <th style="padding:10px 12px;text-align:right;border-bottom:1px solid #E5E7EB;">实收数量</th>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">商品状态</th>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">鉴定结果</th>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">入库去向</th>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">入库库位</th>
+                  <th style="padding:10px 12px;text-align:right;border-bottom:1px solid #E5E7EB;">退款单价</th>
+                  <th style="padding:10px 12px;text-align:right;border-bottom:1px solid #E5E7EB;">行退款金额</th>
+                </tr>
+              </thead>
+              <tbody id="detail-as-items-body">
+                <tr>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;">1</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;font-family:monospace;">SKU-2026-089</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;font-weight:500;">新鲜有机苹果 2.5kg</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;">2.5kg/盒</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;">盒</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;">水果</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;"><span class="tag" style="background:#DBEAFE;color:#2563EB;">冷藏</span></td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">6</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">6</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">-</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;">-</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;">-</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;">-</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;font-family:monospace;">-</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">¥120.00</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;text-align:right;font-weight:600;">¥720</td>
+                </tr>
+              </tbody>
+            </table>
+            
+            <!-- 汇总信息区 -->
+            <div style="display:flex;gap:24px;margin-top:20px;padding:16px;background:#EEF2FF;border-radius:8px;">
+              <div><label style="font-size:12px;color:#6B7280;">SKU品项数</label><p style="font-size:20px;font-weight:700;margin:4px 0;color:#4F46E5;">3 件</p></div>
+              <div><label style="font-size:12px;color:#6B7280;">应退总件数</label><p style="font-size:20px;font-weight:700;margin:4px 0;color:#4F46E5;">12 件</p></div>
+              <div><label style="font-size:20px;font-weight:700;margin:4px 0;color:#6B7280;">实退总件数</label><p style="font-size:20px;font-weight:700;margin:4px 0;color:#6B7280;">0 件</p></div>
+              <div><label style="font-size:12px;color:#6B7280;">良品数</label><p style="font-size:20px;font-weight:700;margin:4px 0;color:#10B981;">0 件</p></div>
+              <div><label style="font-size:12px;color:#6B7280;">次品数</label><p style="font-size:20px;font-weight:700;margin:4px 0;color:#F59E0B;">0 件</p></div>
+              <div><label style="font-size:12px;color:#6B7280;">报废数</label><p style="font-size:20px;font-weight:700;margin:4px 0;color:#DC2626;">0 件</p></div>
+              <div><label style="font-size:12px;color:#6B7280;">退款总金额</label><p style="font-size:20px;font-weight:700;margin:4px 0;color:#DC2626;">¥ 1,280</p></div>
+            </div>
+            
+            <!-- 鉴定记录Tab -->
+            <h4 style="font-size:14px;font-weight:600;margin:20px 0 12px;">鉴定记录</h4>
+            <div style="padding:16px;background:#F9FAFB;border-radius:8px;">
+              <p style="color:#9CA3AF;font-size:13px;margin:0;">暂无鉴定记录</p>
+            </div>
+            
+            <!-- 关联信息 -->
+            <h4 style="font-size:14px;font-weight:600;margin:20px 0 12px;">关联信息</h4>
+            <div style="padding:16px;background:#F9FAFB;border-radius:8px;">
+              <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;">
+                <div><label style="font-size:12px;color:#6B7280;">关联售后工单</label><p style="font-weight:500;margin:4px 0;font-family:monospace;">AW-2026-0408-156</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">关联退款单号</label><p style="font-weight:500;margin:4px 0;color:#9CA3AF;">等待退款</p></div>
+              </div>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button onclick="closeAfterSalesDetail()" class="btn btn-outline" style="padding:10px 24px;">关闭</button>
+            <button class="btn btn-primary" style="padding:10px 24px;" onclick="appraiseItemFromDetail()">鉴定</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 退件鉴定弹窗 -->
+      <div id="appraisalModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:600px;max-height:90vh;overflow-y:auto;">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="font-size:18px;font-weight:600;margin:0;">退件鉴定</h3>
+            <button onclick="closeAppraisalModal()" style="background:none;border:none;font-size:24px;cursor:pointer;color:#6B7280;">×</button>
+          </div>
+          <div style="padding:24px;">
+            <!-- 商品信息区 -->
+            <div style="background:#F9FAFB;padding:16px;border-radius:8px;margin-bottom:20px;">
+              <h4 style="font-size:14px;font-weight:600;margin:0 0 12px;">商品信息</h4>
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+                <div><label style="font-size:12px;color:#6B7280;">SKU编码</label><p style="font-weight:500;margin:4px 0;font-family:monospace;">SKU-2026-089</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">商品条码</label><p style="font-weight:500;margin:4px 0;font-family:monospace;">6921234567890</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">商品名称</label><p style="font-weight:500;margin:4px 0;">新鲜有机苹果 2.5kg</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">规格</label><p style="font-weight:500;margin:4px 0;">2.5kg/盒</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">单位</label><p style="font-weight:500;margin:4px 0;">盒</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">批次号</label><p style="font-weight:500;margin:4px 0;font-family:monospace;">PC-2026-0408-156</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">原订单购买数量</label><p style="font-weight:500;margin:4px 0;">6 件</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">本次应退数量</label><p style="font-weight:500;margin:4px 0;">6 件</p></div>
+              </div>
+            </div>
+            
+            <!-- 鉴定表单 -->
+            <h4 style="font-size:14px;font-weight:600;margin:0 0 12px;">鉴定信息</h4>
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:16px;">
+              <div>
+                <label style="font-size:13px;color:#374151;margin-bottom:6px;display:block;">实收数量 *</label>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <button onclick="decreaseQty()" style="width:32px;height:32px;border:1px solid #E5E7EB;background:#F9FAFA;border-radius:6px;cursor:pointer;font-size:16px;">-</button>
+                  <input type="number" id="appraisal-qty" value="6" min="0" max="6" style="width:60px;height:32px;border:1px solid #E5E7EB;border-radius:6px;text-align:center;font-size:14px;">
+                  <button onclick="increaseQty()" style="width:32px;height:32px;border:1px solid #E5E7EB;background:#F9FAFA;border-radius:6px;cursor:pointer;font-size:16px;">+</button>
+                </div>
+              </div>
+              <div>
+                <label style="font-size:13px;color:#374151;margin-bottom:6px;display:block;">商品状态评定 *</label>
+                <select id="appraisal-condition" style="width:100%;height:36px;border:1px solid #E5E7EB;border-radius:6px;padding:0 12px;font-size:14px;">
+                  <option value="">请选择</option>
+                  <option>完好</option>
+                  <option>轻微损坏</option>
+                  <option>严重损坏</option>
+                  <option>非原品</option>
+                </select>
+              </div>
+            </div>
+            <div style="margin-bottom:16px;">
+              <label style="font-size:13px;color:#374151;margin-bottom:6px;display:block;">鉴定结果 *</label>
+              <select id="appraisal-result" onchange="onResultChange()" style="width:100%;height:36px;border:1px solid #E5E7EB;border-radius:6px;padding:0 12px;font-size:14px;">
+                <option value="">请选择</option>
+                <option value="goods">良品复售</option>
+                <option value="defective">次品处置</option>
+                <option value="scrapped">报废</option>
+                <option value="fraud">疑似欺诈</option>
+              </select>
+            </div>
+            <div style="margin-bottom:16px;">
+              <label style="font-size:13px;color:#374151;margin-bottom:6px;display:block;">入库去向 *</label>
+              <select id="appraisal-dest" style="width:100%;height:36px;border:1px solid #E5E7EB;border-radius:6px;padding:0 12px;font-size:14px;">
+                <option value="">请选择</option>
+                <option value="goods-area">良品区</option>
+                <option value="defective-area">次品区</option>
+                <option value="scrapped-area">报废区</option>
+              </select>
+            </div>
+            <div style="margin-bottom:16px;">
+              <label style="font-size:13px;color:#374151;margin-bottom:6px;display:block;">鉴定照片 * (至少1张，欺诈需3张以上)</label>
+              <div style="border:2px dashed #E5E7EB;border-radius:8px;padding:24px;text-align:center;cursor:pointer;" onclick="uploadPhoto()">
+                <svg fill="none" stroke="#9CA3AF" stroke-width="2" viewBox="0 0 24 24" width="32" height="32" style="margin:0 auto 8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <p style="color:#6B7280;font-size:13px;margin:0;">点击上传照片</p>
+                <p style="color:#9CA3AF;font-size:12px;margin:4px 0 0;">支持 JPG、PNG 格式</p>
+              </div>
+            </div>
+            <div>
+              <label style="font-size:13px;color:#374151;margin-bottom:6px;display:block;">鉴定说明 (10-200字) *</label>
+              <textarea id="appraisal-desc" rows="3" placeholder="请输入鉴定说明..." style="width:100%;border:1px solid #E5E7EB;border-radius:6px;padding:12px;font-size:14px;resize:vertical;"></textarea>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button onclick="closeAppraisalModal()" class="btn btn-outline" style="padding:10px 24px;">取消</button>
+            <button onclick="submitAppraisal()" class="btn btn-primary" style="padding:10px 24px;">确认</button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+      function showAfterSalesDetail(id) {
+        document.getElementById('afterSalesDetailModal').style.display = 'flex';
+        document.getElementById('detail-as-return-no').textContent = id;
+      }
+
+      function closeAfterSalesDetail() {
+        document.getElementById('afterSalesDetailModal').style.display = 'none';
+      }
+
+      function receiveAfterSales(id) {
+        if (confirm('确认接收退件 ' + id + '？')) {
+          alert('退件已接收');
+          location.reload();
+        }
+      }
+
+      function appraiseItem(id) {
+        document.getElementById('appraisalModal').style.display = 'flex';
+      }
+
+      function appraiseItemFromDetail() {
+        closeAfterSalesDetail();
+        document.getElementById('appraisalModal').style.display = 'flex';
+      }
+
+      function reAppraiseItem(id) {
+        document.getElementById('appraisalModal').style.display = 'flex';
+      }
+
+      function closeAppraisalModal() {
+        document.getElementById('appraisalModal').style.display = 'none';
+      }
+
+      function decreaseQty() {
+        const input = document.getElementById('appraisal-qty');
+        if (parseInt(input.value) > 0) {
+          input.value = parseInt(input.value) - 1;
+        }
+      }
+
+      function increaseQty() {
+        const input = document.getElementById('appraisal-qty');
+        if (parseInt(input.value) < 6) {
+          input.value = parseInt(input.value) + 1;
+        }
+      }
+
+      function onResultChange() {
+        const result = document.getElementById('appraisal-result').value;
+        const destSelect = document.getElementById('appraisal-dest');
+        // Auto-recommend destination based on result
+        if (result === 'goods') {
+          destSelect.value = 'goods-area';
+        } else if (result === 'defective') {
+          destSelect.value = 'defective-area';
+        } else if (result === 'scrapped') {
+          destSelect.value = 'scrapped-area';
+        }
+      }
+
+      function uploadPhoto() {
+        alert('打开图片上传窗口');
+      }
+
+      function submitAppraisal() {
+        const qty = document.getElementById('appraisal-qty').value;
+        const condition = document.getElementById('appraisal-condition').value;
+        const result = document.getElementById('appraisal-result').value;
+        const dest = document.getElementById('appraisal-dest').value;
+        const desc = document.getElementById('appraisal-desc').value;
+        
+        if (!qty || !condition || !result || !dest || !desc) {
+          alert('请填写完整的鉴定信息');
+          return;
+        }
+        
+        if (desc.length < 10) {
+          alert('鉴定说明至少10个字');
+          return;
+        }
+        
+        alert('鉴定信息已提交');
+        closeAppraisalModal();
+        location.reload();
+      }
+
+      function searchAfterSalesList() {
+        const returnNo = document.querySelector('input[placeholder="输入单号搜索"]').value;
+        const leader = document.querySelectorAll('.filter-input')[1].value;
+        const sku = document.querySelectorAll('.filter-input')[2].value;
+        const result = document.querySelectorAll('.filter-select')[1].value;
+        const status = document.querySelectorAll('.filter-select')[2].value;
+        const dateFrom = document.querySelectorAll('.filter-input[type="date"]')[0].value;
+        const dateTo = document.querySelectorAll('.filter-input[type="date"]')[1].value;
+        
+        alert('筛选条件：\\n单号：' + (returnNo || '全部') + '\\n团长：' + (leader || '全部') + '\\nSKU：' + (sku || '全部') + '\\n鉴定结果：' + result + '\\n状态：' + status + '\\n日期：' + dateFrom + ' ~ ' + dateTo);
+      }
+
+      function resetAfterSalesList() {
+        document.querySelector('input[placeholder="输入单号搜索"]').value = '';
+        document.querySelectorAll('.filter-input')[1].value = '';
+        document.querySelectorAll('.filter-input')[2].value = '';
+        document.querySelectorAll('.filter-select')[1].value = '全部';
+        document.querySelectorAll('.filter-select')[2].value = '全部';
+        document.querySelectorAll('.filter-input[type="date"]')[0].value = '2026-04-01';
+        document.querySelectorAll('.filter-input[type="date"]')[1].value = '2026-04-13';
+      }
+
+      function exportAfterSalesList() {
+        alert('导出退件列表');
+      }
+
+      // 点击弹窗外部关闭
+      document.getElementById('afterSalesDetailModal').addEventListener('click', function(e) {
+        if (e.target === this) closeAfterSalesDetail();
+      });
+      document.getElementById('appraisalModal').addEventListener('click', function(e) {
+        if (e.target === this) closeAppraisalModal();
+      });
+      </script>

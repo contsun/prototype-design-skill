@@ -1,0 +1,837 @@
+      <div id="page-processing" class="page">
+        <header class="header">
+          <div class="header-left">
+            <h2>加工作业</h2>
+            <div class="breadcrumb">
+              <span>首页</span>
+              <span>/</span>
+              <span>作业配置</span>
+              <span>/</span>
+              <span>加工作业</span>
+            </div>
+          </div>
+          <div class="header-right">
+            <button class="btn btn-outline btn-sm" onclick="exportProcessing()">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              导出
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="openAddProcessingModal()">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              新建加工单
+            </button>
+          </div>
+        </header>
+        
+        <div class="content">
+          <div class="stats-grid" style="grid-template-columns:repeat(5,1fr);margin-bottom:24px;">
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">在产</span></div>
+              <div class="stat-card-value" style="color:#F59E0B;">8</div>
+              <div class="stat-card-change warning">加工中</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">已完成</span></div>
+              <div class="stat-card-value" style="color:#10B981;">24</div>
+              <div class="stat-card-change up">较昨日 +6</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">已取消</span></div>
+              <div class="stat-card-value" style="color:#6B7280;">3</div>
+              <div class="stat-card-change">本月</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">待加工</span></div>
+              <div class="stat-card-value" style="color:#EF4444;">15</div>
+              <div class="stat-card-change down">需处理</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">完成率</span></div>
+              <div class="stat-card-value">61.5%</div>
+              <div class="stat-card-change">正常</div>
+            </div>
+          </div>
+          
+          <!-- Tab切换 -->
+          <div class="tabs" style="margin-bottom:24px;">
+            <button class="tab active" onclick="switchProcessingTab('producing')" style="border:none;background:#EEF2FF;padding:10px 20px;font-size:14px;font-weight:500;color:#4F46E5;border-radius:8px;cursor:pointer;">在产 (8)</button>
+            <button class="tab" onclick="switchProcessingTab('completed')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;margin-left:8px;">已完结 (24)</button>
+            <button class="tab" onclick="switchProcessingTab('cancelled')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;margin-left:8px;">已取消 (3)</button>
+            <button class="tab" onclick="switchProcessingTab('inbound')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;margin-left:8px;">成品入库</button>
+            <button class="tab" onclick="switchProcessingTab('allocation')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;margin-left:8px;">越库分配</button>
+          </div>
+          
+          <!-- 在产Tab -->
+          <div id="processing-producing" class="processing-tab">
+            <div class="table-card">
+              <div class="table-filters">
+                <div class="filter-group">
+                  <span class="filter-label">加工单号</span>
+                  <input type="text" class="filter-input" placeholder="输入加工单号..." style="width:150px;">
+                </div>
+                <div class="filter-group">
+                  <span class="filter-label">成品SKU</span>
+                  <input type="text" class="filter-input" placeholder="输入成品SKU..." style="width:130px;">
+                </div>
+                <div class="filter-group">
+                  <span class="filter-label">加工类型</span>
+                  <select class="filter-select">
+                    <option value="">全部</option>
+                    <option>分装</option>
+                    <option>贴标</option>
+                    <option>组合包装</option>
+                    <option>清洗</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <span class="filter-label">仓库</span>
+                  <select class="filter-select">
+                    <option value="">全部仓库</option>
+                    <option>北京仓</option>
+                    <option>上海仓</option>
+                    <option>广州仓</option>
+                  </select>
+                </div>
+                <button class="btn btn-primary btn-sm" style="margin-left:8px;">查询</button>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>加工单号</th>
+                    <th>成品SKU</th>
+                    <th>成品名称</th>
+                    <th>BOM</th>
+                    <th>加工类型</th>
+                    <th>计划产量</th>
+                    <th>已产量</th>
+                    <th>完成率</th>
+                    <th>仓库</th>
+                    <th>操作员</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span style="font-family:monospace;font-weight:500;">JG-2026-0411-001</span></td>
+                    <td><span style="font-family:monospace;font-size:12px;">SKU-FZ-001</span></td>
+                    <td><span style="font-weight:500;">金龙鱼花生油 1L×5 礼盒装</span></td>
+                    <td><button class="btn btn-outline btn-sm" onclick="openBomModal('JG-2026-0411-001')">查看BOM</button></td>
+                    <td><span class="tag" style="background:#EEF2FF;color:#4F46E5;">分装</span></td>
+                    <td>200 箱</td>
+                    <td>150 箱</td>
+                    <td>
+                      <div style="display:flex;align-items:center;gap:8px;">
+                        <div class="progress" style="width:60px;"><div class="progress-bar" style="width:75%"></div></div>
+                        <span style="font-size:12px;color:#F59E0B;">75%</span>
+                      </div>
+                    </td>
+                    <td>北京仓</td>
+                    <td>张伟</td>
+                    <td><span class="status status-warning">在产</span></td>
+                    <td>
+                      <button class="btn btn-outline btn-sm" onclick="showProcessingDetail('JG-2026-0411-001')">详情</button>
+                      <button class="btn btn-outline btn-sm" style="margin-left:4px;" onclick="openPackPanel('JG-2026-0411-001')">打包</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-weight:500;">JG-2026-0411-002</span></td>
+                    <td><span style="font-family:monospace;font-size:12px;">SKU-TB-023</span></td>
+                    <td><span style="font-weight:500;">伊利纯牛奶 新春限定版</span></td>
+                    <td><button class="btn btn-outline btn-sm" onclick="openBomModal('JG-2026-0411-002')">查看BOM</button></td>
+                    <td><span class="tag" style="background:#FEF3C7;color:#D97706;">贴标</span></td>
+                    <td>500 箱</td>
+                    <td>375 箱</td>
+                    <td>
+                      <div style="display:flex;align-items:center;gap:8px;">
+                        <div class="progress" style="width:60px;"><div class="progress-bar" style="width:75%"></div></div>
+                        <span style="font-size:12px;color:#F59E0B;">75%</span>
+                      </div>
+                    </td>
+                    <td>上海仓</td>
+                    <td>李娜</td>
+                    <td><span class="status status-warning">在产</span></td>
+                    <td>
+                      <button class="btn btn-outline btn-sm" onclick="showProcessingDetail('JG-2026-0411-002')">详情</button>
+                      <button class="btn btn-outline btn-sm" style="margin-left:4px;" onclick="openPackPanel('JG-2026-0411-002')">打包</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-weight:500;">JG-2026-0411-003</span></td>
+                    <td><span style="font-family:monospace;font-size:12px;">SKU-ZH-056</span></td>
+                    <td><span style="font-weight:500;">年货坚果礼盒 A款</span></td>
+                    <td><button class="btn btn-outline btn-sm" onclick="openBomModal('JG-2026-0411-003')">查看BOM</button></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">组合包装</span></td>
+                    <td>120 盒</td>
+                    <td>54 盒</td>
+                    <td>
+                      <div style="display:flex;align-items:center;gap:8px;">
+                        <div class="progress" style="width:60px;"><div class="progress-bar" style="width:45%"></div></div>
+                        <span style="font-size:12px;color:#F59E0B;">45%</span>
+                      </div>
+                    </td>
+                    <td>广州仓</td>
+                    <td>王强</td>
+                    <td><span class="status status-warning">在产</span></td>
+                    <td>
+                      <button class="btn btn-outline btn-sm" onclick="showProcessingDetail('JG-2026-0411-003')">详情</button>
+                      <button class="btn btn-outline btn-sm" style="margin-left:4px;" onclick="openPackPanel('JG-2026-0411-003')">打包</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-weight:500;">JG-2026-0411-004</span></td>
+                    <td><span style="font-family:monospace;font-size:12px;">SKU-QX-089</span></td>
+                    <td><span style="font-weight:500;">净菜配送包 300g×3</span></td>
+                    <td><button class="btn btn-outline btn-sm" onclick="openBomModal('JG-2026-0411-004')">查看BOM</button></td>
+                    <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">清洗</span></td>
+                    <td>80 箱</td>
+                    <td>0 箱</td>
+                    <td>
+                      <div style="display:flex;align-items:center;gap:8px;">
+                        <div class="progress" style="width:60px;"><div class="progress-bar" style="width:0%"></div></div>
+                        <span style="font-size:12px;color:#6B7280;">0%</span>
+                      </div>
+                    </td>
+                    <td>上海仓</td>
+                    <td>赵鹏</td>
+                    <td><span class="status status-default">待加工</span></td>
+                    <td>
+                      <button class="btn btn-outline btn-sm" onclick="showProcessingDetail('JG-2026-0411-004')">详情</button>
+                      <button class="btn btn-primary btn-sm" style="margin-left:4px;" onclick="startProcessing('JG-2026-0411-004')">开始</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="pagination">
+                <div class="pagination-info">显示 1-4 条，共 8 条</div>
+                <div class="pagination-buttons">
+                  <button class="pagination-btn" disabled>‹</button>
+                  <button class="pagination-btn active">1</button>
+                  <button class="pagination-btn">›</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 已完结Tab -->
+          <div id="processing-completed" class="processing-tab" style="display:none;">
+            <div class="table-card">
+              <table>
+                <thead>
+                  <tr>
+                    <th>加工单号</th>
+                    <th>成品SKU</th>
+                    <th>成品名称</th>
+                    <th>加工类型</th>
+                    <th>计划产量</th>
+                    <th>实际产量</th>
+                    <th>次品数</th>
+                    <th>完成时间</th>
+                    <th>仓库</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span style="font-family:monospace;font-weight:500;">JG-2026-0410-001</span></td>
+                    <td><span style="font-family:monospace;font-size:12px;">SKU-FZ-001</span></td>
+                    <td><span style="font-weight:500;">金龙鱼花生油 5L散装</span></td>
+                    <td><span class="tag" style="background:#EEF2FF;color:#4F46E5;">分装</span></td>
+                    <td>200 箱</td>
+                    <td><span style="color:#10B981;font-weight:500;">200 箱</span></td>
+                    <td><span style="color:#10B981;">0</span></td>
+                    <td>2026-04-10 16:30</td>
+                    <td>北京仓</td>
+                    <td><button class="btn btn-outline btn-sm" onclick="showProcessingDetail('JG-2026-0410-001')">详情</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-weight:500;">JG-2026-0409-015</span></td>
+                    <td><span style="font-family:monospace;font-size:12px;">SKU-TB-018</span></td>
+                    <td><span style="font-weight:500;">蒙牛酸奶 促销装</span></td>
+                    <td><span class="tag" style="background:#FEF3C7;color:#D97706;">贴标</span></td>
+                    <td>300 箱</td>
+                    <td><span style="color:#10B981;font-weight:500;">298 箱</span></td>
+                    <td><span style="color:#EF4444;">2</span></td>
+                    <td>2026-04-09 14:20</td>
+                    <td>上海仓</td>
+                    <td><button class="btn btn-outline btn-sm" onclick="showProcessingDetail('JG-2026-0409-015')">详情</button></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="pagination">
+                <div class="pagination-info">显示 1-2 条，共 24 条</div>
+                <div class="pagination-buttons">
+                  <button class="pagination-btn" disabled>‹</button>
+                  <button class="pagination-btn active">1</button>
+                  <button class="pagination-btn">2</button>
+                  <button class="pagination-btn">3</button>
+                  <button class="pagination-btn">›</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 已取消Tab -->
+          <div id="processing-cancelled" class="processing-tab" style="display:none;">
+            <div class="table-card">
+              <table>
+                <thead>
+                  <tr>
+                    <th>加工单号</th>
+                    <th>成品名称</th>
+                    <th>加工类型</th>
+                    <th>取消原因</th>
+                    <th>取消时间</th>
+                    <th>操作员</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="background:#F9FAFB;">
+                    <td><span style="font-family:monospace;color:#9CA3AF;">JG-2026-0408-007</span></td>
+                    <td><span style="color:#9CA3AF;">蔬菜清洗加工</span></td>
+                    <td><span class="tag" style="background:#F3F4F6;color:#6B7280;">清洗</span></td>
+                    <td><span style="color:#EF4444;">原材料缺货</span></td>
+                    <td>2026-04-08 09:30</td>
+                    <td>系统管理员</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- 成品入库Tab -->
+          <div id="processing-inbound" class="processing-tab" style="display:none;">
+            <div class="table-card">
+              <div class="table-header"><span class="table-title">📦 成品入库台账</span></div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>加工单号</th>
+                    <th>成品SKU</th>
+                    <th>成品名称</th>
+                    <th>产出数量</th>
+                    <th>已入库数量</th>
+                    <th>推荐库位</th>
+                    <th>入库状态</th>
+                    <th>入库时间</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span style="font-family:monospace;font-weight:500;">JG-2026-0410-001</span></td>
+                    <td><span style="font-family:monospace;font-size:12px;">SKU-FZ-001</span></td>
+                    <td><span style="font-weight:500;">金龙鱼花生油 1L×5 礼盒装</span></td>
+                    <td>200 箱</td>
+                    <td><span style="color:#10B981;font-weight:500;">200 箱</span></td>
+                    <td><span style="font-family:monospace;">A01-03-05</span></td>
+                    <td><span class="status status-success">已入库</span></td>
+                    <td>2026-04-10 16:35</td>
+                    <td><button class="btn btn-outline btn-sm">查看详情</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-weight:500;">JG-2026-0411-001</span></td>
+                    <td><span style="font-family:monospace;font-size:12px;">SKU-FZ-001</span></td>
+                    <td><span style="font-weight:500;">金龙鱼花生油 1L×5 礼盒装</span></td>
+                    <td>150 箱</td>
+                    <td><span style="color:#F59E0B;font-weight:500;">0 箱</span></td>
+                    <td><span style="font-family:monospace;">A01-03-06</span></td>
+                    <td><span class="status status-warning">待入库</span></td>
+                    <td>—</td>
+                    <td><button class="btn btn-primary btn-sm">确认入库</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- 越库分配Tab -->
+          <div id="processing-allocation" class="processing-tab" style="display:none;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+              <!-- 左侧：缺货波次 -->
+              <div class="table-card">
+                <div class="table-header"><span class="table-title" style="color:#DC2626;">⚠️ 缺货波次</span></div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>波次号</th>
+                      <th>缺货商品</th>
+                      <th>需求数量</th>
+                      <th>紧急程度</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span style="font-family:monospace;color:#4F46E5;">BC-2026-0411-08</span></td>
+                      <td>金龙鱼花生油 1L×5 礼盒装</td>
+                      <td>50 箱</td>
+                      <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">紧急</span></td>
+                    </tr>
+                    <tr>
+                      <td><span style="font-family:monospace;color:#4F46E5;">BC-2026-0411-09</span></td>
+                      <td>年货坚果礼盒 A款</td>
+                      <td>30 盒</td>
+                      <td><span class="tag" style="background:#FEF3C7;color:#D97706;">一般</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- 右侧：可用成品 -->
+              <div class="table-card">
+                <div class="table-header"><span class="table-title" style="color:#10B981;">✅ 可用成品</span></div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>加工单号</th>
+                      <th>成品SKU</th>
+                      <th>可用数量</th>
+                      <th>推荐库位</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span style="font-family:monospace;">JG-2026-0411-001</span></td>
+                      <td><span style="font-family:monospace;">SKU-FZ-001</span></td>
+                      <td><span style="color:#10B981;font-weight:500;">50 箱</span></td>
+                      <td><span style="font-family:monospace;">A01-03-06</span></td>
+                    </tr>
+                    <tr>
+                      <td><span style="font-family:monospace;">JG-2026-0411-003</span></td>
+                      <td><span style="font-family:monospace;">SKU-ZH-056</span></td>
+                      <td><span style="color:#10B981;font-weight:500;">66 盒</span></td>
+                      <td><span style="font-family:monospace;">B02-01-03</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div style="margin-top:20px;text-align:center;">
+              <button class="btn btn-primary" onclick="autoMatchAllocation()">🤖 智能匹配</button>
+              <span style="margin-left:16px;color:#6B7280;font-size:13px;">系统将自动分析缺货与可用成品进行最优匹配</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 新建加工单弹窗 -->
+      <div id="modal-add-processing" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:90%;max-width:640px;max-height:85vh;overflow-y:auto;box-shadow:0 25px 80px rgba(0,0,0,0.35);">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="font-size:16px;font-weight:600;color:#1F2937;margin:0;">新建加工单</h3>
+            <button onclick="closeAddProcessingModal()" style="width:32px;height:32px;border-radius:50%;border:none;background:#F3F4F6;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">×</button>
+          </div>
+          <div style="padding:24px;overflow-y:auto;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">加工单号</label>
+                <input type="text" class="form-input" placeholder="系统自动生成" disabled style="background:#F3F4F6;font-family:monospace;">
+                <span style="font-size:11px;color:#9CA3AF;margin-top:4px;display:block;">系统自动生成</span>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">仓库 <span style="color:#EF4444;">*</span></label>
+                <select class="form-select" id="processing-warehouse">
+                  <option value="">请选择仓库</option>
+                  <option>北京仓</option>
+                  <option>上海仓</option>
+                  <option>广州仓</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">成品SKU <span style="color:#EF4444;">*</span></label>
+                <input type="text" class="form-input" placeholder="输入或扫描成品SKU" id="processing-product-sku">
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">成品名称</label>
+                <input type="text" class="form-input" placeholder="成品名称自动填充" id="processing-product-name" disabled style="background:#F3F4F6;">
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">加工类型 <span style="color:#EF4444;">*</span></label>
+                <select class="form-select" id="processing-type">
+                  <option value="">请选择加工类型</option>
+                  <option>分装</option>
+                  <option>贴标</option>
+                  <option>组合包装</option>
+                  <option>清洗</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">计划产量 <span style="color:#EF4444;">*</span></label>
+                <input type="number" class="form-input" placeholder="输入计划产量" id="processing-plan-qty" value="100">
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">操作员</label>
+                <select class="form-select" id="processing-operator">
+                  <option value="">请选择操作员</option>
+                  <option>张伟</option>
+                  <option>李娜</option>
+                  <option>王强</option>
+                  <option>赵鹏</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;grid-column:span 2;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">备注</label>
+                <textarea class="form-input" style="resize:vertical;min-height:60px;" rows="2" placeholder="输入备注信息（选填）" id="processing-remark"></textarea>
+              </div>
+            </div>
+            <div style="margin-top:16px;padding:16px;background:#FEF3C7;border-radius:8px;border:1px solid #FCD34D;">
+              <div style="font-size:13px;font-weight:500;color:#92400E;margin-bottom:8px;">💡 BOM配料提示</div>
+              <div style="font-size:12px;color:#92400E;">创建加工单后，请点击「查看BOM」配置原料配方和包材，系统将自动计算原料需求。</div>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button class="btn btn-outline" onclick="closeAddProcessingModal()">取消</button>
+            <button class="btn btn-primary" onclick="saveAddProcessing()">创建加工单</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOM配料弹窗 -->
+      <div id="modal-bom" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:90%;max-width:700px;max-height:85vh;overflow-y:auto;box-shadow:0 25px 80px rgba(0,0,0,0.35);">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="font-size:16px;font-weight:600;color:#1F2937;margin:0;">📋 BOM配料清单 - <span id="bom-processing-no">JG-2026-0411-001</span></h3>
+            <button onclick="closeBomModal()" style="width:32px;height:32px;border-radius:50%;border:none;background:#F3F4F6;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">×</button>
+          </div>
+          <div style="padding:24px;overflow-y:auto;">
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;">
+              <div style="padding:12px;background:#EEF2FF;border-radius:8px;text-align:center;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">成品SKU</div>
+                <div style="font-size:14px;font-weight:600;color:#4F46E5;font-family:monospace;" id="bom-product-sku">SKU-FZ-001</div>
+              </div>
+              <div style="padding:12px;background:#DCFCE7;border-radius:8px;text-align:center;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">计划产量</div>
+                <div style="font-size:14px;font-weight:600;color:#16A34A;">200 箱</div>
+              </div>
+              <div style="padding:12px;background:#FEF3C7;border-radius:8px;text-align:center;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">加工类型</div>
+                <div style="font-size:14px;font-weight:600;color:#D97706;">分装</div>
+              </div>
+            </div>
+            
+            <div style="margin-bottom:20px;">
+              <div style="font-size:14px;font-weight:600;color:#374151;margin-bottom:10px;">原料配方</div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>原料SKU</th>
+                    <th>原料名称</th>
+                    <th>单位用量</th>
+                    <th>总需求量</th>
+                    <th>库存可用</th>
+                    <th>状态</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:12px;">RAW-001</span></td>
+                    <td>金龙鱼花生油 5L 散装</td>
+                    <td>5 L/箱</td>
+                    <td>1000 L</td>
+                    <td>2000 L</td>
+                    <td><span style="color:#10B981;">✅ 充足</span></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:12px;">PKG-023</span></td>
+                    <td>1L油瓶+瓶盖 套装</td>
+                    <td>5 套/箱</td>
+                    <td>200 套</td>
+                    <td>180 套</td>
+                    <td><span style="color:#F59E0B;">⚠️ 不足</span></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:12px;">LAB-015</span></td>
+                    <td>1L装标签纸</td>
+                    <td>5 张/箱</td>
+                    <td>200 张</td>
+                    <td>500 张</td>
+                    <td><span style="color:#10B981;">✅ 充足</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <div>
+              <div style="font-size:14px;font-weight:600;color:#374151;margin-bottom:10px;">包材配置</div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>包材SKU</th>
+                    <th>包材名称</th>
+                    <th>规格</th>
+                    <th>单位用量</th>
+                    <th>总需求量</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:12px;">BOX-008</span></td>
+                    <td>礼盒外箱 A款</td>
+                    <td>5瓶装</td>
+                    <td>1 个/箱</td>
+                    <td>200 个</td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:12px;">WRAP-003</span></td>
+                    <td>防震泡沫</td>
+                    <td>5片装</td>
+                    <td>5 片/箱</td>
+                    <td>200 片</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button class="btn btn-outline" onclick="closeBomModal()">关闭</button>
+            <button class="btn btn-primary" onclick="saveBom()">保存配料单</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 打包面板弹窗 -->
+      <div id="modal-pack" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:90%;max-width:500px;max-height:85vh;overflow-y:auto;box-shadow:0 25px 80px rgba(0,0,0,0.35);">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="font-size:16px;font-weight:600;color:#1F2937;margin:0;">📦 打包面板 - <span id="pack-processing-no">JG-2026-0411-001</span></h3>
+            <button onclick="closePackModal()" style="width:32px;height:32px;border-radius:50%;border:none;background:#F3F4F6;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">×</button>
+          </div>
+          <div style="padding:24px;overflow-y:auto;">
+            <div style="margin-bottom:20px;">
+              <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">扫码输入</label>
+              <div style="display:flex;gap:8px;">
+                <input type="text" class="form-input" placeholder="扫描或输入条码..." id="pack-barcode" style="flex:1;">
+                <button class="btn btn-primary" onclick="scanPackBarcode()">确认</button>
+              </div>
+            </div>
+            
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+              <div style="padding:16px;background:#EEF2FF;border-radius:8px;text-align:center;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">累计产出</div>
+                <div style="font-size:24px;font-weight:700;color:#4F46E5;" id="pack-total">150</div>
+                <div style="font-size:12px;color:#6B7280;">箱</div>
+              </div>
+              <div style="padding:16px;background:#DCFCE7;border-radius:8px;text-align:center;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">计划产量</div>
+                <div style="font-size:24px;font-weight:700;color:#16A34A;">200</div>
+                <div style="font-size:12px;color:#6B7280;">箱</div>
+              </div>
+            </div>
+            
+            <div style="margin-bottom:20px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                <span style="font-size:13px;font-weight:500;color:#374151;">打包进度</span>
+                <span style="font-size:13px;color:#4F46E5;font-weight:500;">75%</span>
+              </div>
+              <div style="height:8px;background:#E5E7EB;border-radius:4px;overflow:hidden;">
+                <div style="width:75%;height:100%;background:#4F46E5;border-radius:4px;"></div>
+              </div>
+            </div>
+            
+            <div style="margin-bottom:16px;">
+              <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">次品登记</label>
+              <div style="display:flex;gap:8px;margin-bottom:8px;">
+                <input type="number" class="form-input" placeholder="次品数量" id="pack-defect-qty" value="0" style="width:100px;">
+                <input type="text" class="form-input" placeholder="次品原因" id="pack-defect-reason" style="flex:1;">
+                <button class="btn btn-outline" onclick="addDefect()">添加</button>
+              </div>
+            </div>
+            
+            <div style="border:1px solid #FCA5A5;background:#FEF2F2;border-radius:8px;padding:12px;">
+              <div style="font-size:12px;color:#DC2626;font-weight:500;margin-bottom:8px;">⚠️ 次品记录</div>
+              <div style="font-size:12px;color:#374151;">
+                <div>• 今日次品：2 箱（标签损坏）</div>
+              </div>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button class="btn btn-outline" onclick="closePackModal()">关闭</button>
+            <button class="btn btn-primary" onclick="completePack()">完成打包</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 加工单详情弹窗 -->
+      <div id="modal-processing-detail" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:90%;max-width:600px;max-height:85vh;overflow-y:auto;box-shadow:0 25px 80px rgba(0,0,0,0.35);">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="font-size:16px;font-weight:600;color:#1F2937;margin:0;">加工单详情</h3>
+            <button onclick="closeProcessingDetailModal()" style="width:32px;height:32px;border-radius:50%;border:none;background:#F3F4F6;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">×</button>
+          </div>
+          <div style="padding:24px;overflow-y:auto;">
+            <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+              <div style="width:48px;height:48px;background:#EEF2FF;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;">🏭</div>
+              <div>
+                <div style="font-size:16px;font-weight:600;color:#1F2937;" id="detail-processing-no">JG-2026-0411-001</div>
+                <span class="status status-warning" id="detail-processing-status">在产</span>
+              </div>
+            </div>
+            
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;">
+              <div style="padding:12px;background:#F9FAFB;border-radius:8px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">成品SKU</div>
+                <div style="font-size:13px;font-weight:500;color:#374151;font-family:monospace;" id="detail-product-sku">SKU-FZ-001</div>
+              </div>
+              <div style="padding:12px;background:#F9FAFB;border-radius:8px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">成品名称</div>
+                <div style="font-size:13px;font-weight:500;color:#374151;" id="detail-product-name">金龙鱼花生油 1L×5 礼盒装</div>
+              </div>
+              <div style="padding:12px;background:#F9FAFB;border-radius:8px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">加工类型</div>
+                <div style="font-size:13px;font-weight:500;color:#374151;" id="detail-processing-type">分装</div>
+              </div>
+              <div style="padding:12px;background:#F9FAFB;border-radius:8px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">计划产量</div>
+                <div style="font-size:13px;font-weight:500;color:#374151;" id="detail-plan-qty">200 箱</div>
+              </div>
+              <div style="padding:12px;background:#F9FAFB;border-radius:8px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">已产量</div>
+                <div style="font-size:13px;font-weight:500;color:#4F46E5;" id="detail-done-qty">150 箱</div>
+              </div>
+              <div style="padding:12px;background:#F9FAFB;border-radius:8px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">仓库</div>
+                <div style="font-size:13px;font-weight:500;color:#374151;" id="detail-warehouse">北京仓</div>
+              </div>
+            </div>
+            
+            <div style="margin-bottom:16px;">
+              <div style="font-size:13px;font-weight:500;color:#374151;margin-bottom:8px;">加工进度</div>
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+                <div style="flex:1;height:8px;background:#E5E7EB;border-radius:4px;overflow:hidden;">
+                  <div style="width:75%;height:100%;background:#4F46E5;border-radius:4px;"></div>
+                </div>
+                <span style="font-size:14px;font-weight:600;color:#4F46E5;min-width:45px;">75%</span>
+              </div>
+              <div style="display:flex;gap:16px;font-size:12px;">
+                <span style="color:#10B981;">✓ 已完成：150 箱</span>
+                <span style="color:#6B7280;">○ 剩余：50 箱</span>
+              </div>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button class="btn btn-outline" onclick="cancelProcessing()">取消加工</button>
+            <button class="btn btn-outline" onclick="closeProcessingDetailModal()">关闭</button>
+            <button class="btn btn-primary" onclick="closeProcessingDetailModal();openPackPanel()">打包</button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+      function switchProcessingTab(tabName) {
+        document.querySelectorAll('.processing-tab').forEach(t => t.style.display = 'none');
+        document.getElementById('processing-' + tabName).style.display = 'block';
+        const tabs = document.querySelectorAll('.tabs .tab');
+        tabs.forEach((t, i) => {
+          const tabMap = {producing:0, completed:1, cancelled:2, inbound:3, allocation:4};
+          if (i === tabMap[tabName]) {
+            t.style.background = '#EEF2FF';
+            t.style.color = '#4F46E5';
+          } else {
+            t.style.background = '#F3F4F6';
+            t.style.color = '#6B7280';
+          }
+        });
+      }
+      
+      function openAddProcessingModal() {
+        var m = document.getElementById('modal-add-processing');
+        m.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function closeAddProcessingModal() {
+        var m = document.getElementById('modal-add-processing');
+        m.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+      
+      function openBomModal(code) {
+        if (code) document.getElementById('bom-processing-no').textContent = code;
+        var m = document.getElementById('modal-bom');
+        m.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function closeBomModal() {
+        var m = document.getElementById('modal-bom');
+        m.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+      
+      function openPackPanel(code) {
+        if (code) document.getElementById('pack-processing-no').textContent = code;
+        var m = document.getElementById('modal-pack');
+        m.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function closePackModal() {
+        var m = document.getElementById('modal-pack');
+        m.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+      
+      function showProcessingDetail(code) {
+        if (code) document.getElementById('detail-processing-no').textContent = code;
+        var m = document.getElementById('modal-processing-detail');
+        m.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function closeProcessingDetailModal() {
+        var m = document.getElementById('modal-processing-detail');
+        m.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+      
+      function saveAddProcessing() {
+        var warehouse = document.getElementById('processing-warehouse').value;
+        var sku = document.getElementById('processing-product-sku').value;
+        if (!warehouse || !sku) {
+          alert('请填写必填项');
+          return;
+        }
+        alert('加工单创建成功');
+        closeAddProcessingModal();
+      }
+      
+      function saveBom() {
+        alert('BOM配料单已保存');
+        closeBomModal();
+      }
+      
+      function scanPackBarcode() {
+        var barcode = document.getElementById('pack-barcode').value;
+        if (barcode) {
+          var current = parseInt(document.getElementById('pack-total').textContent);
+          document.getElementById('pack-total').textContent = current + 1;
+          document.getElementById('pack-barcode').value = '';
+        }
+      }
+      
+      function addDefect() {
+        alert('次品已登记');
+      }
+      
+      function completePack() {
+        alert('打包完成');
+        closePackModal();
+      }
+      
+      function startProcessing(code) {
+        alert('加工单 ' + code + ' 开始加工');
+      }
+      
+      function cancelProcessing() {
+        if (confirm('确定要取消该加工单？')) {
+          alert('加工单已取消');
+          closeProcessingDetailModal();
+        }
+      }
+      
+      function autoMatchAllocation() {
+        alert('智能匹配完成，已自动分配 50 箱到缺货波次');
+      }
+      
+      function exportProcessing() {
+        alert('导出加工作业数据');
+      }
+      </script>

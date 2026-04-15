@@ -1,0 +1,355 @@
+      <div id="page-dashboard" class="page active">
+        <header class="header">
+          <div class="header-left">
+            <h2>综合看板</h2>
+            <div class="breadcrumb"><span>首页</span><span>/</span><span>综合看板</span></div>
+          </div>
+          <div class="header-right">
+            <div class="search-box">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+              <input type="text" placeholder="搜索功能或帮助...">
+            </div>
+            <button class="header-btn"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></button>
+            <div class="user-avatar">李</div>
+          </div>
+        </header>
+        <div class="content" style="padding:20px;background:#F3F4F6;">
+          <!-- 第一行：大数据统计 -->
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px;">
+            <div style="background:linear-gradient(135deg,#667EEA 0%,#764BA2 100%);border-radius:16px;padding:24px;color:white;box-shadow:0 4px 20px rgba(102,126,234,0.3);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                <span style="font-size:14px;opacity:0.9;">今日入库量</span>
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="20" height="20" style="opacity:0.8;"><path d="M12 22V12M12 12L6 18M12 12L18 18"/></svg>
+              </div>
+              <div style="font-size:36px;font-weight:700;margin-bottom:8px;">1,284</div>
+              <div style="display:flex;align-items:center;gap:4px;font-size:12px;">
+                <span style="background:rgba(255,255,255,0.2);padding:2px 8px;border-radius:10px;">↑ 12.5%</span>
+                <span style="opacity:0.8;">较昨日</span>
+              </div>
+            </div>
+            <div style="background:linear-gradient(135deg,#11998E 0%,#38EF7D 100%);border-radius:16px;padding:24px;color:white;box-shadow:0 4px 20px rgba(17,153,142,0.3);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                <span style="font-size:14px;opacity:0.9;">今日出库量</span>
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="20" height="20" style="opacity:0.8;"><path d="M12 2v10M12 12l-6-6M12 12l6-6"/></svg>
+              </div>
+              <div style="font-size:36px;font-weight:700;margin-bottom:8px;">986</div>
+              <div style="display:flex;align-items:center;gap:4px;font-size:12px;">
+                <span style="background:rgba(255,255,255,0.2);padding:2px 8px;border-radius:10px;">↑ 8.3%</span>
+                <span style="opacity:0.8;">较昨日</span>
+              </div>
+            </div>
+            <div style="background:linear-gradient(135deg,#FC466B 0%,#3F5EFB 100%);border-radius:16px;padding:24px;color:white;box-shadow:0 4px 20px rgba(63,94,251,0.3);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                <span style="font-size:14px;opacity:0.9;">当前库存</span>
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="20" height="20" style="opacity:0.8;"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+              </div>
+              <div style="font-size:36px;font-weight:700;margin-bottom:8px;">45,672</div>
+              <div style="display:flex;align-items:center;gap:4px;font-size:12px;">
+                <span style="background:rgba(255,255,255,0.2);padding:2px 8px;border-radius:10px;">↓ 2.1%</span>
+                <span style="opacity:0.8;">较上周</span>
+              </div>
+            </div>
+            <div style="background:linear-gradient(135deg,#F093FB 0%,#F5576C 100%);border-radius:16px;padding:24px;color:white;box-shadow:0 4px 20px rgba(245,87,108,0.3);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                <span style="font-size:14px;opacity:0.9;">待处理波次</span>
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="20" height="20" style="opacity:0.8;"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              </div>
+              <div style="font-size:36px;font-weight:700;margin-bottom:8px;">23</div>
+              <div style="display:flex;align-items:center;gap:4px;font-size:12px;">
+                <span style="background:rgba(255,255,255,0.2);padding:2px 8px;border-radius:10px;">⚠</span>
+                <span style="opacity:0.8;">需关注</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 第二行：图表区域 -->
+          <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px;">
+            <!-- 入出库趋势图 -->
+            <div style="background:white;border-radius:16px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                <span style="font-size:16px;font-weight:600;color:#1F2937;">📊 入出库趋势</span>
+                <div style="display:flex;gap:12px;">
+                  <span style="display:flex;align-items:center;gap:4px;font-size:12px;color:#6B7280;"><span style="width:8px;height:8px;background:#4F46E5;border-radius:50%;"></span>入库</span>
+                  <span style="display:flex;align-items:center;gap:4px;font-size:12px;color:#6B7280;"><span style="width:8px;height:8px;background:#10B981;border-radius:50%;"></span>出库</span>
+                </div>
+              </div>
+              <div style="display:flex;align-items:flex-end;justify-content:space-between;height:120px;padding:0 8px;">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                  <div style="display:flex;gap:4px;align-items:flex-end;">
+                    <div style="width:24px;height:60px;background:#4F46E5;border-radius:4px 4px 0 0;opacity:0.3;"></div>
+                    <div style="width:24px;height:85px;background:#10B981;border-radius:4px 4px 0 0;"></div>
+                  </div>
+                  <span style="font-size:11px;color:#9CA3AF;">周一</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                  <div style="display:flex;gap:4px;align-items:flex-end;">
+                    <div style="width:24px;height:70px;background:#4F46E5;border-radius:4px 4px 0 0;opacity:0.3;"></div>
+                    <div style="width:24px;height:65px;background:#10B981;border-radius:4px 4px 0 0;"></div>
+                  </div>
+                  <span style="font-size:11px;color:#9CA3AF;">周二</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                  <div style="display:flex;gap:4px;align-items:flex-end;">
+                    <div style="width:24px;height:90px;background:#4F46E5;border-radius:4px 4px 0 0;opacity:0.3;"></div>
+                    <div style="width:24px;height:75px;background:#10B981;border-radius:4px 4px 0 0;"></div>
+                  </div>
+                  <span style="font-size:11px;color:#9CA3AF;">周三</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                  <div style="display:flex;gap:4px;align-items:flex-end;">
+                    <div style="width:24px;height:80px;background:#4F46E5;border-radius:4px 4px 0 0;opacity:0.3;"></div>
+                    <div style="width:24px;height:95px;background:#10B981;border-radius:4px 4px 0 0;"></div>
+                  </div>
+                  <span style="font-size:11px;color:#9CA3AF;">周四</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                  <div style="display:flex;gap:4px;align-items:flex-end;">
+                    <div style="width:24px;height:100px;background:#4F46E5;border-radius:4px 4px 0 0;opacity:0.3;"></div>
+                    <div style="width:24px;height:88px;background:#10B981;border-radius:4px 4px 0 0;"></div>
+                  </div>
+                  <span style="font-size:11px;color:#9CA3AF;">周五</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                  <div style="display:flex;gap:4px;align-items:flex-end;">
+                    <div style="width:24px;height:110px;background:#4F46E5;border-radius:4px 4px 0 0;opacity:0.3;"></div>
+                    <div style="width:24px;height:100px;background:#10B981;border-radius:4px 4px 0 0;"></div>
+                  </div>
+                  <span style="font-size:11px;color:#9CA3AF;">周六</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                  <div style="display:flex;gap:4px;align-items:flex-end;">
+                    <div style="width:24px;height:95px;background:#4F46E5;border-radius:4px 4px 0 0;"></div>
+                    <div style="width:24px;height:72px;background:#10B981;border-radius:4px 4px 0 0;"></div>
+                  </div>
+                  <span style="font-size:11px;color:#4F46E5;font-weight:500;">今日</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 库存分布饼图 -->
+            <div style="background:white;border-radius:16px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+              <div style="margin-bottom:20px;">
+                <span style="font-size:16px;font-weight:600;color:#1F2937;">📦 库存分布</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:16px;">
+                <div style="position:relative;width:100px;height:100px;">
+                  <svg viewBox="0 0 100 100" style="transform:rotate(-90deg);">
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#E5E7EB" stroke-width="12"/>
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#4F46E5" stroke-width="12" stroke-dasharray="100.53 251.33" style=""/>
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#10B981" stroke-width="12" stroke-dasharray="75.4 251.33" stroke-dashoffset="-100.53"/>
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#F59E0B" stroke-width="12" stroke-dasharray="50.27 251.33" stroke-dashoffset="-175.93"/>
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#EF4444" stroke-width="12" stroke-dasharray="25.13 251.33" stroke-dashoffset="-226.2"/>
+                  </svg>
+                </div>
+                <div style="flex:1;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:12px;">
+                    <span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;background:#4F46E5;border-radius:2px;"></span>生鲜果蔬</span>
+                    <span style="font-weight:600;">40%</span>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:12px;">
+                    <span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;background:#10B981;border-radius:2px;"></span>粮油调味</span>
+                    <span style="font-weight:600;">30%</span>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:12px;">
+                    <span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;background:#F59E0B;border-radius:2px;"></span>日用百货</span>
+                    <span style="font-weight:600;">20%</span>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;">
+                    <span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;background:#EF4444;border-radius:2px;"></span>其他</span>
+                    <span style="font-weight:600;">10%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 第三行：仓库状态和任务 -->
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px;">
+            <!-- 仓库作业状态 -->
+            <div style="background:white;border-radius:16px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                <span style="font-size:16px;font-weight:600;color:#1F2937;">🏭 仓库作业状态</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:#F9FAFB;border-radius:8px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="width:8px;height:8px;background:#10B981;border-radius:50%;"></span>
+                    <span style="font-size:13px;color:#374151;">北京仓</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div class="progress" style="width:60px;"><div class="progress-bar" style="width:78%"></div></div>
+                    <span style="font-size:12px;color:#6B7280;width:32px;">78%</span>
+                  </div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:#F9FAFB;border-radius:8px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="width:8px;height:8px;background:#10B981;border-radius:50%;"></span>
+                    <span style="font-size:13px;color:#374151;">上海仓</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div class="progress" style="width:60px;"><div class="progress-bar" style="width:65%"></div></div>
+                    <span style="font-size:12px;color:#6B7280;width:32px;">65%</span>
+                  </div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:#F9FAFB;border-radius:8px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="width:8px;height:8px;background:#F59E0B;border-radius:50%;"></span>
+                    <span style="font-size:13px;color:#374151;">广州仓</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div class="progress" style="width:60px;"><div class="progress-bar" style="width:52%"></div></div>
+                    <span style="font-size:12px;color:#6B7280;width:32px;">52%</span>
+                  </div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:#F9FAFB;border-radius:8px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="width:8px;height:8px;background:#10B981;border-radius:50%;"></span>
+                    <span style="font-size:13px;color:#374151;">成都仓</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div class="progress" style="width:60px;"><div class="progress-bar" style="width:88%"></div></div>
+                    <span style="font-size:12px;color:#6B7280;width:32px;">88%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 今日任务 -->
+            <div style="background:white;border-radius:16px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                <span style="font-size:16px;font-weight:600;color:#1F2937;">📋 今日任务</span>
+                <span style="font-size:12px;color:#4F46E5;cursor:pointer;">查看全部</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#FEF3C7;border-radius:8px;border-left:3px solid #F59E0B;">
+                  <span style="font-size:18px;">⏰</span>
+                  <div style="flex:1;">
+                    <div style="font-size:13px;font-weight:500;color:#92400E;">采购入库待处理</div>
+                    <div style="font-size:11px;color:#B45309;">28 单待确认</div>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#DBEAFE;border-radius:8px;border-left:3px solid #2563EB;">
+                  <span style="font-size:18px;">🚚</span>
+                  <div style="flex:1;">
+                    <div style="font-size:13px;font-weight:500;color:#1E40AF;">配送发货进行中</div>
+                    <div style="font-size:11px;color:#3B82F6;">86 单配送中</div>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#FEE2E2;border-radius:8px;border-left:3px solid #EF4444;">
+                  <span style="font-size:18px;">⚠️</span>
+                  <div style="flex:1;">
+                    <div style="font-size:13px;font-weight:500;color:#991B1B;">库存预警</div>
+                    <div style="font-size:11px;color:#DC2626;">32 商品不足</div>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#DCFCE7;border-radius:8px;border-left:3px solid #10B981;">
+                  <span style="font-size:18px;">✅</span>
+                  <div style="flex:1;">
+                    <div style="font-size:13px;font-weight:500;color:#166534;">已完成</div>
+                    <div style="font-size:11px;color:#16A34A;">今日 328 单已完成</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 库存预警 -->
+            <div style="background:white;border-radius:16px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                <span style="font-size:16px;font-weight:600;color:#1F2937;">🚨 库存预警</span>
+                <span style="font-size:12px;color:#EF4444;cursor:pointer;">立即处理</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#FEE2E2;border-radius:8px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:16px;">🥚</span>
+                    <span style="font-size:13px;color:#374151;">土鸡蛋</span>
+                  </div>
+                  <div style="text-align:right;">
+                    <div style="font-size:12px;color:#EF4444;font-weight:600;">128</div>
+                    <div style="font-size:10px;color:#6B7280;">仅够1天</div>
+                  </div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#FEF3C7;border-radius:8px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:16px;">🍎</span>
+                    <span style="font-size:13px;color:#374151;">新鲜有机苹果</span>
+                  </div>
+                  <div style="text-align:right;">
+                    <div style="font-size:12px;color:#F59E0B;font-weight:600;">256</div>
+                    <div style="font-size:10px;color:#6B7280;">仅够2天</div>
+                  </div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#FEF3C7;border-radius:8px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:16px;">🥛</span>
+                    <span style="font-size:13px;color:#374151;">伊利纯牛奶</span>
+                  </div>
+                  <div style="text-align:right;">
+                    <div style="font-size:12px;color:#F59E0B;font-weight:600;">320</div>
+                    <div style="font-size:10px;color:#6B7280;">仅够3天</div>
+                  </div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#F3F4F6;border-radius:8px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:16px;">🛢️</span>
+                    <span style="font-size:13px;color:#374151;">金龙鱼花生油</span>
+                  </div>
+                  <div style="text-align:right;">
+                    <div style="font-size:12px;color:#6B7280;font-weight:600;">89</div>
+                    <div style="font-size:10px;color:#6B7280;">仅够5天</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 第四行：最新动态 -->
+          <div style="background:white;border-radius:16px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+              <span style="font-size:16px;font-weight:600;color:#1F2937;">📊 最新入库单</span>
+              <button class="btn btn-outline btn-sm">查看全部</button>
+            </div>
+            <table>
+              <thead><tr><th style="text-align:left;padding:10px 12px;font-size:12px;color:#6B7280;font-weight:500;">单据编号</th><th style="text-align:left;padding:10px 12px;font-size:12px;color:#6B7280;font-weight:500;">供应商</th><th style="text-align:left;padding:10px 12px;font-size:12px;color:#6B7280;font-weight:500;">商品数量</th><th style="text-align:left;padding:10px 12px;font-size:12px;color:#6B7280;font-weight:500;">入库时间</th><th style="text-align:left;padding:10px 12px;font-size:12px;color:#6B7280;font-weight:500;">操作员</th><th style="text-align:left;padding:10px 12px;font-size:12px;color:#6B7280;font-weight:500;">状态</th><th style="text-align:left;padding:10px 12px;font-size:12px;color:#6B7280;font-weight:500;">操作</th></tr></thead>
+              <tbody>
+                <tr style="border-bottom:1px solid #F3F4F6;">
+                  <td style="padding:12px;font-size:13px;font-weight:500;color:#4F46E5;font-family:monospace;">RK-2026-0410-001</td>
+                  <td style="padding:12px;font-size:13px;color:#374151;">优鲜供应链有限公司</td>
+                  <td style="padding:12px;font-size:13px;color:#374151;">320 件</td>
+                  <td style="padding:12px;font-size:13px;color:#6B7280;">2026-04-10 09:30</td>
+                  <td style="padding:12px;font-size:13px;color:#374151;">张伟</td>
+                  <td style="padding:12px;"><span class="tag" style="background:#DCFCE7;color:#16A34A;">已完成</span></td>
+                  <td style="padding:12px;"><button class="btn btn-outline btn-sm">详情</button></td>
+                </tr>
+                <tr style="border-bottom:1px solid #F3F4F6;">
+                  <td style="padding:12px;font-size:13px;font-weight:500;color:#4F46E5;font-family:monospace;">RK-2026-0410-002</td>
+                  <td style="padding:12px;font-size:13px;color:#374151;">源生食品贸易商行</td>
+                  <td style="padding:12px;font-size:13px;color:#374151;">156 件</td>
+                  <td style="padding:12px;font-size:13px;color:#6B7280;">2026-04-10 08:45</td>
+                  <td style="padding:12px;font-size:13px;color:#374151;">李娜</td>
+                  <td style="padding:12px;"><span class="tag" style="background:#DBEAFE;color:#2563EB;">检验中</span></td>
+                  <td style="padding:12px;"><button class="btn btn-outline btn-sm">详情</button></td>
+                </tr>
+                <tr style="border-bottom:1px solid #F3F4F6;">
+                  <td style="padding:12px;font-size:13px;font-weight:500;color:#4F46E5;font-family:monospace;">RK-2026-0410-003</td>
+                  <td style="padding:12px;font-size:13px;color:#374151;">鲜达冷链配送中心</td>
+                  <td style="padding:12px;font-size:13px;color:#374151;">428 件</td>
+                  <td style="padding:12px;font-size:13px;color:#6B7280;">2026-04-10 08:00</td>
+                  <td style="padding:12px;font-size:13px;color:#374151;">王强</td>
+                  <td style="padding:12px;"><span class="tag" style="background:#FEF3C7;color:#D97706;">入库中</span></td>
+                  <td style="padding:12px;"><button class="btn btn-outline btn-sm">详情</button></td>
+                </tr>
+                <tr>
+                  <td style="padding:12px;font-size:13px;font-weight:500;color:#4F46E5;font-family:monospace;">RK-2026-0409-056</td>
+                  <td style="padding:12px;font-size:13px;color:#374151;">康源食品批发</td>
+                  <td style="12px;font-size:13px;color:#374151;">256 件</td>
+                  <td style="padding:12px;font-size:13px;color:#6B7280;">2026-04-09 16:30</td>
+                  <td style="padding:12px;font-size:13px;color:#374151;">赵鹏</td>
+                  <td style="padding:12px;"><span class="tag" style="background:#DCFCE7;color:#16A34A;">已完成</span></td>
+                  <td style="padding:12px;"><button class="btn btn-outline btn-sm">详情</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>

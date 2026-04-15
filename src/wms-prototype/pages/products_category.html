@@ -1,0 +1,231 @@
+      <div id="page-products_category" class="page">
+        <header class="header">
+          <div class="header-left">
+            <h2>商品分类管理</h2>
+            <div class="breadcrumb"><span>首页</span><span>/</span><span>基础档案</span><span>/</span><span>商品分类管理</span></div>
+          </div>
+          <div class="header-right">
+            <button class="btn btn-outline btn-sm">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              导出
+            </button>
+            <button class="btn btn-primary btn-sm">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+              新增分类
+            </button>
+          </div>
+        </header>
+        <div class="content">
+          <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;">
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">商品类目</span></div>
+              <div class="stat-card-value">28</div>
+              <div class="stat-card-change">3级分类</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">商品数量</span></div>
+              <div class="stat-card-value">1,568</div>
+              <div class="stat-card-change">在售</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">待上架</span></div>
+              <div class="stat-card-value" style="color:#F59E0B;">86</div>
+              <div class="stat-card-change">审核中</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">分类覆盖率</span></div>
+              <div class="stat-card-value" style="color:#10B981;">100%</div>
+              <div class="stat-card-change up">完整</div>
+            </div>
+          </div>
+          
+          <div style="display:grid;grid-template-columns:1fr 2fr;gap:16px;">
+            <!-- 左侧：分类树 -->
+            <div class="table-card">
+              <div class="table-header"><span class="table-title">🏷️ 商品分类树</span></div>
+              <div style="padding:12px;">
+                <div class="category-tree" style="font-size:14px;">
+                  <div style="padding:10px 12px;background:#EEF2FF;border-radius:6px;margin-bottom:6px;cursor:pointer;font-weight:600;color:#4F46E5;">
+                    <span>📁 全部分类</span>
+                  </div>
+                  <div style="padding:8px 12px;background:#F0FDF4;border-radius:6px;margin-bottom:4px;cursor:pointer;border-left:3px solid #16A34A;">
+                    <span style="font-weight:500;color:#166534;">🥬 生鲜果蔬</span>
+                    <span style="margin-left:8px;font-size:12px;color:#6B7280;">456品</span>
+                  </div>
+                  <div style="padding:6px 12px;padding-left:28px;margin-bottom:2px;cursor:pointer;color:#374151;">
+                    <span>├ 🥭 热带水果</span>
+                    <span style="margin-left:6px;font-size:11px;color:#6B7280;">128品</span>
+                  </div>
+                  <div style="padding:6px 12px;padding-left:28px;margin-bottom:2px;cursor:pointer;color:#374151;">
+                    <span>├ 🥬 叶菜类</span>
+                    <span style="margin-left:6px;font-size:11px;color:#6B7280;">86品</span>
+                  </div>
+                  <div style="padding:6px 12px;padding-left:28px;margin-bottom:2px;cursor:pointer;color:#374151;">
+                    <span>├ 🍅 茄果类</span>
+                    <span style="margin-left:6px;font-size:11px;color:#6B7280;">95品</span>
+                  </div>
+                  <div style="padding:6px 12px;padding-left:28px;margin-bottom:4px;cursor:pointer;color:#374151;">
+                    <span>└ 🧄 根茎类</span>
+                    <span style="margin-left:6px;font-size:11px;color:#6B7280;">147品</span>
+                  </div>
+                  <div style="padding:8px 12px;background:#FEF3C7;border-radius:6px;margin-bottom:4px;cursor:pointer;border-left:3px solid #D97706;">
+                    <span style="font-weight:500;color:#92400E;">🍶 粮油调味</span>
+                    <span style="margin-left:8px;font-size:12px;color:#6B7280;">328品</span>
+                  </div>
+                  <div style="padding:6px 12px;padding-left:28px;margin-bottom:2px;cursor:pointer;color:#374151;">
+                    <span>├ 🫘 食用油</span>
+                    <span style="margin-left:6px;font-size:11px;color:#6B7280;">56品</span>
+                  </div>
+                  <div style="padding:6px 12px;padding-left:28px;margin-bottom:2px;cursor:pointer;color:#374151;">
+                    <span>├ 🧂 调味品</span>
+                    <span style="margin-left:6px;font-size:11px;color:#6B7280;">124品</span>
+                  </div>
+                  <div style="padding:6px 12px;padding-left:28px;margin-bottom:4px;cursor:pointer;color:#374151;">
+                    <span>└ 🍚 粮米面</span>
+                    <span style="margin-left:6px;font-size:11px;color:#6B7280;">148品</span>
+                  </div>
+                  <div style="padding:8px 12px;background:#DBEAFE;border-radius:6px;margin-bottom:4px;cursor:pointer;border-left:3px solid #2563EB;">
+                    <span style="font-weight:500;color:#1E40AF;">🧴 日用百货</span>
+                    <span style="margin-left:8px;font-size:12px;color:#6B7280;">412品</span>
+                  </div>
+                  <div style="padding:6px 12px;padding-left:28px;margin-bottom:2px;cursor:pointer;color:#374151;">
+                    <span>├ 🧼 清洁用品</span>
+                    <span style="margin-left:6px;font-size:11px;color:#6B7280;">186品</span>
+                  </div>
+                  <div style="padding:6px 12px;padding-left:28px;margin-bottom:4px;cursor:pointer;color:#374151;">
+                    <span>└ 🧴 个人护理</span>
+                    <span style="margin-left:6px;font-size:11px;color:#6B7280;">226品</span>
+                  </div>
+                  <div style="padding:8px 12px;background:#FEE2E2;border-radius:6px;margin-bottom:4px;cursor:pointer;border-left:3px solid #DC2626;">
+                    <span style="font-weight:500;color:#991B1B;">🍷 酒水饮料</span>
+                    <span style="margin-left:8px;font-size:12px;color:#6B7280;">372品</span>
+                  </div>
+                  <div style="padding:6px 12px;padding-left:28px;margin-bottom:2px;cursor:pointer;color:#374151;">
+                    <span>├ 🍺 啤酒</span>
+                    <span style="margin-left:6px;font-size:11px;color:#6B7280;">98品</span>
+                  </div>
+                  <div style="padding:6px 12px;padding-left:28px;margin-bottom:2px;cursor:pointer;color:#374151;">
+                    <span>├ 🍷 葡萄酒</span>
+                    <span style="margin-left:6px;font-size:11px;color:#6B7280;">156品</span>
+                  </div>
+                  <div style="padding:6px 12px;padding-left:28px;margin-bottom:4px;cursor:pointer;color:#374151;">
+                    <span>└ 🥤 软饮</span>
+                    <span style="margin-left:6px;font-size:11px;color:#6B7280;">118品</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 右侧：分类详情 -->
+            <div>
+              <div class="table-card" style="margin-bottom:16px;">
+                <div class="table-filters">
+                  <div class="filter-group">
+                    <label class="filter-label">分类名称</label>
+                    <input type="text" class="filter-input" placeholder="搜索分类名称...">
+                  </div>
+                  <div class="filter-group">
+                    <label class="filter-label">上级分类</label>
+                    <select class="filter-select">
+                      <option>全部</option>
+                      <option>生鲜果蔬</option>
+                      <option>粮油调味</option>
+                      <option>日用百货</option>
+                      <option>酒水饮料</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="table-card">
+                <div class="table-header"><span class="table-title">📋 分类列表</span></div>
+                <table>
+                  <thead><tr><th>分类编码</th><th>分类名称</th><th>上级分类</th><th>层级</th><th>商品数</th><th>排序</th><th>状态</th><th>操作</th></tr></thead>
+                  <tbody>
+                    <tr style="background:#F0FDF4;">
+                      <td><span style="font-family:monospace;font-size:11px;">CAT_001</span></td>
+                      <td><span style="font-weight:600;color:#166534;">🥬 生鲜果蔬</span></td>
+                      <td><span style="color:#9CA3AF;">—</span></td>
+                      <td><span class="tag" style="background:#16A34A;color:white;">一级</span></td>
+                      <td><span style="font-weight:500;">456</span></td>
+                      <td>1</td>
+                      <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">启用</span></td>
+                      <td><button class="btn btn-outline btn-sm">编辑</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">子分类</button></td>
+                    </tr>
+                    <tr>
+                      <td><span style="font-family:monospace;font-size:11px;">CAT_00101</span></td>
+                      <td><span style="padding-left:24px;color:#374151;">├ 🥭 热带水果</span></td>
+                      <td>生鲜果蔬</td>
+                      <td><span class="tag" style="background:#22C55E;color:white;">二级</span></td>
+                      <td>128</td>
+                      <td>1</td>
+                      <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">启用</span></td>
+                      <td><button class="btn btn-outline btn-sm">编辑</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">子分类</button></td>
+                    </tr>
+                    <tr>
+                      <td><span style="font-family:monospace;font-size:11px;">CAT_00102</span></td>
+                      <td><span style="padding-left:24px;color:#374151;">├ 🥬 叶菜类</span></td>
+                      <td>生鲜果蔬</td>
+                      <td><span class="tag" style="background:#22C55E;color:white;">二级</span></td>
+                      <td>86</td>
+                      <td>2</td>
+                      <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">启用</span></td>
+                      <td><button class="btn btn-outline btn-sm">编辑</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">子分类</button></td>
+                    </tr>
+                    <tr>
+                      <td><span style="font-family:monospace;font-size:11px;">CAT_00103</span></td>
+                      <td><span style="padding-left:24px;color:#374151;">├ 🍅 茄果类</span></td>
+                      <td>生鲜果蔬</td>
+                      <td><span class="tag" style="background:#22C55E;color:white;">二级</span></td>
+                      <td>95</td>
+                      <td>3</td>
+                      <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">启用</span></td>
+                      <td><button class="btn btn-outline btn-sm">编辑</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">子分类</button></td>
+                    </tr>
+                    <tr>
+                      <td><span style="font-family:monospace;font-size:11px;">CAT_00104</span></td>
+                      <td><span style="padding-left:24px;color:#374151;">└ 🧄 根茎类</span></td>
+                      <td>生鲜果蔬</td>
+                      <td><span class="tag" style="background:#22C55E;color:white;">二级</span></td>
+                      <td>147</td>
+                      <td>4</td>
+                      <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">启用</span></td>
+                      <td><button class="btn btn-outline btn-sm">编辑</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">子分类</button></td>
+                    </tr>
+                    <tr style="background:#FEF3C7;">
+                      <td><span style="font-family:monospace;font-size:11px;">CAT_002</span></td>
+                      <td><span style="font-weight:600;color:#92400E;">🍶 粮油调味</span></td>
+                      <td><span style="color:#9CA3AF;">—</span></td>
+                      <td><span class="tag" style="background:#D97706;color:white;">一级</span></td>
+                      <td><span style="font-weight:500;">328</span></td>
+                      <td>2</td>
+                      <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">启用</span></td>
+                      <td><button class="btn btn-outline btn-sm">编辑</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">子分类</button></td>
+                    </tr>
+                    <tr style="background:#DBEAFE;">
+                      <td><span style="font-family:monospace;font-size:11px;">CAT_003</span></td>
+                      <td><span style="font-weight:600;color:#1E40AF;">🧴 日用百货</span></td>
+                      <td><span style="color:#9CA3AF;">—</span></td>
+                      <td><span class="tag" style="background:#2563EB;color:white;">一级</span></td>
+                      <td><span style="font-weight:500;">412</span></td>
+                      <td>3</td>
+                      <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">启用</span></td>
+                      <td><button class="btn btn-outline btn-sm">编辑</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">子分类</button></td>
+                    </tr>
+                    <tr style="background:#FEE2E2;">
+                      <td><span style="font-family:monospace;font-size:11px;">CAT_004</span></td>
+                      <td><span style="font-weight:600;color:#991B1B;">🍷 酒水饮料</span></td>
+                      <td><span style="color:#9CA3AF;">—</span></td>
+                      <td><span class="tag" style="background:#DC2626;color:white;">一级</span></td>
+                      <td><span style="font-weight:500;">372</span></td>
+                      <td>4</td>
+                      <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">启用</span></td>
+                      <td><button class="btn btn-outline btn-sm">编辑</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">子分类</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

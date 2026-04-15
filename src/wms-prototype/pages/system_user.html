@@ -1,0 +1,266 @@
+      <div id="page-system_user" class="page">
+        <header class="header">
+          <div class="header-left">
+            <h2>用户管理</h2>
+            <div class="breadcrumb"><span>首页</span><span>/</span><span>系统管理</span><span>/</span><span>用户管理</span></div>
+          </div>
+          <div class="header-right">
+            <button class="btn btn-outline btn-sm">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              导出
+            </button>
+            <button class="btn btn-primary btn-sm">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+              新增用户
+            </button>
+          </div>
+        </header>
+        <div class="content">
+          <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;">
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">用户总数</span></div>
+              <div class="stat-card-value">256</div>
+              <div class="stat-card-change">在职</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">管理员</span></div>
+              <div class="stat-card-value" style="color:#4F46E5;">8</div>
+              <div class="stat-card-change">超级权限</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">在线用户</span></div>
+              <div class="stat-card-value" style="color:#10B981;">42</div>
+              <div class="stat-card-change">当前在线</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">待审核</span></div>
+              <div class="stat-card-value" style="color:#F59E0B;">5</div>
+              <div class="stat-card-change">待审批</div>
+            </div>
+          </div>
+          
+          <div class="tabs" style="margin-bottom:24px;display:flex;gap:8px;">
+            <button class="tab active" onclick="switchUserTab('all')" style="border:none;background:#EEF2FF;padding:10px 20px;font-size:14px;font-weight:500;color:#4F46E5;border-radius:8px;cursor:pointer;">全部用户</button>
+            <button class="tab" onclick="switchUserTab('admin')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">管理员</button>
+            <button class="tab" onclick="switchUserTab('warehouse')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">仓库用户</button>
+            <button class="tab" onclick="switchUserTab('pending')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">待审核 (5)</button>
+          </div>
+          
+          <div id="user-all" class="user-tab">
+            <div class="table-card">
+              <div class="table-filters">
+                <div class="filter-group">
+                  <label class="filter-label">用户名/姓名</label>
+                  <input type="text" class="filter-input" placeholder="搜索用户...">
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">所属组织</label>
+                  <select class="filter-select">
+                    <option>全部</option>
+                    <option>北京仓</option>
+                    <option>上海仓</option>
+                    <option>广州仓</option>
+                    <option>成都仓</option>
+                    <option>总部职能部门</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">用户角色</label>
+                  <select class="filter-select">
+                    <option>全部</option>
+                    <option>超级管理员</option>
+                    <option>仓库管理员</option>
+                    <option>作业员</option>
+                    <option>财务</option>
+                    <option>审核员</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">状态</label>
+                  <select class="filter-select">
+                    <option>全部</option>
+                    <option>正常</option>
+                    <option>禁用</option>
+                    <option>待审核</option>
+                  </select>
+                </div>
+              </div>
+              <table>
+                <thead><tr><th>用户ID</th><th>用户名</th><th>姓名</th><th>手机号</th><th>所属组织</th><th>岗位</th><th>角色</th><th>最后登录</th><th>状态</th><th>操作</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">USR_001</span></td>
+                    <td><span style="font-weight:500;">admin</span></td>
+                    <td>张三</td>
+                    <td><span style="font-family:monospace;">138-0000-0001</span></td>
+                    <td>总部职能部门</td>
+                    <td>系统管理员</td>
+                    <td><span class="tag" style="background:#4F46E5;color:white;">超级管理员</span></td>
+                    <td><span style="color:#10B981;">2026-04-10 14:35</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">正常</span></td>
+                    <td><button class="btn btn-outline btn-sm">编辑</button><button class="btn btn-outline btn-sm" style="margin-left:4px;color:#6B7280;">禁用</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">USR_002</span></td>
+                    <td><span style="font-weight:500;">li_si</span></td>
+                    <td>李四</td>
+                    <td><span style="font-family:monospace;">138-0000-0002</span></td>
+                    <td>📍 北京仓</td>
+                    <td>仓库主管</td>
+                    <td><span class="tag" style="background:#16A34A;color:white;">仓库管理员</span></td>
+                    <td><span style="color:#10B981;">2026-04-10 14:20</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">正常</span></td>
+                    <td><button class="btn btn-outline btn-sm">编辑</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">禁用</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">USR_003</span></td>
+                    <td><span style="font-weight:500;">wang_wu</span></td>
+                    <td>王五</td>
+                    <td><span style="font-family:monospace;">138-0000-0003</span></td>
+                    <td>📍 上海仓</td>
+                    <td>仓库主管</td>
+                    <td><span class="tag" style="background:#16A34A;color:white;">仓库管理员</span></td>
+                    <td><span style="color:#10B981;">2026-04-10 13:45</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">正常</span></td>
+                    <td><button class="btn btn-outline btn-sm">编辑</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">禁用</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">USR_004</span></td>
+                    <td><span style="font-weight:500;">zhang_wei</span></td>
+                    <td>张伟</td>
+                    <td><span style="font-family:monospace;">138-0000-0004</span></td>
+                    <td>📍 北京仓</td>
+                    <td>拣货员</td>
+                    <td><span class="tag" style="background:#6366F1;color:white;">作业员</span></td>
+                    <td><span style="color:#10B981;">2026-04-10 14:30</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">正常</span></td>
+                    <td><button class="btn btn-outline btn-sm">编辑</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">禁用</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">USR_005</span></td>
+                    <td><span style="font-weight:500;">li_na</span></td>
+                    <td>李娜</td>
+                    <td><span style="font-family:monospace;">138-0000-0005</span></td>
+                    <td>📍 北京仓</td>
+                    <td>分拣员</td>
+                    <td><span class="tag" style="background:#6366F1;color:white;">作业员</span></td>
+                    <td><span style="color:#10B981;">2026-04-10 14:25</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">正常</span></td>
+                    <td><button class="btn btn-outline btn-sm">编辑</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">禁用</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">USR_006</span></td>
+                    <td><span style="font-weight:500;">wang_qiang</span></td>
+                    <td>王强</td>
+                    <td><span style="font-family:monospace;">138-0000-0006</span></td>
+                    <td>📍 北京仓</td>
+                    <td>上架员</td>
+                    <td><span class="tag" style="background:#6366F1;color:white;">作业员</span></td>
+                    <td><span style="color:#10B981;">2026-04-10 14:15</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">正常</span></td>
+                    <td><button class="btn btn-outline btn-sm">编辑</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">禁用</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">USR_007</span></td>
+                    <td><span style="font-weight:500;">zhao_peng</span></td>
+                    <td>赵鹏</td>
+                    <td><span style="font-family:monospace;">138-0000-0007</span></td>
+                    <td>📍 广州仓</td>
+                    <td>拣货员</td>
+                    <td><span class="tag" style="background:#6366F1;color:white;">作业员</span></td>
+                    <td><span style="color:#6B7280;">2026-04-10 12:30</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">正常</span></td>
+                    <td><button class="btn btn-outline btn-sm">编辑</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">禁用</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">USR_008</span></td>
+                    <td><span style="font-weight:500;">qian_qi</span></td>
+                    <td>钱七</td>
+                    <td><span style="font-family:monospace;">138-0000-0008</span></td>
+                    <td>📍 上海仓</td>
+                    <td>分拣员</td>
+                    <td><span class="tag" style="background:#6366F1;color:white;">作业员</span></td>
+                    <td><span style="color:#6B7280;">2026-04-10 11:45</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">正常</span></td>
+                    <td><button class="btn btn-outline btn-sm">编辑</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">禁用</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">USR_009</span></td>
+                    <td><span style="font-weight:500;">sun_bai</span></td>
+                    <td>孙白</td>
+                    <td><span style="font-family:monospace;">138-0000-0009</span></td>
+                    <td>总部职能部门</td>
+                    <td>财务经理</td>
+                    <td><span class="tag" style="background:#F59E0B;color:white;">财务</span></td>
+                    <td><span style="color:#10B981;">2026-04-10 14:00</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">正常</span></td>
+                    <td><button class="btn btn-outline btn-sm">编辑</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">禁用</button></td>
+                  </tr>
+                  <tr style="background:#F3F4F6;opacity:0.7;">
+                    <td><span style="font-family:monospace;font-size:11px;">USR_010</span></td>
+                    <td><span style="font-weight:500;color:#6B7280;">zhou_liu</span></td>
+                    <td style="color:#6B7280;">周陆</td>
+                    <td><span style="font-family:monospace;color:#9CA3AF;">—</span></td>
+                    <td>📍 成都仓</td>
+                    <td>—</td>
+                    <td><span class="tag" style="background:#6B7280;color:white;">待审核</span></td>
+                    <td><span style="color:#9CA3AF;">—</span></td>
+                    <td><span class="tag" style="background:#FEF3C7;color:#D97706;">待审核</span></td>
+                    <td><button class="btn btn-primary btn-sm">通过</button><button class="btn btn-outline btn-sm" style="margin-left:4px;color:#EF4444;">拒绝</button></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="pagination">
+                <div class="pagination-info">显示 1-10 条，共 256 条</div>
+                <div class="pagination-buttons">
+                  <button class="pagination-btn" disabled>‹</button>
+                  <button class="pagination-btn active">1</button>
+                  <button class="pagination-btn">2</button>
+                  <button class="pagination-btn">3</button>
+                  <button class="pagination-btn">...</button>
+                  <button class="pagination-btn">›</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="user-admin" class="user-tab" style="display:none;">
+            <div class="table-card">
+              <div class="table-header"><span class="table-title">🔐 管理员用户</span></div>
+              <table>
+                <thead><tr><th>用户ID</th><th>用户名</th><th>姓名</th><th>手机号</th><th>角色</th><th>最后登录</th><th>操作</th></tr></thead>
+                <tbody>
+                  <tr><td><span style="font-family:monospace;">USR_001</span></td><td>admin</td><td>张三</td><td>138-0000-0001</td><td><span class="tag" style="background:#4F46E5;color:white;">超级管理员</span></td><td>2026-04-10 14:35</td><td><button class="btn btn-outline btn-sm">编辑</button></td></tr>
+                  <tr><td><span style="font-family:monospace;">USR_002</span></td><td>li_si</td><td>李四</td><td>138-0000-0002</td><td><span class="tag" style="background:#16A34A;color:white;">仓库管理员</span></td><td>2026-04-10 14:20</td><td><button class="btn btn-outline btn-sm">编辑</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div id="user-pending" class="user-tab" style="display:none;">
+            <div class="table-card">
+              <div class="table-header"><span class="table-title" style="color:#F59E0B;">⏰ 待审核用户</span></div>
+              <table>
+                <thead><tr><th>用户ID</th><th>用户名</th><th>姓名</th><th>手机号</th><th>申请岗位</th><th>申请时间</th><th>操作</th></tr></thead>
+                <tbody>
+                  <tr style="background:#FEF3C7;"><td><span style="font-family:monospace;">USR_010</span></td><td>zhou_liu</td><td>周陆</td><td>139-0000-0010</td><td>作业员</td><td>2026-04-10 10:30</td><td><button class="btn btn-primary btn-sm">通过</button><button class="btn btn-outline btn-sm" style="margin-left:4px;color:#EF4444;">拒绝</button></td></tr>
+                  <tr style="background:#FEF3C7;"><td><span style="font-family:monospace;">USR_011</span></td><td>wu_liu</td><td>吴柳</td><td>139-0000-0011</td><td>作业员</td><td>2026-04-10 09:15</td><td><button class="btn btn-primary btn-sm">通过</button><button class="btn btn-outline btn-sm" style="margin-left:4px;color:#EF4444;">拒绝</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+      function switchUserTab(tabName) {
+        document.querySelectorAll('.user-tab').forEach(tab => tab.style.display = 'none');
+        document.getElementById('user-' + tabName).style.display = 'block';
+        const tabs = document.querySelectorAll('.content > .tabs > .tab');
+        tabs.forEach(t => {
+          t.style.background = '#F3F4F6';
+          t.style.color = '#6B7280';
+        });
+        event.target.style.background = '#EEF2FF';
+        event.target.style.color = '#4F46E5';
+      }
+      </script>

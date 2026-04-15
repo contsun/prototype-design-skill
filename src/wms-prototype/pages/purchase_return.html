@@ -1,0 +1,422 @@
+<div id="page-purchase_return" class="page">
+        <header class="header">
+          <div class="header-left">
+            <h2>采购退货管理</h2>
+            <div class="breadcrumb"><span>首页</span><span>/</span><span>单据中心</span><span>/</span><span>采购退货出库台账</span></div>
+          </div>
+          <div class="header-right">
+            <button class="btn btn-outline btn-sm" onclick="exportReturnList()">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              批量导出
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="openBatchConfirmReturn()">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              批量退运出库确认
+            </button>
+          </div>
+        </header>
+        <div class="content">
+          <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;">
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">待退货</span></div>
+              <div class="stat-card-value" style="color:#F59E0B;">8</div>
+              <div class="stat-card-change warning">需处理</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">退货中</span></div>
+              <div class="stat-card-value" style="color:#4F46E5;">5</div>
+              <div class="stat-card-change">运输中</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">已完成</span></div>
+              <div class="stat-card-value" style="color:#10B981;">126</div>
+              <div class="stat-card-change up">本月</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">退货金额</span></div>
+              <div class="stat-card-value">¥ 856,420</div>
+              <div class="stat-card-change">本月累计</div>
+            </div>
+          </div>
+          
+          <div class="table-card">
+            <div class="table-filters">
+              <div class="filter-group">
+                <label class="filter-label">退货单号/采购单号</label>
+                <input type="text" class="filter-input" placeholder="输入单号搜索" style="width:160px;">
+              </div>
+              <div class="filter-group">
+                <label class="filter-label">供应商</label>
+                <select class="filter-select">
+                  <option>全部供应商</option>
+                  <option>优鲜供应链有限公司</option>
+                  <option>源生食品贸易商行</option>
+                  <option>鲜达冷链配送中心</option>
+                  <option>康源食品批发</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label class="filter-label">SKU编码/商品名称</label>
+                <input type="text" class="filter-input" placeholder="输入SKU或商品名称" style="width:160px;">
+              </div>
+              <div class="filter-group">
+                <label class="filter-label">退货原因</label>
+                <select class="filter-select">
+                  <option>全部原因</option>
+                  <option>质量不合格</option>
+                  <option>效期不合格</option>
+                  <option>数量超额</option>
+                  <option>包装破损</option>
+                  <option>其他</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label class="filter-label">状态</label>
+                <select class="filter-select">
+                  <option>全部</option>
+                  <option>待退</option>
+                  <option>退货中</option>
+                  <option>已完成</option>
+                  <option>已取消</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label class="filter-label">时间范围</label>
+                <input type="date" class="filter-input" value="2026-04-01" style="width:140px;"> ~
+                <input type="date" class="filter-input" value="2026-04-13" style="width:140px;">
+              </div>
+              <div class="filter-group" style="margin-left:auto;display:flex;gap:8px;">
+                <button class="btn btn-primary btn-sm" onclick="searchReturnList()">查询</button>
+                <button class="btn btn-outline btn-sm" onclick="resetReturnList()">重置</button>
+              </div>
+            </div>
+            <table>
+              <thead><tr><th><input type="checkbox" onclick="toggleAllReturn(this)"></th><th>退货单号</th><th>关联采购单号</th><th>关联入库批次</th><th>供应商</th><th>品项数</th><th>应退件数</th><th>实退件数</th><th>退货原因</th><th>退货金额</th><th>状态</th><th>操作人</th><th>创建时间</th><th>操作</th></tr></thead>
+              <tbody id="return-table-body">
+                <tr data-id="TH-2026-0410-001">
+                  <td><input type="checkbox" class="return-checkbox"></td>
+                  <td><span style="font-family:monospace;font-weight:500;color:#4F46E5;">TH-2026-0410-001</span></td>
+                  <td><span style="font-family:monospace;">CG-2026-0405-012</span></td>
+                  <td><span style="font-family:monospace;">RK-2026-0405-025</span></td>
+                  <td><span style="font-weight:500;">优鲜供应链有限公司</span></td>
+                  <td>8 件</td>
+                  <td>120 件</td>
+                  <td><span style="color:#6B7280;">-</span></td>
+                  <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">质量不合格</span></td>
+                  <td><span style="font-weight:600;">¥ 14,400</span></td>
+                  <td><span class="tag" style="background:#FEF3C7;color:#D97706;">待退</span></td>
+                  <td>李娜</td>
+                  <td>2026-04-10 09:30</td>
+                  <td><button class="btn btn-outline btn-sm" onclick="showReturnDetail('TH-2026-0410-001')">详情</button><button class="btn btn-primary btn-sm" style="margin-left:4px;" onclick="confirmReturnOutbound('TH-2026-0410-001')">确认出库</button></td>
+                </tr>
+                <tr data-id="TH-2026-0410-002">
+                  <td><input type="checkbox" class="return-checkbox"></td>
+                  <td><span style="font-family:monospace;font-weight:500;color:#4F46E5;">TH-2026-0410-002</span></td>
+                  <td><span style="font-family:monospace;">CG-2026-0408-018</span></td>
+                  <td><span style="font-family:monospace;">RK-2026-0408-032</span></td>
+                  <td><span style="font-weight:500;">源生食品贸易商行</span></td>
+                  <td>5 件</td>
+                  <td>80 件</td>
+                  <td>45 件</td>
+                  <td><span class="tag" style="background:#FEF3C7;color:#D97706;">效期不合格</span></td>
+                  <td><span style="font-weight:600;">¥ 8,100</span></td>
+                  <td><span class="tag" style="background:#DBEAFE;color:#2563EB;">退货中</span></td>
+                  <td>王强</td>
+                  <td>2026-04-10 14:20</td>
+                  <td><button class="btn btn-outline btn-sm" onclick="showReturnDetail('TH-2026-0410-002')">详情</button><button class="btn btn-outline btn-sm" style="margin-left:4px;" onclick="trackReturn('TH-2026-0410-002')">追踪</button></td>
+                </tr>
+                <tr data-id="TH-2026-0409-018">
+                  <td><input type="checkbox" class="return-checkbox"></td>
+                  <td><span style="font-family:monospace;font-weight:500;color:#4F46E5;">TH-2026-0409-018</span></td>
+                  <td><span style="font-family:monospace;">CG-2026-0406-022</span></td>
+                  <td><span style="font-family:monospace;">RK-2026-0406-038</span></td>
+                  <td><span style="font-weight:500;">鲜达冷链配送中心</span></td>
+                  <td>12 件</td>
+                  <td>200 件</td>
+                  <td>200 件</td>
+                  <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">数量超额</span></td>
+                  <td><span style="font-weight:600;">¥ 32,000</span></td>
+                  <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">已完成</span></td>
+                  <td>赵鹏</td>
+                  <td>2026-04-09 08:45</td>
+                  <td><button class="btn btn-outline btn-sm" onclick="showReturnDetail('TH-2026-0409-018')">详情</button></td>
+                </tr>
+                <tr data-id="TH-2026-0408-015">
+                  <td><input type="checkbox" class="return-checkbox"></td>
+                  <td><span style="font-family:monospace;font-weight:500;color:#4F46E5;">TH-2026-0408-015</span></td>
+                  <td><span style="font-family:monospace;">CG-2026-0404-028</span></td>
+                  <td><span style="font-family:monospace;">RK-2026-0404-042</span></td>
+                  <td><span style="font-weight:500;">康源食品批发</span></td>
+                  <td>6 件</td>
+                  <td>60 件</td>
+                  <td>60 件</td>
+                  <td><span class="tag" style="background:#F3F4F6;color:#6B7280;">包装破损</span></td>
+                  <td><span style="font-weight:600;">¥ 9,600</span></td>
+                  <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">已完成</span></td>
+                  <td>张伟</td>
+                  <td>2026-04-08 16:30</td>
+                  <td><button class="btn btn-outline btn-sm" onclick="showReturnDetail('TH-2026-0408-015')">详情</button></td>
+                </tr>
+                <tr data-id="TH-2026-0407-020">
+                  <td><input type="checkbox" class="return-checkbox"></td>
+                  <td><span style="font-family:monospace;font-weight:500;color:#4F46E5;">TH-2026-0407-020</span></td>
+                  <td><span style="font-family:monospace;">CG-2026-0403-015</span></td>
+                  <td><span style="font-family:monospace;">RK-2026-0403-028</span></td>
+                  <td><span style="font-weight:500;">恒通物流仓储</span></td>
+                  <td>3 件</td>
+                  <td>30 件</td>
+                  <td><span style="color:#6B7280;">-</span></td>
+                  <td><span class="tag" style="background:#F3F4F6;color:#6B7280;">其他</span></td>
+                  <td><span style="font-weight:600;">¥ 4,500</span></td>
+                  <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">已取消</span></td>
+                  <td>陈静</td>
+                  <td>2026-04-07 11:15</td>
+                  <td><button class="btn btn-outline btn-sm" onclick="showReturnDetail('TH-2026-0407-020')">详情</button></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="pagination">
+              <div class="pagination-info">显示 1-5 条，共 8 条</div>
+              <div class="pagination-buttons">
+                <button class="pagination-btn" disabled>‹</button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">›</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 退货详情弹窗 -->
+      <div id="returnDetailModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:900px;max-height:90vh;overflow-y:auto;">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="font-size:18px;font-weight:600;margin:0;">退货单详情</h3>
+            <button onclick="closeReturnDetail()" style="background:none;border:none;font-size:24px;cursor:pointer;color:#6B7280;">×</button>
+          </div>
+          <div style="padding:24px;">
+            <!-- 单头信息区 -->
+            <div style="background:#F9FAFB;padding:16px;border-radius:8px;margin-bottom:20px;">
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+                <div><label style="font-size:12px;color:#6B7280;">退货单号</label><p style="font-weight:600;margin:4px 0;font-family:monospace;" id="detail-return-no">TH-2026-0410-001</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">关联采购单号</label><p style="font-weight:600;margin:4px 0;font-family:monospace;" id="detail-purchase-no">CG-2026-0405-012</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">关联入库批次</label><p style="font-weight:600;margin:4px 0;font-family:monospace;" id="detail-batch-no">RK-2026-0405-025</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">供应商</label><p style="font-weight:600;margin:4px 0;" id="detail-supplier">优鲜供应链有限公司</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">退货仓库</label><p style="font-weight:600;margin:4px 0;">北京仓</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">退货原因</label><p style="font-weight:600;margin:4px 0;"><span class="tag" style="background:#FEE2E2;color:#DC2626;">质量不合格</span></p></div>
+                <div><label style="font-size:12px;color:#6B7280;">退货类型</label><p style="font-weight:600;margin:4px 0;">质量不合格</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">状态</label><p style="font-weight:600;margin:4px 0;"><span class="tag" style="background:#FEF3C7;color:#D97706;">待退</span></p></div>
+                <div><label style="font-size:12px;color:#6B7280;">申请人</label><p style="font-weight:600;margin:4px 0;" id="detail-applicant">李娜</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">审核人</label><p style="font-weight:600;margin:4px 0;" id="detail-reviewer">-</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">审核时间</label><p style="font-weight:600;margin:4px 0;" id="detail-review-time">-</p></div>
+                <div><label style="font-size:12px;color:#6B7280;">创建时间</label><p style="font-weight:600;margin:4px 0;" id="detail-create-time">2026-04-10 09:30</p></div>
+              </div>
+            </div>
+            
+            <!-- 商品明细列表 -->
+            <h4 style="font-size:14px;font-weight:600;margin:0 0 12px;">商品明细</h4>
+            <table style="width:100%;border-collapse:collapse;font-size:13px;">
+              <thead style="background:#F3F4F6;">
+                <tr>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">行号</th>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">SKU编码</th>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">商品名称</th>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">规格</th>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">单位</th>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">温层</th>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">批次号</th>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">生产日期</th>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">保质期到期日</th>
+                  <th style="padding:10px 12px;text-align:right;border-bottom:1px solid #E5E7EB;">入库数量</th>
+                  <th style="padding:10px 12px;text-align:right;border-bottom:1px solid #E5E7EB;">已退数量</th>
+                  <th style="padding:10px 12px;text-align:right;border-bottom:1px solid #E5E7EB;">可退上限</th>
+                  <th style="padding:10px 12px;text-align:right;border-bottom:1px solid #E5E7EB;">实退数量</th>
+                  <th style="padding:10px 12px;text-align:right;border-bottom:1px solid #E5E7EB;">退货单价</th>
+                  <th style="padding:10px 12px;text-align:right;border-bottom:1px solid #E5E7EB;">行金额</th>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">出库库位</th>
+                  <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #E5E7EB;">行状态</th>
+                </tr>
+              </thead>
+              <tbody id="detail-items-body">
+                <tr>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;">1</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;font-family:monospace;">SKU-2026-001</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;font-weight:500;">土鸡蛋 30枚装</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;">30枚/盒</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;">盒</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;"><span class="tag" style="background:#DBEAFE;color:#2563EB;">冷藏</span></td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;font-family:monospace;">PC-2026-0405-025</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;">2026-04-01</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;">2026-05-01</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">120</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">120</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">-</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">¥120.00</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;text-align:right;font-weight:600;">¥14,400</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;font-family:monospace;">A-01-03-02</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid #E5E7EB;"><span class="tag" style="background:#FEF3C7;color:#D97706;">待退</span></td>
+                </tr>
+              </tbody>
+            </table>
+            
+            <!-- 汇总信息区 -->
+            <div style="display:flex;gap:24px;margin-top:20px;padding:16px;background:#EEF2FF;border-radius:8px;">
+              <div><label style="font-size:12px;color:#6B7280;">应退总件数</label><p style="font-size:20px;font-weight:700;margin:4px 0;color:#4F46E5;">120 件</p></div>
+              <div><label style="font-size:12px;color:#6B7280;">实退总件数</label><p style="font-size:20px;font-weight:700;margin:4px 0;color:#6B7280;">0 件</p></div>
+              <div><label style="font-size:12px;color:#6B7280;">退货总金额</label><p style="font-size:20px;font-weight:700;margin:4px 0;color:#DC2626;">¥ 14,400</p></div>
+            </div>
+            
+            <!-- 物流跟踪区 -->
+            <h4 style="font-size:14px;font-weight:600;margin:20px 0 12px;">物流跟踪</h4>
+            <div style="padding:16px;background:#F9FAFB;border-radius:8px;">
+              <p style="color:#6B7280;font-size:13px;margin:0;">供应商签收记录：<span style="color:#9CA3AF;">等待供应商确认收货...</span></p>
+              <p style="color:#6B7280;font-size:13px;margin:8px 0 0;">签收凭证照片：<span style="color:#9CA3AF;">暂无</span></p>
+            </div>
+            
+            <!-- 操作日志Tab -->
+            <h4 style="font-size:14px;font-weight:600;margin:20px 0 12px;">操作日志</h4>
+            <div style="padding:16px;background:#F9FAFB;border-radius:8px;">
+              <div style="display:flex;align-items:center;margin-bottom:12px;">
+                <div style="width:8px;height:8px;border-radius:50%;background:#10B981;margin-right:8px;"></div>
+                <span style="font-weight:500;">已创建</span>
+                <span style="color:#6B7280;margin-left:8px;">2026-04-10 09:30 李娜</span>
+              </div>
+              <div style="display:flex;align-items:center;margin-bottom:12px;">
+                <div style="width:8px;height:8px;border-radius:50%;background:#4F46E5;margin-right:8px;"></div>
+                <span style="font-weight:500;">审核通过</span>
+                <span style="color:#6B7280;margin-left:8px;">2026-04-10 10:15 系统自动</span>
+              </div>
+              <div style="display:flex;align-items:center;">
+                <div style="width:8px;height:8px;border-radius:50%;background:#F59E0B;margin-right:8px;"></div>
+                <span style="font-weight:500;">待退货</span>
+                <span style="color:#6B7280;margin-left:8px;">等待实物退至供应商</span>
+              </div>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button onclick="closeReturnDetail()" class="btn btn-outline" style="padding:10px 24px;">关闭</button>
+            <button class="btn btn-primary" style="padding:10px 24px;" onclick="confirmReturnOutboundFromDetail()">确认出库</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 批量退运确认弹窗 -->
+      <div id="batchReturnModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:500px;">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="font-size:18px;font-weight:600;margin:0;">批量退运出库确认</h3>
+            <button onclick="closeBatchReturnModal()" style="background:none;border:none;font-size:24px;cursor:pointer;color:#6B7280;">×</button>
+          </div>
+          <div style="padding:24px;">
+            <p style="margin:0 0 16px;color:#374151;">确认对选中的 <span id="selected-count" style="font-weight:600;color:#4F46E5;">0</span> 条退货单进行退运出库确认操作？</p>
+            <div id="selected-returns-list" style="max-height:200px;overflow-y:auto;background:#F9FAFB;padding:12px;border-radius:8px;">
+              <p style="color:#6B7280;margin:0;font-size:13px;">请勾选需要确认的退货单</p>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button onclick="closeBatchReturnModal()" class="btn btn-outline" style="padding:10px 24px;">取消</button>
+            <button class="btn btn-primary" style="padding:10px 24px;" onclick="submitBatchReturn()">确认出库</button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+      function showReturnDetail(returnId) {
+        document.getElementById('returnDetailModal').style.display = 'flex';
+        // 模拟加载详情数据
+        document.getElementById('detail-return-no').textContent = returnId;
+      }
+
+      function closeReturnDetail() {
+        document.getElementById('returnDetailModal').style.display = 'none';
+      }
+
+      function confirmReturnOutbound(returnId) {
+        if (confirm('确认退货单 ' + returnId + ' 出库？')) {
+          alert('退货出库已确认');
+          location.reload();
+        }
+      }
+
+      function confirmReturnOutboundFromDetail() {
+        closeReturnDetail();
+        const returnId = document.getElementById('detail-return-no').textContent;
+        confirmReturnOutbound(returnId);
+      }
+
+      function trackReturn(returnId) {
+        alert('追踪退货单: ' + returnId);
+      }
+
+      function exportReturnList() {
+        alert('导出退货列表');
+      }
+
+      function openBatchConfirmReturn() {
+        const selected = document.querySelectorAll('.return-checkbox:checked');
+        if (selected.length === 0) {
+          alert('请先勾选需要确认的退货单');
+          return;
+        }
+        document.getElementById('selected-count').textContent = selected.length;
+        let listHtml = '';
+        selected.forEach(cb => {
+          const row = cb.closest('tr');
+          const id = row.dataset.id;
+          listHtml += '<div style="margin-bottom:8px;font-size:13px;">' + id + '</div>';
+        });
+        document.getElementById('selected-returns-list').innerHTML = listHtml;
+        document.getElementById('batchReturnModal').style.display = 'flex';
+      }
+
+      function closeBatchReturnModal() {
+        document.getElementById('batchReturnModal').style.display = 'none';
+      }
+
+      function submitBatchReturn() {
+        alert('批量退运出库已确认');
+        closeBatchReturnModal();
+        location.reload();
+      }
+
+      function toggleAllReturn(checkbox) {
+        document.querySelectorAll('.return-checkbox').forEach(cb => {
+          cb.checked = checkbox.checked;
+        });
+      }
+
+      function searchReturnList() {
+        // 获取筛选条件
+        const returnNo = document.querySelector('input[placeholder="输入单号搜索"]').value;
+        const supplier = document.querySelectorAll('.filter-select')[0].value;
+        const sku = document.querySelectorAll('.filter-input')[1].value;
+        const reason = document.querySelectorAll('.filter-select')[1].value;
+        const status = document.querySelectorAll('.filter-select')[2].value;
+        const dateFrom = document.querySelectorAll('.filter-input[type="date"]')[0].value;
+        const dateTo = document.querySelectorAll('.filter-input[type="date"]')[1].value;
+        
+        // 模拟筛选提示
+        alert('筛选条件：\n退货单号：' + (returnNo || '全部') + '\n供应商：' + supplier + '\nSKU：' + (sku || '全部') + '\n原因：' + reason + '\n状态：' + status + '\n日期：' + dateFrom + ' ~ ' + dateTo);
+      }
+
+      function resetReturnList() {
+        // 重置所有筛选条件
+        document.querySelector('input[placeholder="输入单号搜索"]').value = '';
+        document.querySelectorAll('.filter-select')[0].value = '全部供应商';
+        document.querySelectorAll('.filter-input')[1].value = '';
+        document.querySelectorAll('.filter-select')[1].value = '全部原因';
+        document.querySelectorAll('.filter-select')[2].value = '全部';
+        document.querySelectorAll('.filter-input[type="date"]')[0].value = '2026-04-01';
+        document.querySelectorAll('.filter-input[type="date"]')[1].value = '2026-04-13';
+      }
+
+      // 点击弹窗外部关闭
+      document.getElementById('returnDetailModal').addEventListener('click', function(e) {
+        if (e.target === this) closeReturnDetail();
+      });
+      document.getElementById('batchReturnModal').addEventListener('click', function(e) {
+        if (e.target === this) closeBatchReturnModal();
+      });
+      </script>

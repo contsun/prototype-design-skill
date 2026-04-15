@@ -1,0 +1,449 @@
+      <div id="page-delivery_return" class="page">
+        <header class="header">
+          <div class="header-left">
+            <h2>配送返仓管理</h2>
+            <div class="breadcrumb"><span>首页</span><span>/</span><span>单据中心</span><span>/</span><span>配送返仓管理</span></div>
+          </div>
+          <div class="header-right">
+            <button class="btn btn-outline btn-sm">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              导出
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="batchConfirmReturn()" style="background:#10B981;border-color:#10B981;">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg>
+              批量确认签收
+            </button>
+          </div>
+        </header>
+        <div class="content">
+          <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;">
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">待清点</span></div>
+              <div class="stat-card-value" style="color:#F59E0B;">18</div>
+              <div class="stat-card-change warning">今日新增</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">清点中</span></div>
+              <div class="stat-card-value" style="color:#4F46E5;">5</div>
+              <div class="stat-card-change">进行中</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">已完成</span></div>
+              <div class="stat-card-value" style="color:#10B981;">86</div>
+              <div class="stat-card-change up">本月</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">差异件数</span></div>
+              <div class="stat-card-value" style="color:#EF4444;">28</div>
+              <div class="stat-card-change down">待处理</div>
+            </div>
+          </div>
+          
+          <div class="tabs" style="margin-bottom:24px;display:flex;gap:8px;">
+            <button class="tab active" onclick="switchDeliveryReturnTab('list')" style="border:none;background:#EEF2FF;padding:10px 20px;font-size:14px;font-weight:500;color:#4F46E5;border-radius:8px;cursor:pointer;">返仓列表</button>
+            <button class="tab" onclick="switchDeliveryReturnTab('transit')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">清点中 (5)</button>
+            <button class="tab" onclick="switchDeliveryReturnTab('diff')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">差异处理</button>
+            <button class="tab" onclick="switchDeliveryReturnTab('stats')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">统计报表</button>
+          </div>
+          
+          <div id="return-list" class="return-tab">
+            <div class="table-card">
+              <div class="table-filters">
+                <div class="filter-group">
+                  <label class="filter-label">处理状态</label>
+                  <select class="filter-select">
+                    <option>全部</option>
+                    <option>待清点</option>
+                    <option>清点中</option>
+                    <option>已完成</option>
+                    <option>差异待处理</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">司机</label>
+                  <select class="filter-select">
+                    <option>全部司机</option>
+                    <option>陈师傅</option>
+                    <option>李师傅</option>
+                    <option>王师傅</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">配送批次</label>
+                  <input type="text" class="filter-input" placeholder="搜索批次号...">
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">SKU/商品名称</label>
+                  <input type="text" class="filter-input" placeholder="输入SKU或商品名称" style="width:120px;">
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">时间范围</label>
+                  <input type="date" class="filter-input" style="width:130px;">
+                </div>
+                <div class="filter-group" style="flex:1;">
+                  <input type="text" class="filter-input" placeholder="搜索返仓单号..." style="width:100%;">
+                </div>
+                <div class="filter-group" style="display:flex;gap:8px;">
+                  <button class="btn btn-outline btn-sm" onclick="resetDeliveryReturnFilters()">重置</button>
+                  <button class="btn btn-primary btn-sm" onclick="searchDeliveryReturn()">查询</button>
+                </div>
+              </div>
+              <!-- Ant Design 风格固定表头表格 -->
+              <div class="ant-table-wrapper" style="height:calc(100vh - 400px);min-height:300px;">
+                <!-- 横向滚动容器 - 表头表体并排放置，一起滚动 -->
+                <div id="table-scroll-container" style="overflow-x:auto;">
+                  <!-- 表头表格 -->
+                  <table class="ant-table-header" style="table-layout:fixed;width:1800px;border-collapse:collapse;font-size:14px;background:#F9FAFB;">
+                    <colgroup>
+                      <col style="width:48px;"><col style="width:180px;"><col style="width:80px;"><col style="width:100px;">
+                      <col style="width:150px;"><col style="width:70px;"><col style="width:80px;"><col style="width:80px;">
+                      <col style="width:80px;"><col style="width:70px;"><col style="width:80px;"><col style="width:140px;">
+                      <col style="width:100px;"><col style="width:140px;">
+                    </colgroup>
+                    <thead><tr>
+                      <th style="padding:12px 8px;"><input type="checkbox"></th>
+                      <th style="padding:12px 8px;">返仓单号</th>
+                      <th style="padding:12px 8px;">司机</th><th style="padding:12px 8px;">车牌号</th>
+                      <th style="padding:12px 8px;">配送批次</th><th style="padding:12px 8px;">品项数</th>
+                      <th style="padding:12px 8px;">退回件数</th><th style="padding:12px 8px;">空筐数量</th>
+                      <th style="padding:12px 8px;">差异件数</th><th style="padding:12px 8px;">差异率</th>
+                      <th style="padding:12px 8px;">签收人</th><th style="padding:12px 8px;">签收时间</th>
+                      <th style="padding:12px 8px;">状态</th>
+                      <th style="padding:12px 8px;">操作</th>
+                    </tr></thead>
+                  </table>
+                  <!-- 表体表格（垂直滚动） -->
+                  <div style="overflow-y:auto;max-height:440px;">
+                  <table style="table-layout:fixed;width:1800px;border-collapse:collapse;font-size:14px;">
+                    <colgroup>
+                      <col style="width:48px;"><col style="width:180px;"><col style="width:80px;"><col style="width:100px;">
+                      <col style="width:150px;"><col style="width:70px;"><col style="width:80px;"><col style="width:80px;">
+                      <col style="width:80px;"><col style="width:70px;"><col style="width:80px;"><col style="width:140px;">
+                      <col style="width:100px;"><col style="width:140px;">
+                    </colgroup>
+                    <tbody>
+                      <tr>
+                        <td style="position:sticky;left:0;background:white;z-index:1;padding:12px 8px;border-bottom:1px solid #E5E7EB;"><input type="checkbox"></td>
+                        <td style="position:sticky;left:48px;background:white;z-index:1;padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="font-family:monospace;font-weight:500;">FC-2026-0410-001</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="font-weight:500;">陈师傅</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="font-family:monospace;">京A12345</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="font-family:monospace;">PC-2026-0410-089</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;">12 件</td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;">86 件</td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;">15 个</td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="color:#6B7280;">-</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="color:#6B7280;">-</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="color:#6B7280;">-</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="color:#6B7280;">-</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span class="tag" style="background:#FEF3C7;color:#D97706;">待清点</span></td>
+                        <td style="position:sticky;right:0;background:white;z-index:1;padding:12px 8px;border-bottom:1px solid #E5E7EB;"><button class="btn btn-outline btn-sm" onclick="showReturnDetail(this)">详情</button><button class="btn btn-primary btn-sm" style="margin-left:4px;" onclick="showReturnDetail(this)">清点</button></td>
+                      </tr>
+                      <tr>
+                        <td style="position:sticky;left:0;background:white;z-index:1;padding:12px 8px;border-bottom:1px solid #E5E7EB;"><input type="checkbox"></td>
+                        <td style="position:sticky;left:48px;background:white;z-index:1;padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="font-family:monospace;font-weight:500;">FC-2026-0410-002</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="font-weight:500;">李师傅</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="font-family:monospace;">京B67890</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="font-family:monospace;">PC-2026-0410-090</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;">8 件</td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;">52 件</td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;">12 个</td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="color:#6B7280;">-</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="color:#6B7280;">-</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="color:#6B7280;">-</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="color:#6B7280;">-</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span class="tag" style="background:#DBEAFE;color:#2563EB;">清点中</span></td>
+                        <td style="position:sticky;right:0;background:white;z-index:1;padding:12px 8px;border-bottom:1px solid #E5E7EB;"><button class="btn btn-outline btn-sm" onclick="showReturnDetail(this)">详情</button></td>
+                      </tr>
+                      <tr style="background:#FFF5F5;">
+                        <td style="position:sticky;left:0;background:#FFF5F5;z-index:2;padding:12px 8px;border-bottom:1px solid #E5E7EB;"><input type="checkbox"></td>
+                        <td style="position:sticky;left:48px;background:#FFF5F5;z-index:2;padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="font-family:monospace;font-weight:500;">FC-2026-0409-056</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="font-weight:500;">王师傅</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="font-family:monospace;">京C11111</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="font-family:monospace;">PC-2026-0409-078</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;">15 件</td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;">98 件</td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;">18 个</td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="color:#EF4444;font-weight:500;">8 件</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="color:#EF4444;font-weight:500;">8.2%</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;">张伟</td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;">2026-04-09 18:30</td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span class="tag" style="background:#FEE2E2;color:#DC2626;">差异待处理</span></td>
+                        <td style="position:sticky;right:0;background:#FFF5F5;z-index:2;padding:12px 8px;border-bottom:1px solid #E5E7EB;"><button class="btn btn-outline btn-sm" onclick="showReturnDetail(this)">详情</button><button class="btn btn-primary btn-sm" style="margin-left:4px;">处理</button></td>
+                      </tr>
+                      <tr>
+                        <td style="position:sticky;left:0;background:white;z-index:1;padding:12px 8px;border-bottom:1px solid #E5E7EB;"><input type="checkbox"></td>
+                        <td style="position:sticky;left:48px;background:white;z-index:1;padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="font-family:monospace;font-weight:500;">FC-2026-0409-055</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="font-weight:500;">陈师傅</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="font-family:monospace;">京A12345</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="font-family:monospace;">PC-2026-0409-076</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;">10 件</td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;">68 件</td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;">14 个</td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="color:#10B981;">0 件</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="color:#10B981;">0%</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;">李娜</td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;">2026-04-09 16:45</td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span class="tag" style="background:#DCFCE7;color:#16A34A;">已完成</span></td>
+                        <td style="position:sticky;right:0;background:white;z-index:1;padding:12px 8px;border-bottom:1px solid #E5E7EB;"><button class="btn btn-outline btn-sm" onclick="showReturnDetail(this)">详情</button></td>
+                      </tr>
+                      <tr>
+                        <td style="position:sticky;left:0;background:white;z-index:1;padding:12px 8px;border-bottom:1px solid #E5E7EB;"><input type="checkbox"></td>
+                        <td style="position:sticky;left:48px;background:white;z-index:1;padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="font-family:monospace;font-weight:500;">FC-2026-0409-054</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="font-weight:500;">李师傅</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="font-family:monospace;">京B67890</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="font-family:monospace;">PC-2026-0409-075</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;">8 件</td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;">56 件</td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;">10 个</td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="color:#10B981;">2 件</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span style="color:#10B981;">3.6%</span></td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;">王强</td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;">2026-04-09 14:20</td>
+                        <td style="padding:12px 8px;border-bottom:1px solid #E5E7EB;"><span class="tag" style="background:#DCFCE7;color:#16A34A;">已完成</span></td>
+                        <td style="position:sticky;right:0;background:white;z-index:1;padding:12px 8px;border-bottom:1px solid #E5E7EB;"><button class="btn btn-outline btn-sm" onclick="showReturnDetail(this)">详情</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  </div>
+              <div class="pagination">
+                <div class="pagination-info">显示 1-5 条，共 18 条</div>
+                <div class="pagination-buttons">
+                  <button class="pagination-btn" disabled>‹</button>
+                  <button class="pagination-btn active">1</button>
+                  <button class="pagination-btn">2</button>
+                  <button class="pagination-btn">3</button>
+                  <button class="pagination-btn">4</button>
+                  <button class="pagination-btn">›</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="return-transit" class="return-tab" style="display:none;">
+            <div class="table-card">
+              <div class="table-header">
+                <span class="table-title">清点中的返仓单</span>
+              </div>
+              <table>
+                <thead><tr><th style="position:sticky;left:0;background:#F9FAFB;z-index:3;width:40px;"><input type="checkbox"></th><th style="position:sticky;left:40px;background:#F9FAFB;z-index:3;width:150px;">返仓单号</th><th>司机</th><th>车牌</th><th>品项数</th><th>应还件数</th><th>已清点数</th><th>进度</th><th>状态</th><th style="position:sticky;right:0;background:#F9FAFB;z-index:3;width:120px;">操作</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td style="position:sticky;left:0;z-index:1;background:white;"><input type="checkbox"></td><td style="position:sticky;left:40px;z-index:1;background:white;"><span style="font-family:monospace;font-weight:500;">FC-2026-0410-002</span></td>
+                    <td>李师傅</td>
+                    <td>京B67890</td>
+                    <td>8件</td>
+                    <td>52件</td>
+                    <td>28件</td>
+                    <td><div style="display:flex;align-items:center;gap:8px;"><div class="progress" style="width:80px;"><div class="progress-bar" style="width:54%"></div></div><span style="font-size:12px;color:#F59E0B;">54%</span></div></td>
+                    <td><span class="status status-warning">清点中</span></td>
+                    <td><button class="btn btn-primary btn-sm">继续清点</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div id="return-diff" class="return-tab" style="display:none;">
+            <div class="table-card">
+              <div class="table-header">
+                <span class="table-title" style="color:#EF4444;">⚠️ 差异待处理</span>
+              </div>
+              <table>
+                <thead><tr><th style="position:sticky;left:0;background:#F9FAFB;z-index:3;width:40px;"><input type="checkbox"></th><th style="position:sticky;left:40px;background:#F9FAFB;z-index:3;width:150px;">返仓单号</th><th>商品名称</th><th>SKU编号</th><th>应还数量</th><th>实收数量</th><th>差异数量</th><th>差异原因</th><th>处理状态</th><th style="position:sticky;right:0;background:#F9FAFB;z-index:3;width:120px;">操作</th></tr></thead>
+                <tbody>
+                  <tr style="background:#FEE2E2;">
+                    <td><span style="font-family:monospace;">FC-2026-0409-056</span></td>
+                    <td><span style="font-weight:500;">新鲜有机苹果</span></td>
+                    <td><span style="font-family:monospace;">SKU-001234</span></td>
+                    <td>30件</td>
+                    <td>28件</td>
+                    <td><span style="color:#EF4444;font-weight:500;">-2件</span></td>
+                    <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">拒收退回</span></td>
+                    <td><span class="tag" style="background:#FEF3C7;color:#D97706;">待处理</span></td>
+                    <td><button class="btn btn-primary btn-sm" onclick="showReturnDetail(this)">处理</button></td>
+                  </tr>
+                  <tr style="background:#FEE2E2;">
+                    <td><span style="font-family:monospace;">FC-2026-0409-056</span></td>
+                    <td><span style="font-weight:500;">伊利纯牛奶</span></td>
+                    <td><span style="font-family:monospace;">SKU-001237</span></td>
+                    <td>20件</td>
+                    <td>18件</td>
+                    <td><span style="color:#EF4444;font-weight:500;">-2件</span></td>
+                    <td><span class="tag" style="background:#FEF3C7;color:#D97706;">运输破损</span></td>
+                    <td><span class="tag" style="background:#FEF3C7;color:#D97706;">待处理</span></td>
+                    <td><button class="btn btn-primary btn-sm" onclick="showReturnDetail(this)">处理</button></td>
+                  </tr>
+                  <tr style="background:#FEF3C7;">
+                    <td><span style="font-family:monospace;">FC-2026-0409-054</span></td>
+                    <td><span style="font-weight:500;">金龙鱼花生油</span></td>
+                    <td><span style="font-family:monospace;">SKU-002156</span></td>
+                    <td>15件</td>
+                    <td>17件</td>
+                    <td><span style="color:#10B981;font-weight:500;">+2件</span></td>
+                    <td><span class="tag" style="background:#DBEAFE;color:#2563EB;">数量多送</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">已处理</span></td>
+                    <td><button class="btn btn-outline btn-sm">查看</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div id="return-stats" class="return-tab" style="display:none;">
+            <div class="table-card">
+              <div class="table-header">
+                <span class="table-title">返仓统计报表 - 2026年4月</span>
+              </div>
+              <table>
+                <thead><tr><th>维度</th><th>返仓单数</th><th>退回件数</th><th>差异件数</th><th>差异率</th><th>空筐回收</th><th>追缴金额</th></tr></thead>
+                <tbody>
+                  <tr><td><span style="font-weight:500;">按差异原因</span></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+                  <tr><td style="padding-left:24px;color:#6B7280;">拒收退回</td><td>32单</td><td>286件</td><td>42件</td><td>14.7%</td><td>68个</td><td>¥ 4,200</td></tr>
+                  <tr><td style="padding-left:24px;color:#6B7280;">运输破损</td><td>18单</td><td>126件</td><td>28件</td><td>22.2%</td><td>-</td><td>¥ 5,600</td></tr>
+                  <tr><td style="padding-left:24px;color:#6B7280;">数量短缺</td><td>12单</td><td>86件</td><td>18件</td><td>20.9%</td><td>-</td><td>¥ 1,800</td></tr>
+                  <tr><td style="padding-left:24px;color:#6B7280;">其他</td><td>8单</td><td>52件</td><td>6件</td><td>11.5%</td><td>12个</td><td>¥ 600</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+      <!-- 返仓单详情弹窗 -->
+      <div id="returnDetailModal" class="modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;">
+        <div class="modal-content" style="background:white;border-radius:12px;width:900px;max-height:80vh;overflow:hidden;display:flex;flex-direction:column;">
+          <div class="modal-header" style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="margin:0;font-size:18px;font-weight:600;">返仓单详情</h3>
+            <button class="btn btn-outline btn-sm" onclick="closeReturnDetail()">×</button>
+          </div>
+          <div class="modal-body" style="flex:1;overflow-y:auto;padding:24px;">
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;">
+              <div><label style="font-size:12px;color:#6B7280;">返仓单号</label><div style="font-weight:500;font-family:monospace;">FC-2026-0410-001</div></div>
+              <div><label style="font-size:12px;color:#6B7280;">配送批次</label><div style="font-weight:500;">PC-2026-0410-089</div></div>
+              <div><label style="font-size:12px;color:#6B7280;">司机</label><div style="font-weight:500;">陈师傅</div></div>
+              <div><label style="font-size:12px;color:#6B7280;">车牌号</label><div style="font-family:monospace;">京A12345</div></div>
+              <div><label style="font-size:12px;color:#6B7280;">配送线路</label><div style="color:#4F46E5;">北京-朝阳线路</div></div>
+              <div><label style="font-size:12px;color:#6B7280;">应还总件数</label><div style="font-weight:500;">120 件</div></div>
+              <div><label style="font-size:12px;color:#6B7280;">实收总件数</label><div style="font-weight:500;color:#10B981;">118 件</div></div>
+              <div><label style="font-size:12px;color:#6B7280;">差异件数</label><div style="font-weight:500;color:#EF4444;">-2 件</div></div>
+            </div>
+            <div class="tabs" style="margin-bottom:16px;display:flex;gap:8px;border-bottom:1px solid #E5E7EB;padding-bottom:8px;">
+              <button class="tab active" onclick="switchReturnDetailTab('goods')" style="border:none;background:#EEF2FF;padding:8px 16px;font-size:14px;font-weight:500;color:#4F46E5;border-radius:6px;cursor:pointer;">商品明细</button>
+              <button class="tab" onclick="switchReturnDetailTab('basket')" style="border:none;background:#F3F4F6;padding:8px 16px;font-size:14px;font-weight:500;color:#6B7280;border-radius:6px;cursor:pointer;">空筐回收</button>
+              <button class="tab" onclick="switchReturnDetailTab('summary')" style="border:none;background:#F3F4F6;padding:8px 16px;font-size:14px;font-weight:500;color:#6B7280;border-radius:6px;cursor:pointer;">汇总信息</button>
+            </div>
+            <div id="return-detail-goods" class="return-detail-tab">
+              <table style="width:100%;border-collapse:collapse;font-size:14px;">
+                <thead><tr style="background:#F9FAFB;"><th>行号</th><th>SKU编码</th><th>商品名称</th><th>规格</th><th>单位</th><th>应还数量</th><th>实收数量</th><th>差异数量</th><th>差异原因</th><th>商品状态</th><th>入库去向</th></tr></thead>
+                <tbody>
+                  <tr><td>1</td><td style="font-family:monospace;">SKU-001234</td><td>蒙牛特仑苏有机纯牛奶</td><td>250ml*12盒</td><td>箱</td><td>20 件</td><td>19 件</td><td style="color:#EF4444;">-1</td><td>运输损耗</td><td>完好</td><td>良品回库</td></tr>
+                  <tr><td>2</td><td style="font-family:monospace;">SKU-002156</td><td>金龙鱼花生油</td><td>5L/桶</td><td>桶</td><td>15 件</td><td>14 件</td><td style="color:#EF4444;">-1</td><td>拒收退回</td><td>完好</td><td>良品回库</td></tr>
+                  <tr><td>3</td><td style="font-family:monospace;">SKU-003789</td><td>五常大米</td><td>10kg/袋</td><td>袋</td><td>25 件</td><td>25 件</td><td style="color:#10B981;">0</td><td>-</td><td>完好</td><td>-</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="return-detail-basket" class="return-detail-tab" style="display:none;">
+              <table style="width:100%;border-collapse:collapse;font-size:14px;">
+                <thead><tr style="background:#F9FAFB;"><th>筐编码</th><th>筐类型</th><th>应还数量</th><th>实收数量</th><th>差异数量</th><th>筐状态</th></tr></thead>
+                <tbody>
+                  <tr><td style="font-family:monospace;">BKT-001</td><td>标准塑料筐</td><td>15 个</td><td>15 个</td><td style="color:#10B981;">0</td><td><span class="tag" style="background:#DCFCE7;color:#16A34A;">已回收</span></td></tr>
+                  <tr><td style="font-family:monospace;">BKT-002</td><td>保温筐</td><td>8 个</td><td>7 个</td><td style="color:#EF4444;">-1</td><td><span class="tag" style="background:#FEE2E2;color:#DC2626;">破损</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="return-detail-summary" class="return-detail-tab" style="display:none;">
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+                <div class="stat-card"><div class="stat-card-title">SKU品项数</div><div class="stat-card-value">3</div></div>
+                <div class="stat-card"><div class="stat-card-title">应还总件数</div><div class="stat-card-value">120</div></div>
+                <div class="stat-card"><div class="stat-card-title">实收总件数</div><div class="stat-card-value" style="color:#10B981;">118</div></div>
+                <div class="stat-card"><div class="stat-card-title">差异总件数</div><div class="stat-card-value" style="color:#EF4444;">-2</div></div>
+                <div class="stat-card"><div class="stat-card-title">差异率</div><div class="stat-card-value" style="color:#EF4444;">1.7%</div></div>
+                <div class="stat-card"><div class="stat-card-title">空筐应还</div><div class="stat-card-value">23</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer" style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button class="btn btn-outline btn-sm" onclick="closeReturnDetail()">关闭</button>
+            <button class="btn btn-primary btn-sm" onclick="confirmReturnSign()">确认签收</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 批量确认签收弹窗 -->
+      <div id="batchReturnModal" class="modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;">
+        <div class="modal-content" style="background:white;border-radius:12px;width:500px;max-height:80vh;overflow:hidden;">
+          <div class="modal-header" style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="margin:0;font-size:18px;font-weight:600;">批量确认签收</h3>
+            <button class="btn btn-outline btn-sm" onclick="closeBatchReturnModal()">×</button>
+          </div>
+          <div class="modal-body" style="padding:24px;">
+            <p style="margin:0 0 16px;color:#6B7280;">确认签收选中的 <strong id="batchReturnCount">0</strong> 条返仓单？</p>
+            <div style="background:#FEF3C7;border-radius:8px;padding:12px;font-size:13px;color:#92400E;">确认后将更新库存并冲平司机账面</div>
+          </div>
+          <div class="modal-footer" style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button class="btn btn-outline btn-sm" onclick="closeBatchReturnModal()">取消</button>
+            <button class="btn btn-primary btn-sm" onclick="executeBatchReturn()">确认</button>
+          </div>
+        </div>
+      </div>
+        </div>
+      </div>
+      <script>
+      function showReturnDetail(btn) {
+        document.getElementById('returnDetailModal').style.display = 'flex';
+      }
+      function closeReturnDetail() {
+        document.getElementById('returnDetailModal').style.display = 'none';
+      }
+      function switchReturnDetailTab(tabName) {
+        document.querySelectorAll('.return-detail-tab').forEach(t => t.style.display = 'none');
+        document.getElementById('return-detail-' + tabName).style.display = 'block';
+        event.target.parentElement.querySelectorAll('.tab').forEach(t => {
+          t.style.background = '#F3F4F6';
+          t.style.color = '#6B7280';
+        });
+        event.target.style.background = '#EEF2FF';
+        event.target.style.color = '#4F46E5';
+      }
+      function confirmReturnSign() {
+        alert('确认签收功能 - 实际项目中会调用API更新状态');
+        closeReturnDetail();
+      }
+      function batchConfirmReturn() {
+        const checked = document.querySelectorAll('#return-list input[type="checkbox"]:checked');
+        if (checked.length === 0) { alert('请先选择要签收的返仓单'); return; }
+        document.getElementById('batchReturnCount').textContent = checked.length;
+        document.getElementById('batchReturnModal').style.display = 'flex';
+      }
+      function closeBatchReturnModal() {
+        document.getElementById('batchReturnModal').style.display = 'none';
+      }
+      function executeBatchReturn() {
+        alert('批量确认签收功能 - 实际项目中会调用API批量更新状态');
+        closeBatchReturnModal();
+      }
+
+      function switchDeliveryReturnTab(tabName) {
+        document.querySelectorAll('.return-tab').forEach(tab => tab.style.display = 'none');
+        document.getElementById('return-' + tabName).style.display = 'block';
+        const tabs = document.querySelectorAll('.content > .tabs > .tab');
+        tabs.forEach(t => {
+          t.style.background = '#F3F4F6';
+          t.style.color = '#6B7280';
+        });
+        event.target.style.background = '#EEF2FF';
+        event.target.style.color = '#4F46E5';
+      }
+      
+      
+      // Continuous scroll sync for table header
+      function syncHeaderScroll() {
+        var container = document.getElementById('table-scroll-container');
+        var header = container ? container.querySelector('.ant-table-header') : null;
+        if (container && header) {
+          header.style.transform = 'translateX(-' + container.scrollLeft + 'px)';
+        }
+      }
+      document.addEventListener('DOMContentLoaded', function() {
+        syncHeaderScroll();
+        setInterval(syncHeaderScroll, 50);
+      });
+      </script>

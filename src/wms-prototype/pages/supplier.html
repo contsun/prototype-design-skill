@@ -1,0 +1,626 @@
+      <div id="page-supplier" class="page">
+        <header class="header">
+          <div class="header-left">
+            <h2>供应商管理</h2>
+            <div class="breadcrumb">
+              <span>基础档案</span>
+              <span>/</span>
+              <span>供应商管理</span>
+            </div>
+          </div>
+          <div class="header-right">
+            <button class="btn btn-outline btn-sm">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              导出
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="openAddSupplierModal()">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              新增供应商
+            </button>
+          </div>
+        </header>
+        
+        <div class="content">
+          <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;">
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">供应商总数</span></div>
+              <div class="stat-card-value">86</div>
+              <div class="stat-card-change">合作关系</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">活跃供应商</span></div>
+              <div class="stat-card-value" style="color:#10B981;">72</div>
+              <div class="stat-card-change up">+5</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">本月采购额</span></div>
+              <div class="stat-card-value">¥ 856.4K</div>
+              <div class="stat-card-change up">+12.5%</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">待续签</span></div>
+              <div class="stat-card-value" style="color:#F59E0B;">8</div>
+              <div class="stat-card-change">30天内到期</div>
+            </div>
+          </div>
+          
+          <div class="tabs" style="margin-bottom:24px;display:flex;gap:8px;">
+            <button class="tab active" onclick="switchSupplierTab('all')" style="border:none;background:#EEF2FF;padding:10px 20px;font-size:14px;font-weight:500;color:#4F46E5;border-radius:8px;cursor:pointer;">全部供应商</button>
+            <button class="tab" onclick="switchSupplierTab('active')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">活跃 (72)</button>
+            <button class="tab" onclick="switchSupplierTab('pending')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">待续签 (8)</button>
+            <button class="tab" onclick="switchSupplierTab('blacklist')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">黑名单 (2)</button>
+          </div>
+          
+          <div id="supplier-all" class="supplier-tab">
+            <div class="table-card">
+              <div class="table-filters">
+                <div class="filter-group">
+                  <label class="filter-label">供应商名称</label>
+                  <input type="text" class="filter-input" placeholder="搜索供应商名称...">
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">供应商分类</label>
+                  <select class="filter-select">
+                    <option>全部</option>
+                    <option>生鲜果蔬</option>
+                    <option>粮油调味</option>
+                    <option>日用百货</option>
+                    <option>酒水饮料</option>
+                    <option>物流承运</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">合作状态</label>
+                  <select class="filter-select">
+                    <option>全部</option>
+                    <option>活跃</option>
+                    <option>待续签</option>
+                    <option>已终止</option>
+                    <option>黑名单</option>
+                  </select>
+                </div>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>供应商编码</th>
+                    <th>供应商名称</th>
+                    <th>联系人</th>
+                    <th>联系电话</th>
+                    <th>主营类目</th>
+                    <th>合作等级</th>
+                    <th>账期(天)</th>
+                    <th>累计交易额</th>
+                    <th>合同到期</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">SUP_001</span></td>
+                    <td>
+                      <div style="font-weight:500;color:#374151;">优鲜供应链有限公司</div>
+                      <div style="font-size:11px;color:#6B7280;margin-top:2px;">统一社会信用码：91110000XXXXXXXX</div>
+                    </td>
+                    <td>张经理</td>
+                    <td><span style="font-family:monospace;">138-****-0001</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">生鲜果蔬</span></td>
+                    <td><span style="color:#F59E0B;">★★★★★</span></td>
+                    <td>30</td>
+                    <td><span style="font-weight:600;">¥ 2,856,420</span></td>
+                    <td>2026-06-15</td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">活跃</span></td>
+                    <td>
+                      <button class="btn btn-outline btn-sm" onclick="showSupplierDetail('SUP_001')">详情</button>
+                      <button class="btn btn-outline btn-sm" style="margin-left:4px;" onclick="openEditSupplierModal('SUP_001')">编辑</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">SUP_002</span></td>
+                    <td>
+                      <div style="font-weight:500;color:#374151;">源生食品贸易商行</div>
+                      <div style="font-size:11px;color:#6B7280;margin-top:2px;">统一社会信用码：91310000XXXXXXXX</div>
+                    </td>
+                    <td>李经理</td>
+                    <td><span style="font-family:monospace;">138-****-0002</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">生鲜果蔬</span></td>
+                    <td><span style="color:#F59E0B;">★★★★☆</span></td>
+                    <td>15</td>
+                    <td><span style="font-weight:600;">¥ 1,428,600</span></td>
+                    <td>2026-05-20</td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">活跃</span></td>
+                    <td>
+                      <button class="btn btn-outline btn-sm" onclick="showSupplierDetail('SUP_002')">详情</button>
+                      <button class="btn btn-outline btn-sm" style="margin-left:4px;" onclick="openEditSupplierModal('SUP_002')">编辑</button>
+                    </td>
+                  </tr>
+                  <tr style="background:#FEF3C7;">
+                    <td><span style="font-family:monospace;font-size:11px;">SUP_003</span></td>
+                    <td>
+                      <div style="font-weight:500;color:#374151;">鲜达冷链配送中心</div>
+                      <div style="font-size:11px;color:#6B7280;margin-top:2px;">统一社会信用码：91440000XXXXXXXX</div>
+                    </td>
+                    <td>王经理</td>
+                    <td><span style="font-family:monospace;">138-****-0003</span></td>
+                    <td><span class="tag" style="background:#EEF2FF;color:#4F46E5;">物流承运</span></td>
+                    <td><span style="color:#F59E0B;">★★★★☆</span></td>
+                    <td>45</td>
+                    <td><span style="font-weight:600;">¥ 3,125,680</span></td>
+                    <td><span style="color:#DC2626;font-weight:500;">2026-04-28</span></td>
+                    <td><span class="tag" style="background:#FEF3C7;color:#D97706;">待续签</span></td>
+                    <td>
+                      <button class="btn btn-outline btn-sm" onclick="showSupplierDetail('SUP_003')">详情</button>
+                      <button class="btn btn-primary btn-sm" style="margin-left:4px;" onclick="renewSupplier('SUP_003')">续签</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">SUP_004</span></td>
+                    <td>
+                      <div style="font-weight:500;color:#374151;">康源食品批发</div>
+                      <div style="font-size:11px;color:#6B7280;margin-top:2px;">统一社会信用码：91330000XXXXXXXX</div>
+                    </td>
+                    <td>赵经理</td>
+                    <td><span style="font-family:monospace;">138-****-0004</span></td>
+                    <td><span class="tag" style="background:#FEF3C7;color:#D97706;">粮油调味</span></td>
+                    <td><span style="color:#F59E0B;">★★★☆☆</span></td>
+                    <td>30</td>
+                    <td><span style="font-weight:600;">¥ 856,400</span></td>
+                    <td>2026-08-15</td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">活跃</span></td>
+                    <td>
+                      <button class="btn btn-outline btn-sm" onclick="showSupplierDetail('SUP_004')">详情</button>
+                      <button class="btn btn-outline btn-sm" style="margin-left:4px;" onclick="openEditSupplierModal('SUP_004')">编辑</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">SUP_005</span></td>
+                    <td>
+                      <div style="font-weight:500;color:#374151;">恒源日用品有限公司</div>
+                      <div style="font-size:11px;color:#6B7280;margin-top:2px;">统一社会信用码：91310000XXXXXXXX</div>
+                    </td>
+                    <td>孙经理</td>
+                    <td><span style="font-family:monospace;">138-****-0005</span></td>
+                    <td><span class="tag" style="background:#DBEAFE;color:#2563EB;">日用百货</span></td>
+                    <td><span style="color:#F59E0B;">★★★★☆</span></td>
+                    <td>30</td>
+                    <td><span style="font-weight:600;">¥ 1,256,800</span></td>
+                    <td>2026-07-20</td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">活跃</span></td>
+                    <td>
+                      <button class="btn btn-outline btn-sm" onclick="showSupplierDetail('SUP_005')">详情</button>
+                      <button class="btn btn-outline btn-sm" style="margin-left:4px;" onclick="openEditSupplierModal('SUP_005')">编辑</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">SUP_006</span></td>
+                    <td>
+                      <div style="font-weight:500;color:#374151;">顺天然饮品有限公司</div>
+                      <div style="font-size:11px;color:#6B7280;margin-top:2px;">统一社会信用码：91440000XXXXXXXX</div>
+                    </td>
+                    <td>周经理</td>
+                    <td><span style="font-family:monospace;">138-****-0006</span></td>
+                    <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">酒水饮料</span></td>
+                    <td><span style="color:#F59E0B;">★★★★★</span></td>
+                    <td>45</td>
+                    <td><span style="font-weight:600;">¥ 2,156,200</span></td>
+                    <td>2026-09-10</td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">活跃</span></td>
+                    <td>
+                      <button class="btn btn-outline btn-sm" onclick="showSupplierDetail('SUP_006')">详情</button>
+                      <button class="btn btn-outline btn-sm" style="margin-left:4px;" onclick="openEditSupplierModal('SUP_006')">编辑</button>
+                    </td>
+                  </tr>
+                  <tr style="background:#F3F4F6;opacity:0.7;">
+                    <td><span style="font-family:monospace;font-size:11px;">SUP_007</span></td>
+                    <td>
+                      <div style="font-weight:500;color:#6B7280;">已终止供应商A</div>
+                      <div style="font-size:11px;color:#9CA3AF;margin-top:2px;">原因：长期拖欠货款</div>
+                    </td>
+                    <td>—</td>
+                    <td><span style="font-family:monospace;color:#9CA3AF;">—</span></td>
+                    <td><span class="tag" style="background:#F3F4F6;color:#6B7280;">—</span></td>
+                    <td><span style="color:#9CA3AF;">—</span></td>
+                    <td>—</td>
+                    <td><span style="color:#9CA3AF;">¥ 125,600</span></td>
+                    <td><span style="color:#9CA3AF;">2026-01-15</span></td>
+                    <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">已终止</span></td>
+                    <td><button class="btn btn-outline btn-sm" onclick="showSupplierDetail('SUP_007')">详情</button></td>
+                  </tr>
+                  <tr style="background:#F3F4F6;opacity:0.7;">
+                    <td><span style="font-family:monospace;font-size:11px;">SUP_008</span></td>
+                    <td>
+                      <div style="font-weight:500;color:#6B7280;">黑名单供应商B</div>
+                      <div style="font-size:11px;color:#EF4444;margin-top:2px;">原因：售假被查</div>
+                    </td>
+                    <td>—</td>
+                    <td><span style="font-family:monospace;color:#9CA3AF;">—</span></td>
+                    <td><span class="tag" style="background:#F3F4F6;color:#6B7280;">—</span></td>
+                    <td><span style="color:#9CA3AF;">—</span></td>
+                    <td>—</td>
+                    <td><span style="color:#9CA3AF;">¥ 86,400</span></td>
+                    <td><span style="color:#9CA3AF;">2025-12-01</span></td>
+                    <td><span class="tag" style="background:#4B5563;color:white;">黑名单</span></td>
+                    <td><button class="btn btn-outline btn-sm" onclick="showSupplierDetail('SUP_008')">详情</button></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="pagination">
+                <div class="pagination-info">显示 1-8 条，共 86 条</div>
+                <div class="pagination-buttons">
+                  <button class="pagination-btn" disabled>‹</button>
+                  <button class="pagination-btn active">1</button>
+                  <button class="pagination-btn">2</button>
+                  <button class="pagination-btn">3</button>
+                  <button class="pagination-btn">...</button>
+                  <button class="pagination-btn">›</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="supplier-active" class="supplier-tab" style="display:none;">
+            <div class="table-card">
+              <div class="table-header"><span class="table-title">✅ 活跃供应商列表</span></div>
+              <table>
+                <thead><tr><th>供应商编码</th><th>供应商名称</th><th>主营类目</th><th>合作等级</th><th>累计交易额</th><th>最近下单</th></tr></thead>
+                <tbody>
+                  <tr><td><span style="font-family:monospace;">SUP_001</span></td><td>优鲜供应链有限公司</td><td><span class="tag" style="background:#DCFCE7;color:#16A34A;">生鲜果蔬</span></td><td><span style="color:#F59E0B;">★★★★★</span></td><td>¥ 2,856,420</td><td>2026-04-10</td></tr>
+                  <tr><td><span style="font-family:monospace;">SUP_002</span></td><td>源生食品贸易商行</td><td><span class="tag" style="background:#DCFCE7;color:#16A34A;">生鲜果蔬</span></td><td><span style="color:#F59E0B;">★★★★☆</span></td><td>¥ 1,428,600</td><td>2026-04-09</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div id="supplier-pending" class="supplier-tab" style="display:none;">
+            <div class="table-card">
+              <div class="table-header"><span class="table-title" style="color:#D97706;">⚠️ 待续签供应商（30天内到期）</span></div>
+              <table>
+                <thead><tr><th>供应商编码</th><th>供应商名称</th><th>主营类目</th><th>合同到期日</th><th>剩余天数</th><th>操作</th></tr></thead>
+                <tbody>
+                  <tr style="background:#FEF3C7;"><td><span style="font-family:monospace;">SUP_003</span></td><td>鲜达冷链配送中心</td><td><span class="tag" style="background:#EEF2FF;color:#4F46E5;">物流承运</span></td><td>2026-04-28</td><td><span style="color:#DC2626;font-weight:600;">18天</span></td><td><button class="btn btn-primary btn-sm" onclick="renewSupplier('SUP_003')">立即续签</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div id="supplier-blacklist" class="supplier-tab" style="display:none;">
+            <div class="table-card">
+              <div class="table-header"><span class="table-title" style="color:#DC2626;">🚫 黑名单供应商</span></div>
+              <table>
+                <thead><tr><th>供应商编码</th><th>供应商名称</th><th>拉黑原因</th><th>拉黑时间</th><th>处理人</th></tr></thead>
+                <tbody>
+                  <tr style="background:#F3F4F6;opacity:0.7;"><td><span style="font-family:monospace;">SUP_008</span></td><td>黑名单供应商B</td><td>售假被查</td><td>2025-12-01</td><td>admin</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 新增供应商弹窗 -->
+      <div id="modal-add-supplier" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:90%;max-width:640px;max-height:85vh;overflow-y:auto;box-shadow:0 25px 80px rgba(0,0,0,0.35);">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="font-size:16px;font-weight:600;color:#1F2937;margin:0;">新增供应商</h3>
+            <button onclick="closeAddSupplierModal()" style="width:32px;height:32px;border-radius:50%;border:none;background:#F3F4F6;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">×</button>
+          </div>
+          <div style="padding:24px;overflow-y:auto;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div style="margin-bottom:16px;grid-column:span 2;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">供应商名称 <span style="color:#EF4444;">*</span></label>
+                <input type="text" class="form-input" placeholder="输入供应商全称" id="add-supplier-name">
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">供应商编码</label>
+                <input type="text" class="form-input" value="系统自动生成" disabled style="background:#F3F4F6;font-family:monospace;">
+                <span style="font-size:11px;color:#9CA3AF;margin-top:4px;display:block;">系统自动生成</span>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">统一社会信用码</label>
+                <input type="text" class="form-input" placeholder="18位统一社会信用代码" id="add-supplier-code" style="font-family:monospace;">
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">主营类目 <span style="color:#EF4444;">*</span></label>
+                <select class="form-select" id="add-supplier-category">
+                  <option value="">请选择类目</option>
+                  <option>生鲜果蔬</option>
+                  <option>粮油调味</option>
+                  <option>日用百货</option>
+                  <option>酒水饮料</option>
+                  <option>物流承运</option>
+                  <option>其他</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">合作等级</label>
+                <select class="form-select" id="add-supplier-level">
+                  <option value="">请选择等级</option>
+                  <option>★★★★★ 核心供应商</option>
+                  <option>★★★★☆ 优质供应商</option>
+                  <option>★★★☆☆ 普通供应商</option>
+                  <option>★★☆☆☆ 备选供应商</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">联系人</label>
+                <input type="text" class="form-input" placeholder="输入联系人姓名" id="add-supplier-contact">
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">联系电话</label>
+                <input type="tel" class="form-input" placeholder="输入手机号" id="add-supplier-phone">
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">账期（天）</label>
+                <input type="number" class="form-input" placeholder="输入账期天数" id="add-supplier-period" value="30">
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">合作状态</label>
+                <select class="form-select" id="add-supplier-status">
+                  <option value="active">活跃</option>
+                  <option value="pending">待续签</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;grid-column:span 2;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">详细地址</label>
+                <input type="text" class="form-input" placeholder="输入供应商地址" id="add-supplier-address">
+              </div>
+              <div style="margin-bottom:16px;grid-column:span 2;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">备注</label>
+                <textarea class="form-input" style="resize:vertical;min-height:60px;" rows="2" placeholder="输入备注信息（选填）" id="add-supplier-remark"></textarea>
+              </div>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button class="btn btn-outline" onclick="closeAddSupplierModal()">取消</button>
+            <button class="btn btn-primary" onclick="saveAddSupplier()">保存</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 编辑供应商弹窗 -->
+      <div id="modal-edit-supplier" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:90%;max-width:640px;max-height:85vh;overflow-y:auto;box-shadow:0 25px 80px rgba(0,0,0,0.35);">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="font-size:16px;font-weight:600;color:#1F2937;margin:0;">编辑供应商</h3>
+            <button onclick="closeEditSupplierModal()" style="width:32px;height:32px;border-radius:50%;border:none;background:#F3F4F6;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">×</button>
+          </div>
+          <div style="padding:24px;overflow-y:auto;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div style="margin-bottom:16px;grid-column:span 2;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">供应商名称 <span style="color:#EF4444;">*</span></label>
+                <input type="text" class="form-input" id="edit-supplier-name">
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">供应商编码</label>
+                <input type="text" class="form-input" id="edit-supplier-code" disabled style="background:#F3F4F6;font-family:monospace;">
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">统一社会信用码</label>
+                <input type="text" class="form-input" id="edit-supplier-credit" style="font-family:monospace;">
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">主营类目 <span style="color:#EF4444;">*</span></label>
+                <select class="form-select" id="edit-supplier-category">
+                  <option value="">请选择类目</option>
+                  <option>生鲜果蔬</option>
+                  <option>粮油调味</option>
+                  <option>日用百货</option>
+                  <option>酒水饮料</option>
+                  <option>物流承运</option>
+                  <option>其他</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">合作等级</label>
+                <select class="form-select" id="edit-supplier-level">
+                  <option value="">请选择等级</option>
+                  <option>★★★★★ 核心供应商</option>
+                  <option>★★★★☆ 优质供应商</option>
+                  <option>★★★☆☆ 普通供应商</option>
+                  <option>★★☆☆☆ 备选供应商</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">联系人</label>
+                <input type="text" class="form-input" id="edit-supplier-contact">
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">联系电话</label>
+                <input type="tel" class="form-input" id="edit-supplier-phone">
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">账期（天）</label>
+                <input type="number" class="form-input" id="edit-supplier-period">
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">合作状态</label>
+                <select class="form-select" id="edit-supplier-status">
+                  <option value="active">活跃</option>
+                  <option value="pending">待续签</option>
+                  <option value="terminated">已终止</option>
+                  <option value="blacklist">黑名单</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;grid-column:span 2;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">详细地址</label>
+                <input type="text" class="form-input" id="edit-supplier-address">
+              </div>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button class="btn btn-outline" onclick="closeEditSupplierModal()">取消</button>
+            <button class="btn btn-primary" onclick="saveEditSupplier()">保存修改</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 供应商详情弹窗 -->
+      <div id="modal-supplier-detail" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:90%;max-width:600px;max-height:85vh;overflow-y:auto;box-shadow:0 25px 80px rgba(0,0,0,0.35);">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="font-size:16px;font-weight:600;color:#1F2937;margin:0;">供应商详情</h3>
+            <button onclick="closeSupplierDetailModal()" style="width:32px;height:32px;border-radius:50%;border:none;background:#F3F4F6;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">×</button>
+          </div>
+          <div style="padding:24px;overflow-y:auto;">
+            <!-- 基本信息 -->
+            <div style="margin-bottom:24px;">
+              <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+                <div style="width:56px;height:56px;background:#EEF2FF;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;">🏢</div>
+                <div>
+                  <div style="font-size:16px;font-weight:600;color:#1F2937;margin-bottom:4px;" id="detail-supplier-name">优鲜供应链有限公司</div>
+                  <div style="display:flex;gap:8px;">
+                    <span class="tag" style="background:#DCFCE7;color:#16A34A;" id="detail-supplier-status">活跃</span>
+                    <span id="detail-supplier-level" style="color:#F59E0B;">★★★★★</span>
+                  </div>
+                </div>
+              </div>
+              <div style="padding:12px 16px;background:#F9FAFB;border-radius:8px;font-size:12px;color:#6B7280;">
+                统一社会信用码：<span style="font-family:monospace;color:#374151;" id="detail-supplier-credit">91110000XXXXXXXX</span>
+              </div>
+            </div>
+            
+            <!-- 联系信息 -->
+            <div style="margin-bottom:24px;">
+              <h4 style="font-size:14px;font-weight:600;color:#1F2937;margin-bottom:12px;">联系信息</h4>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <div style="padding:12px;background:#F9FAFB;border-radius:8px;">
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">联系人</div>
+                  <div style="font-size:14px;font-weight:500;color:#374151;" id="detail-supplier-contact">张经理</div>
+                </div>
+                <div style="padding:12px;background:#F9FAFB;border-radius:8px;">
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">联系电话</div>
+                  <div style="font-size:14px;font-weight:500;color:#374151;font-family:monospace;" id="detail-supplier-phone">138-****-0001</div>
+                </div>
+                <div style="grid-column:span 2;padding:12px;background:#F9FAFB;border-radius:8px;">
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">详细地址</div>
+                  <div style="font-size:14px;font-weight:500;color:#374151;" id="detail-supplier-address">北京市朝阳区望京街道甲100号</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 合作信息 -->
+            <div style="margin-bottom:24px;">
+              <h4 style="font-size:14px;font-weight:600;color:#1F2937;margin-bottom:12px;">合作信息</h4>
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+                <div style="padding:12px;background:#F9FAFB;border-radius:8px;text-align:center;">
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">主营类目</div>
+                  <div style="font-size:14px;font-weight:500;color:#374151;" id="detail-supplier-category">生鲜果蔬</div>
+                </div>
+                <div style="padding:12px;background:#F9FAFB;border-radius:8px;text-align:center;">
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">账期</div>
+                  <div style="font-size:14px;font-weight:500;color:#374151;" id="detail-supplier-period">30天</div>
+                </div>
+                <div style="padding:12px;background:#F9FAFB;border-radius:8px;text-align:center;">
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">合同到期</div>
+                  <div style="font-size:14px;font-weight:500;color:#374151;" id="detail-supplier-expire">2026-06-15</div>
+                </div>
+                <div style="padding:12px;background:#F9FAFB;border-radius:8px;text-align:center;">
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">供应商编码</div>
+                  <div style="font-size:14px;font-weight:500;color:#374151;font-family:monospace;" id="detail-supplier-code">SUP_001</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 交易数据 -->
+            <div>
+              <h4 style="font-size:14px;font-weight:600;color:#1F2937;margin-bottom:12px;">交易数据</h4>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+                <div style="padding:16px;background:#EEF2FF;border-radius:8px;text-align:center;">
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">累计交易额</div>
+                  <div style="font-size:20px;font-weight:600;color:#4F46E5;">¥ 2,856,420</div>
+                </div>
+                <div style="padding:16px;background:#DCFCE7;border-radius:8px;text-align:center;">
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">本月采购额</div>
+                  <div style="font-size:20px;font-weight:600;color:#16A34A;">¥ 128,640</div>
+                </div>
+                <div style="padding:16px;background:#FEF3C7;border-radius:8px;text-align:center;">
+                  <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">累计订单数</div>
+                  <div style="font-size:20px;font-weight:600;color:#D97706;">486 单</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button class="btn btn-outline" onclick="closeSupplierDetailModal()">关闭</button>
+            <button class="btn btn-outline" onclick="addToBlacklist()">拉黑</button>
+            <button class="btn btn-primary" onclick="closeSupplierDetailModal();openEditSupplierModal()">编辑</button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+      function switchSupplierTab(tabName) {
+        document.querySelectorAll('.supplier-tab').forEach(tab => tab.style.display = 'none');
+        document.getElementById('supplier-' + tabName).style.display = 'block';
+        const tabs = document.querySelectorAll('.content > .tabs > .tab');
+        tabs.forEach(t => {
+          t.style.background = '#F3F4F6';
+          t.style.color = '#6B7280';
+        });
+        event.target.style.background = '#EEF2FF';
+        event.target.style.color = '#4F46E5';
+      }
+      
+      function openAddSupplierModal() {
+        var m = document.getElementById('modal-add-supplier');
+        m.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function closeAddSupplierModal() {
+        var m = document.getElementById('modal-add-supplier');
+        m.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+      
+      function openEditSupplierModal(code) {
+        if (code) {
+          document.getElementById('edit-supplier-code').value = code;
+        }
+        var m = document.getElementById('modal-edit-supplier');
+        m.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function closeEditSupplierModal() {
+        var m = document.getElementById('modal-edit-supplier');
+        m.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+      
+      function showSupplierDetail(code) {
+        var m = document.getElementById('modal-supplier-detail');
+        m.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function closeSupplierDetailModal() {
+        var m = document.getElementById('modal-supplier-detail');
+        m.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+      
+      function saveAddSupplier() {
+        var name = document.getElementById('add-supplier-name').value;
+        if (!name) { alert('请输入供应商名称'); return; }
+        alert('供应商保存成功');
+        closeAddSupplierModal();
+      }
+      
+      function saveEditSupplier() {
+        alert('供应商修改成功');
+        closeEditSupplierModal();
+      }
+      
+      function renewSupplier(code) {
+        alert('打开供应商续签流程：' + code);
+      }
+      
+      function addToBlacklist() {
+        if (confirm('确定要将该供应商加入黑名单？')) {
+          alert('已加入黑名单');
+          closeSupplierDetailModal();
+        }
+      }
+      </script>

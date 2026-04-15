@@ -1,0 +1,199 @@
+      <div id="page-alert" class="page">
+        <header class="header">
+          <div class="header-left">
+            <h2>库存预警</h2>
+            <div class="breadcrumb"><span>首页</span><span>/</span><span>库存中心</span><span>/</span><span>库存预警</span></div>
+          </div>
+          <div class="header-right">
+            <button class="btn btn-outline btn-sm">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              导出
+            </button>
+          </div>
+        </header>
+        <div class="content">
+          <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;">
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">库存不足</span></div>
+              <div class="stat-card-value" style="color:#EF4444;">32</div>
+              <div class="stat-card-change down">需立即补货</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">低于安全库存</span></div>
+              <div class="stat-card-value" style="color:#F59E0B;">58</div>
+              <div class="stat-card-change warning">需关注</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">临期预警</span></div>
+              <div class="stat-card-value" style="color:#DC2626;">12</div>
+              <div class="stat-card-change down">30天内到期</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">呆滞预警</span></div>
+              <div class="stat-card-value">24</div>
+              <div class="stat-card-change">90天未动销</div>
+            </div>
+          </div>
+          
+          <div class="tabs" style="margin-bottom:24px;display:flex;gap:8px;">
+            <button class="tab active" onclick="switchAlertTab('lowstock')" style="border:none;background:#EEF2FF;padding:10px 20px;font-size:14px;font-weight:500;color:#4F46E5;border-radius:8px;cursor:pointer;">库存不足 (32)</button>
+            <button class="tab" onclick="switchAlertTab('safetystock')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">低于安全库存 (58)</button>
+            <button class="tab" onclick="switchAlertTab('expiring')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">临期预警 (12)</button>
+            <button class="tab" onclick="switchAlertTab('slow')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">呆滞预警 (24)</button>
+          </div>
+          
+          <div id="alert-lowstock" class="alert-tab">
+            <div class="table-card">
+              <div class="table-filters">
+                <div class="filter-group">
+                  <label class="filter-label">仓库</label>
+                  <select class="filter-select">
+                    <option>全部仓库</option>
+                    <option>北京仓</option>
+                    <option>上海仓</option>
+                    <option>广州仓</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">紧急程度</label>
+                  <select class="filter-select">
+                    <option>全部</option>
+                    <option>紧急</option>
+                    <option>高</option>
+                    <option>中</option>
+                    <option>低</option>
+                  </select>
+                </div>
+                <div class="filter-group" style="flex:1;">
+                  <input type="text" class="filter-input" placeholder="搜索商品名称或SKU..." style="width:100%;">
+                </div>
+              </div>
+              <table>
+                <thead><tr><th>商品名称</th><th>SKU编号</th><th>仓库</th><th>当前库存</th><th>安全库存</th><th>缺少数量</th><th>预计消耗天数</th><th>紧急程度</th><th>操作</th></tr></thead>
+                <tbody>
+                  <tr style="background:#FEE2E2;">
+                    <td><span style="font-weight:600;">土鸡蛋 农家散养</span></td>
+                    <td><span style="font-family:monospace;">SKU-001235</span></td>
+                    <td>北京仓</td>
+                    <td><span style="color:#EF4444;font-weight:600;">128</span></td>
+                    <td>300</td>
+                    <td><span style="color:#EF4444;font-weight:600;">172</span></td>
+                    <td><span style="color:#EF4444;">1天</span></td>
+                    <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">紧急</span></td>
+                    <td><button class="btn btn-primary btn-sm">立即采购</button></td>
+                  </tr>
+                  <tr style="background:#FEF3C7;">
+                    <td><span style="font-weight:600;">新鲜有机苹果</span></td>
+                    <td><span style="font-family:monospace;">SKU-001234</span></td>
+                    <td>上海仓</td>
+                    <td><span style="color:#F59E0B;font-weight:600;">256</span></td>
+                    <td>500</td>
+                    <td><span style="color:#F59E0B;font-weight:600;">244</span></td>
+                    <td><span style="color:#F59E0B;">2天</span></td>
+                    <td><span class="tag" style="background:#FEF3C7;color:#D97706;">高</span></td>
+                    <td><button class="btn btn-primary btn-sm">立即采购</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-weight:600;">伊利纯牛奶 250ml</span></td>
+                    <td><span style="font-family:monospace;">SKU-001237</span></td>
+                    <td>广州仓</td>
+                    <td><span style="color:#F59E0B;font-weight:600;">320</span></td>
+                    <td>500</td>
+                    <td><span style="color:#F59E0B;font-weight:600;">180</span></td>
+                    <td><span style="color:#F59E0B;">3天</span></td>
+                    <td><span class="tag" style="background:#FEF3C7;color:#D97706;">高</span></td>
+                    <td><button class="btn btn-outline btn-sm">采购</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-weight:600;">金龙鱼花生油 5L</span></td>
+                    <td><span style="font-family:monospace;">SKU-002156</span></td>
+                    <td>北京仓</td>
+                    <td><span style="color:#F59E0B;font-weight:600;">89</span></td>
+                    <td>150</td>
+                    <td><span style="color:#F59E0B;font-weight:600;">61</span></td>
+                    <td><span style="color:#F59E0B;">5天</span></td>
+                    <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">中</span></td>
+                    <td><button class="btn btn-outline btn-sm">采购</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-weight:600;">三只松鼠 坚果礼盒</span></td>
+                    <td><span style="font-family:monospace;">SKU-001238</span></td>
+                    <td>上海仓</td>
+                    <td><span style="color:#F59E0B;font-weight:600;">56</span></td>
+                    <td>100</td>
+                    <td><span style="color:#F59E0B;font-weight:600;">44</span></td>
+                    <td><span style="color:#F59E0B;">7天</span></td>
+                    <td><span class="tag" style="background:#FEF3C7;color:#D97706;">中</span></td>
+                    <td><button class="btn btn-outline btn-sm">采购</button></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="pagination">
+                <div class="pagination-info">显示 1-5 条，共 32 条</div>
+                <div class="pagination-buttons">
+                  <button class="pagination-btn" disabled>‹</button>
+                  <button class="pagination-btn active">1</button>
+                  <button class="pagination-btn">2</button>
+                  <button class="pagination-btn">3</button>
+                  <button class="pagination-btn">4</button>
+                  <button class="pagination-btn">›</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="alert-safetystock" class="alert-tab" style="display:none;">
+            <div class="table-card">
+              <div style="padding:20px;background:#FEF3C7;border-radius:8px;margin-bottom:20px;">
+                <div style="font-weight:600;color:#92400E;margin-bottom:4px;">⚠️ 安全库存提醒</div>
+                <div style="font-size:13px;color:#B45309;">以下商品库存已低于安全库存，请及时补货以避免缺货风险。</div>
+              </div>
+              <table>
+                <thead><tr><th>商品名称</th><th>SKU编号</th><th>仓库</th><th>当前库存</th><th>安全库存</th><th>差距</th><th>操作</th></tr></thead>
+                <tbody>
+                  <tr><td>新鲜有机苹果</td><td><span style="font-family:monospace;">SKU-001234</span></td><td>北京仓</td><td>256</td><td>500</td><td><span style="color:#F59E0B;">-244</span></td><td><button class="btn btn-outline btn-sm">补货</button></td></tr>
+                  <tr><td>金龙鱼花生油 5L</td><td><span style="font-family:monospace;">SKU-002156</span></td><td>上海仓</td><td>320</td><td>400</td><td><span style="color:#F59E0B;">-80</span></td><td><button class="btn btn-outline btn-sm">补货</button></td></tr>
+                  <tr><td>伊利纯牛奶</td><td><span style="font-family:monospace;">SKU-001237</span></td><td>广州仓</td><td>450</td><td>600</td><td><span style="color:#F59E0B;">-150</span></td><td><button class="btn btn-outline btn-sm">补货</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div id="alert-expiring" class="alert-tab" style="display:none;">
+            <div class="table-card">
+              <table>
+                <thead><tr><th>商品名称</th><th>SKU编号</th><th>仓库</th><th>批次号</th><th>数量</th><th>生产日期</th><th>到期日期</th><th>剩余天数</th><th>状态</th><th>操作</th></tr></thead>
+                <tbody>
+                  <tr><td>新鲜有机苹果</td><td><span style="font-family:monospace;">SKU-001234</span></td><td>北京仓</td><td>PC-20260301</td><td>128箱</td><td>2026-03-01</td><td>2026-04-15</td><td><span style="color:#EF4444;">5天</span></td><td><span class="tag" style="background:#FEE2E2;color:#DC2626;">即将到期</span></td><td><button class="btn btn-outline btn-sm">处理</button></td></tr>
+                  <tr><td>土鸡蛋</td><td><span style="font-family:monospace;">SKU-001235</span></td><td>上海仓</td><td>PC-20260310</td><td>256盒</td><td>2026-03-10</td><td>2026-04-20</td><td><span style="color:#F59E0B;">10天</span></td><td><span class="tag" style="background:#FEF3C7;color:#D97706;">临期</span></td><td><button class="btn btn-outline btn-sm">处理</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div id="alert-slow" class="alert-tab" style="display:none;">
+            <div class="table-card">
+              <table>
+                <thead><tr><th>商品名称</th><th>SKU编号</th><th>仓库</th><th>当前库存</th><th>最后出库</th><th>未动销天数</th><th>建议</th><th>操作</th></tr></thead>
+                <tbody>
+                  <tr><td>某呆滞商品A</td><td><span style="font-family:monospace;">SKU-009876</span></td><td>北京仓</td><td>500</td><td>2026-01-01</td><td><span style="color:#EF4444;">99天</span></td><td><button class="btn btn-outline btn-sm">促销</button></td><td><button class="btn btn-outline btn-sm">调拨</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+      function switchAlertTab(tabName) {
+        document.querySelectorAll('.alert-tab').forEach(tab => tab.style.display = 'none');
+        document.getElementById('alert-' + tabName).style.display = 'block';
+        document.querySelectorAll('.alert-tab').forEach(() => {});
+        const tabs = document.querySelectorAll('.content > .tabs > .tab');
+        tabs.forEach(t => {
+          t.style.background = '#F3F4F6';
+          t.style.color = '#6B7280';
+        });
+        event.target.style.background = '#EEF2FF';
+        event.target.style.color = '#4F46E5';
+      }
+      </script>

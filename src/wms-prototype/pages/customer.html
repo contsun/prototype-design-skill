@@ -1,0 +1,268 @@
+      <div id="page-customer" class="page">
+        <header class="header">
+          <div class="header-left">
+            <h2>客户管理</h2>
+            <div class="breadcrumb"><span>首页</span><span>/</span><span>基础档案</span><span>/</span><span>客户管理</span></div>
+          </div>
+          <div class="header-right">
+            <button class="btn btn-outline btn-sm">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              导出
+            </button>
+            <button class="btn btn-primary btn-sm">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+              新增客户
+            </button>
+          </div>
+        </header>
+        <div class="content">
+          <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;">
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">客户总数</span></div>
+              <div class="stat-card-value">1,286</div>
+              <div class="stat-card-change">团长/自提点</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">活跃客户</span></div>
+              <div class="stat-card-value" style="color:#10B981;">1,128</div>
+              <div class="stat-card-change up">+5.2%</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">本月订单</span></div>
+              <div class="stat-card-value">28.5K</div>
+              <div class="stat-card-change up">+12.5%</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">待续签</span></div>
+              <div class="stat-card-value" style="color:#F59E0B;">36</div>
+              <div class="stat-card-change">30天内到期</div>
+            </div>
+          </div>
+          
+          <div class="tabs" style="margin-bottom:24px;display:flex;gap:8px;">
+            <button class="tab active" onclick="switchCustomerTab('all')" style="border:none;background:#EEF2FF;padding:10px 20px;font-size:14px;font-weight:500;color:#4F46E5;border-radius:8px;cursor:pointer;">全部客户</button>
+            <button class="tab" onclick="switchCustomerTab('leader')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">团长</button>
+            <button class="tab" onclick="switchCustomerTab('pickup')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">自提点</button>
+            <button class="tab" onclick="switchCustomerTab('pending')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">待续签 (36)</button>
+          </div>
+          
+          <div id="customer-all" class="customer-tab">
+            <div class="table-card">
+              <div class="table-filters">
+                <div class="filter-group">
+                  <label class="filter-label">客户名称</label>
+                  <input type="text" class="filter-input" placeholder="搜索客户名称...">
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">客户类型</label>
+                  <select class="filter-select">
+                    <option>全部</option>
+                    <option>团长</option>
+                    <option>自提点</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">所属区域</label>
+                  <select class="filter-select">
+                    <option>全部</option>
+                    <option>朝阳区</option>
+                    <option>海淀区</option>
+                    <option>东城区</option>
+                    <option>西城区</option>
+                    <option>丰台区</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">状态</label>
+                  <select class="filter-select">
+                    <option>全部</option>
+                    <option>活跃</option>
+                    <option>待续签</option>
+                    <option>已终止</option>
+                  </select>
+                </div>
+              </div>
+              <table>
+                <thead><tr><th>客户编号</th><th>客户名称</th><th>类型</th><th>联系人</th><th>联系电话</th><th>所属区域</th><th>本月订单</th><th>累计订单</th><th>评分</th><th>状态</th><th>操作</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">CUS_001</span></td>
+                    <td>
+                      <div style="font-weight:500;color:#374151;">朝阳社区团购群</div>
+                      <div style="font-size:11px;color:#6B7280;margin-top:2px;">自提点编号：PT-001</div>
+                    </td>
+                    <td><span class="tag" style="background:#EEF2FF;color:#4F46E5;">团长</span></td>
+                    <td>王小红</td>
+                    <td><span style="font-family:monospace;">138-****-1234</span></td>
+                    <td>朝阳区</td>
+                    <td><span style="font-weight:600;">568单</span></td>
+                    <td>12,568单</td>
+                    <td><span style="color:#F59E0B;">★★★★★</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">活跃</span></td>
+                    <td><button class="btn btn-outline btn-sm">详情</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">编辑</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">CUS_002</span></td>
+                    <td>
+                      <div style="font-weight:500;color:#374151;">海淀邻里中心</div>
+                      <div style="font-size:11px;color:#6B7280;margin-top:2px;">自提点编号：PT-002</div>
+                    </td>
+                    <td><span class="tag" style="background:#EEF2FF;color:#4F46E5;">团长</span></td>
+                    <td>李明</td>
+                    <td><span style="font-family:monospace;">139-****-5678</span></td>
+                    <td>海淀区</td>
+                    <td><span style="font-weight:600;">486单</span></td>
+                    <td>10,286单</td>
+                    <td><span style="color:#F59E0B;">★★★★★</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">活跃</span></td>
+                    <td><button class="btn btn-outline btn-sm">详情</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">编辑</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">CUS_003</span></td>
+                    <td>
+                      <div style="font-weight:500;color:#374151;">西城生活馆</div>
+                      <div style="font-size:11px;color:#6B7280;margin-top:2px;">自提点编号：PT-003</div>
+                    </td>
+                    <td><span class="tag" style="background:#DBEAFE;color:#2563EB;">自提点</span></td>
+                    <td>张伟</td>
+                    <td><span style="font-family:monospace;">137-****-9012</span></td>
+                    <td>西城区</td>
+                    <td><span style="font-weight:600;">356单</span></td>
+                    <td>8,568单</td>
+                    <td><span style="color:#F59E0B;">★★★★☆</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">活跃</span></td>
+                    <td><button class="btn btn-outline btn-sm">详情</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">编辑</button></td>
+                  </tr>
+                  <tr style="background:#FEF3C7;">
+                    <td><span style="font-family:monospace;font-size:11px;">CUS_004</span></td>
+                    <td>
+                      <div style="font-weight:500;color:#374151;">东城社区驿站</div>
+                      <div style="font-size:11px;color:#6B7280;margin-top:2px;">自提点编号：PT-004</div>
+                    </td>
+                    <td><span class="tag" style="background:#EEF2FF;color:#4F46E5;">团长</span></td>
+                    <td>赵鹏</td>
+                    <td><span style="font-family:monospace;">136-****-3456</span></td>
+                    <td>东城区</td>
+                    <td><span style="font-weight:600;">298单</span></td>
+                    <td>6,128单</td>
+                    <td><span style="color:#F59E0B;">★★★★☆</span></td>
+                    <td><span class="tag" style="background:#FEF3C7;color:#D97706;">待续签</span></td>
+                    <td><button class="btn btn-outline btn-sm">详情</button><button class="btn btn-primary btn-sm" style="margin-left:4px;">续签</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">CUS_005</span></td>
+                    <td>
+                      <div style="font-weight:500;color:#374151;">丰台社区便利店</div>
+                      <div style="font-size:11px;color:#6B7280;margin-top:2px;">自提点编号：PT-005</div>
+                    </td>
+                    <td><span class="tag" style="background:#DBEAFE;color:#2563EB;">自提点</span></td>
+                    <td>钱七</td>
+                    <td><span style="font-family:monospace;">135-****-7890</span></td>
+                    <td>丰台区</td>
+                    <td><span style="font-weight:600;">428单</span></td>
+                    <td>9,856单</td>
+                    <td><span style="color:#F59E0B;">★★★★★</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">活跃</span></td>
+                    <td><button class="btn btn-outline btn-sm">详情</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">编辑</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">CUS_006</span></td>
+                    <td>
+                      <div style="font-weight:500;color:#374151;">朝阳CBD商圈</div>
+                      <div style="font-size:11px;color:#6B7280;margin-top:2px;">自提点编号：PT-006</div>
+                    </td>
+                    <td><span class="tag" style="background:#EEF2FF;color:#4F46E5;">团长</span></td>
+                    <td>孙八</td>
+                    <td><span style="font-family:monospace;">134-****-2345</span></td>
+                    <td>朝阳区</td>
+                    <td><span style="font-weight:600;">512单</span></td>
+                    <td>11,286单</td>
+                    <td><span style="color:#F59E0B;">★★★★★</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">活跃</span></td>
+                    <td><button class="btn btn-outline btn-sm">详情</button><button class="btn btn-outline btn-sm" style="margin-left:4px;">编辑</button></td>
+                  </tr>
+                  <tr style="background:#F3F4F6;opacity:0.7;">
+                    <td><span style="font-family:monospace;font-size:11px;">CUS_007</span></td>
+                    <td>
+                      <div style="font-weight:500;color:#6B7280;">已终止客户A</div>
+                      <div style="font-size:11px;color:#9CA3AF;margin-top:2px;">原因：长期不活跃</div>
+                    </td>
+                    <td><span class="tag" style="background:#6B7280;color:white;">已终止</span></td>
+                    <td>—</td>
+                    <td><span style="color:#9CA3AF;">—</span></td>
+                    <td>—</td>
+                    <td><span style="color:#9CA3AF;">0单</span></td>
+                    <td>1,286单</td>
+                    <td><span style="color:#9CA3AF;">★★★☆☆</span></td>
+                    <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">已终止</span></td>
+                    <td><button class="btn btn-outline btn-sm">详情</button></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="pagination">
+                <div class="pagination-info">显示 1-7 条，共 1,286 条</div>
+                <div class="pagination-buttons">
+                  <button class="pagination-btn" disabled>‹</button>
+                  <button class="pagination-btn active">1</button>
+                  <button class="pagination-btn">2</button>
+                  <button class="pagination-btn">3</button>
+                  <button class="pagination-btn">...</button>
+                  <button class="pagination-btn">›</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="customer-leader" class="customer-tab" style="display:none;">
+            <div class="table-card">
+              <div class="table-header"><span class="table-title">👥 团长列表</span></div>
+              <table>
+                <thead><tr><th>客户编号</th><th>团长名称</th><th>联系人</th><th>联系电话</th><th>所属区域</th><th>本月订单</th><th>累计订单</th><th>评分</th></tr></thead>
+                <tbody>
+                  <tr><td><span style="font-family:monospace;">CUS_001</span></td><td>朝阳社区团购群</td><td>王小红</td><td>138-****-1234</td><td>朝阳区</td><td><span style="font-weight:600;">568单</span></td><td>12,568单</td><td><span style="color:#F59E0B;">★★★★★</span></td></tr>
+                  <tr><td><span style="font-family:monospace;">CUS_002</span></td><td>海淀邻里中心</td><td>李明</td><td>139-****-5678</td><td>海淀区</td><td><span style="font-weight:600;">486单</span></td><td>10,286单</td><td><span style="color:#F59E0B;">★★★★★</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div id="customer-pickup" class="customer-tab" style="display:none;">
+            <div class="table-card">
+              <div class="table-header"><span class="table-title">📍 自提点列表</span></div>
+              <table>
+                <thead><tr><th>客户编号</th><th>自提点名称</th><th>联系人</th><th>联系电话</th><th>所属区域</th><th>本月订单</th><th>累计订单</th><th>评分</th></tr></thead>
+                <tbody>
+                  <tr><td><span style="font-family:monospace;">CUS_003</span></td><td>西城生活馆</td><td>张伟</td><td>137-****-9012</td><td>西城区</td><td><span style="font-weight:600;">356单</span></td><td>8,568单</td><td><span style="color:#F59E0B;">★★★★☆</span></td></tr>
+                  <tr><td><span style="font-family:monospace;">CUS_005</span></td><td>丰台社区便利店</td><td>钱七</td><td>135-****-7890</td><td>丰台区</td><td><span style="font-weight:600;">428单</span></td><td>9,856单</td><td><span style="color:#F59E0B;">★★★★★</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div id="customer-pending" class="customer-tab" style="display:none;">
+            <div class="table-card">
+              <div class="table-header"><span class="table-title" style="color:#F59E0B;">⚠️ 待续签客户（30天内到期）</span></div>
+              <table>
+                <thead><tr><th>客户编号</th><th>客户名称</th><th>类型</th><th>合同到期日</th><th>剩余天数</th><th>本月订单</th><th>操作</th></tr></thead>
+                <tbody>
+                  <tr style="background:#FEF3C7;"><td><span style="font-family:monospace;">CUS_004</span></td><td>东城社区驿站</td><td><span class="tag" style="background:#EEF2FF;color:#4F46E5;">团长</span></td><td>2026-05-01</td><td><span style="color:#DC2626;font-weight:600;">21天</span></td><td>298单</td><td><button class="btn btn-primary btn-sm">立即续签</button></td></tr>
+                  <tr style="background:#FEF3C7;"><td><span style="font-family:monospace;">CUS_008</span></td><td>石景山社区点</td><td><span class="tag" style="background:#DBEAFE;color:#2563EB;">自提点</span></td><td>2026-05-05</td><td><span style="color:#DC2626;font-weight:600;">25天</span></td><td>186单</td><td><button class="btn btn-primary btn-sm">立即续签</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+      function switchCustomerTab(tabName) {
+        document.querySelectorAll('.customer-tab').forEach(tab => tab.style.display = 'none');
+        document.getElementById('customer-' + tabName).style.display = 'block';
+        const tabs = document.querySelectorAll('.content > .tabs > .tab');
+        tabs.forEach(t => {
+          t.style.background = '#F3F4F6';
+          t.style.color = '#6B7280';
+        });
+        event.target.style.background = '#EEF2FF';
+        event.target.style.color = '#4F46E5';
+      }
+      </script>

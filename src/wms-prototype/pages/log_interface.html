@@ -1,0 +1,244 @@
+      <div id="page-log_interface" class="page">
+        <header class="header">
+          <div class="header-left">
+            <h2>系统与接口日志</h2>
+            <div class="breadcrumb"><span>首页</span><span>/</span><span>日志中心</span><span>/</span><span>系统与接口日志</span></div>
+          </div>
+          <div class="header-right">
+            <button class="btn btn-outline btn-sm">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              导出
+            </button>
+          </div>
+        </header>
+        <div class="content">
+          <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;">
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">接口调用</span></div>
+              <div class="stat-card-value">12,856</div>
+              <div class="stat-card-change up">今日</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">成功率</span></div>
+              <div class="stat-card-value" style="color:#10B981;">99.2%</div>
+              <div class="stat-card-change up">+0.3%</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">异常调用</span></div>
+              <div class="stat-card-value" style="color:#EF4444;">86</div>
+              <div class="stat-card-change down">需处理</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">超时调用</span></div>
+              <div class="stat-card-value" style="color:#F59E0B;">15</div>
+              <div class="stat-card-change">已自动重试</div>
+            </div>
+          </div>
+          
+          <div class="tabs" style="margin-bottom:24px;display:flex;gap:8px;">
+            <button class="tab active" onclick="switchInterfaceTab('all')" style="border:none;background:#EEF2FF;padding:10px 20px;font-size:14px;font-weight:500;color:#4F46E5;border-radius:8px;cursor:pointer;">全部</button>
+            <button class="tab" onclick="switchInterfaceTab('error')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">异常 (86)</button>
+            <button class="tab" onclick="switchInterfaceTab('timeout')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">超时 (15)</button>
+            <button class="tab" onclick="switchInterfaceTab('oms')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">OMS</button>
+            <button class="tab" onclick="switchInterfaceTab('tms')" style="border:none;background:#F3F4F6;padding:10px 20px;font-size:14px;font-weight:500;color:#6B7280;border-radius:8px;cursor:pointer;">TMS</button>
+          </div>
+          
+          <div id="interface-all" class="interface-tab">
+            <div class="table-card">
+              <div class="table-filters">
+                <div class="filter-group">
+                  <label class="filter-label">交易ID</label>
+                  <input type="text" class="filter-input" placeholder="搜索交易ID...">
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">接口名称</label>
+                  <select class="filter-select">
+                    <option>全部</option>
+                    <option>订单同步</option>
+                    <option>库存查询</option>
+                    <option>库存变更</option>
+                    <option>配送下单</option>
+                    <option>物流轨迹</option>
+                    <option>财务对账</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">状态码</label>
+                  <select class="filter-select">
+                    <option>全部</option>
+                    <option>200成功</option>
+                    <option>4xx客户端错误</option>
+                    <option>5xx服务端错误</option>
+                    <option>超时</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label">时间范围</label>
+                  <select class="filter-select">
+                    <option>今天</option>
+                    <option>近7天</option>
+                    <option>近30天</option>
+                  </select>
+                </div>
+              </div>
+              <table>
+                <thead><tr><th>交易ID</th><th>接口名称</th><th>请求方向</th><th>状态码</th><th>耗时(ms)</th><th>请求摘要</th><th>响应摘要</th><th>时间</th><th>操作</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">TXN-2026-0410-892356</span></td>
+                    <td><span style="font-weight:500;">库存变更</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">WMS→ERP</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">200</span></td>
+                    <td><span style="color:#10B981;font-weight:500;">128</span></td>
+                    <td style="max-width:200px;font-size:11px;color:#6B7280;">{"sku":"SKU-001234","qty":200,"type":"inbound"}</td>
+                    <td style="max-width:200px;font-size:11px;color:#6B7280;">{"code":0,"stock":4520}</td>
+                    <td>2026-04-10 14:35:15</td>
+                    <td><button class="btn btn-outline btn-sm">详情</button></td>
+                  </tr>
+                  <tr style="background:#FEE2E2;">
+                    <td><span style="font-family:monospace;font-size:11px;">TXN-2026-0410-892355</span></td>
+                    <td><span style="font-weight:500;">订单同步</span></td>
+                    <td><span class="tag" style="background:#EEF2FF;color:#4F46E5;">OMS→WMS</span></td>
+                    <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">500</span></td>
+                    <td><span style="color:#EF4444;font-weight:500;">2,856</span></td>
+                    <td style="max-width:200px;font-size:11px;color:#6B7280;">{"orderId":"DD-2026-0410-8923"}</td>
+                    <td style="max-width:200px;font-size:11px;color:#EF4444;">{"code":500,"msg":"内务错误"}</td>
+                    <td>2026-04-10 14:35:02</td>
+                    <td><button class="btn btn-outline btn-sm">详情</button></td>
+                  </tr>
+                  <tr style="background:#FEF3C7;">
+                    <td><span style="font-family:monospace;font-size:11px;">TXN-2026-0410-892354</span></td>
+                    <td><span style="font-weight:500;">物流轨迹</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">WMS→TMS</span></td>
+                    <td><span class="tag" style="background:#FEF3C7;color:#D97706;">超时</span></td>
+                    <td><span style="color:#F59E0B;font-weight:500;">30,000</span></td>
+                    <td style="max-width:200px;font-size:11px;color:#6B7280;">{"deliveryId":"PS-2026-0410-089"}</td>
+                    <td style="max-width:200px;font-size:11px;color:#F59E0B;">{"code":408,"msg":"请求超时"}</td>
+                    <td>2026-04-10 14:34:58</td>
+                    <td><button class="btn btn-outline btn-sm">详情</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">TXN-2026-0410-892353</span></td>
+                    <td><span style="font-weight:500;">库存查询</span></td>
+                    <td><span class="tag" style="background:#EEF2FF;color:#4F46E5;">OMS→WMS</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">200</span></td>
+                    <td><span style="color:#10B981;font-weight:500;">45</span></td>
+                    <td style="max-width:200px;font-size:11px;color:#6B7280;">{"sku":"SKU-001234","warehouse":"北京仓"}</td>
+                    <td style="max-width:200px;font-size:11px;color:#6B7280;">{"code":0,"stock":1256}</td>
+                    <td>2026-04-10 14:34:42</td>
+                    <td><button class="btn btn-outline btn-sm">详情</button></td>
+                  </tr>
+                  <tr style="background:#FEE2E2;">
+                    <td><span style="font-family:monospace;font-size:11px;">TXN-2026-0410-892352</span></td>
+                    <td><span style="font-weight:500;">配送下单</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">WMS→TMS</span></td>
+                    <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">400</span></td>
+                    <td><span style="color:#EF4444;font-weight:500;">89</span></td>
+                    <td style="max-width:200px;font-size:11px;color:#6B7280;">{"orderId":"DD-2026-0410-8921"}</td>
+                    <td style="max-width:200px;font-size:11px;color:#EF4444;">{"code":400,"msg":"参数错误"}</td>
+                    <td>2026-04-10 14:34:28</td>
+                    <td><button class="btn btn-outline btn-sm">详情</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">TXN-2026-0410-892351</span></td>
+                    <td><span style="font-weight:500;">财务对账</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">WMS→ERP</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">200</span></td>
+                    <td><span style="color:#10B981;font-weight:500;">256</span></td>
+                    <td style="max-width:200px;font-size:11px;color:#6B7280;">{"date":"2026-04-09","type":"purchase"}</td>
+                    <td style="max-width:200px;font-size:11px;color:#6B7280;">{"code":0,"amount":856420}</td>
+                    <td>2026-04-10 14:34:15</td>
+                    <td><button class="btn btn-outline btn-sm">详情</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;font-size:11px;">TXN-2026-0410-892350</span></td>
+                    <td><span style="font-weight:500;">订单同步</span></td>
+                    <td><span class="tag" style="background:#EEF2FF;color:#4F46E5;">OMS→WMS</span></td>
+                    <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">200</span></td>
+                    <td><span style="color:#10B981;font-weight:500;">186</span></td>
+                    <td style="max-width:200px;font-size:11px;color:#6B7280;">{"orderId":"DD-2026-0410-8920"}</td>
+                    <td style="max-width:200px;font-size:11px;color:#6B7280;">{"code":0,"wmsOrderId":"RK-2026-0410-026"}</td>
+                    <td>2026-04-10 14:34:02</td>
+                    <td><button class="btn btn-outline btn-sm">详情</button></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="pagination">
+                <div class="pagination-info">显示 1-7 条，共 86 条</div>
+                <div class="pagination-buttons">
+                  <button class="pagination-btn" disabled>‹</button>
+                  <button class="pagination-btn active">1</button>
+                  <button class="pagination-btn">2</button>
+                  <button class="pagination-btn">3</button>
+                  <button class="pagination-btn">...</button>
+                  <button class="pagination-btn">›</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="interface-error" class="interface-tab" style="display:none;">
+            <div class="table-card">
+              <div class="table-header"><span class="table-title" style="color:#DC2626;">⚠️ 异常接口调用</span></div>
+              <table>
+                <thead><tr><th>交易ID</th><th>接口名称</th><th>状态码</th><th>错误信息</th><th>时间</th></tr></thead>
+                <tbody>
+                  <tr style="background:#FEE2E2;"><td><span style="font-family:monospace;">TXN-2026-0410-892355</span></td><td>订单同步</td><td><span class="tag" style="background:#FEE2E2;color:#DC2626;">500</span></td><td>内务错误</td><td>2026-04-10 14:35:02</td></tr>
+                  <tr style="background:#FEE2E2;"><td><span style="font-family:monospace;">TXN-2026-0410-892352</span></td><td>配送下单</td><td><span class="tag" style="background:#FEE2E2;color:#DC2626;">400</span></td><td>参数错误</td><td>2026-04-10 14:34:28</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div id="interface-timeout" class="interface-tab" style="display:none;">
+            <div class="table-card">
+              <div class="table-header"><span class="table-title" style="color:#F59E0B;">⏰ 超时接口（已自动重试）</span></div>
+              <table>
+                <thead><tr><th>交易ID</th><th>接口名称</th><th>耗时</th><th>重试次数</th><th>最终状态</th><th>时间</th></tr></thead>
+                <tbody>
+                  <tr style="background:#FEF3C7;"><td><span style="font-family:monospace;">TXN-2026-0410-892354</span></td><td>物流轨迹</td><td>30,000ms</td><td>3次</td><td><span class="tag" style="background:#DCFCE7;color:#16A34A;">成功</span></td><td>2026-04-10 14:35:30</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div id="interface-oms" class="interface-tab" style="display:none;">
+            <div class="table-card">
+              <div class="table-header"><span class="table-title">OMS接口调用统计</span></div>
+              <table>
+                <thead><tr><th>接口名称</th><th>调用次数</th><th>成功率</th><th>平均耗时</th><th>状态</th></tr></thead>
+                <tbody>
+                  <tr><td>订单同步</td><td>5,286次</td><td><span style="color:#10B981;">99.5%</span></td><td>156ms</td><td><span class="status status-success">正常</span></td></tr>
+                  <tr><td>库存查询</td><td>8,562次</td><td><span style="color:#10B981;">99.8%</span></td><td>48ms</td><td><span class="status status-success">正常</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div id="interface-tms" class="interface-tab" style="display:none;">
+            <div class="table-card">
+              <div class="table-header"><span class="table-title">TMS接口调用统计</span></div>
+              <table>
+                <thead><tr><th>接口名称</th><th>调用次数</th><th>成功率</th><th>平均耗时</th><th>状态</th></tr></thead>
+                <tbody>
+                  <tr><td>配送下单</td><td>2,156次</td><td><span style="color:#10B981;">98.5%</span></td><td>286ms</td><td><span class="status status-success">正常</span></td></tr>
+                  <tr><td>物流轨迹</td><td>3,892次</td><td><span style="color:#F59E0B;">96.2%</span></td><td>1,256ms</td><td><span class="status status-warning">需关注</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+      function switchInterfaceTab(tabName) {
+        document.querySelectorAll('.interface-tab').forEach(tab => tab.style.display = 'none');
+        document.getElementById('interface-' + tabName).style.display = 'block';
+        const tabs = document.querySelectorAll('.content > .tabs > .tab');
+        tabs.forEach(t => {
+          t.style.background = '#F3F4F6';
+          t.style.color = '#6B7280';
+        });
+        event.target.style.background = '#EEF2FF';
+        event.target.style.color = '#4F46E5';
+      }
+      </script>

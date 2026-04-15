@@ -1,0 +1,510 @@
+      <div id="page-warehouse" class="page">
+        <header class="header">
+          <div class="header-left">
+            <h2>仓库管理</h2>
+            <div class="breadcrumb">
+              <span>基础档案</span>
+              <span>/</span>
+              <span>仓库管理</span>
+            </div>
+          </div>
+          <div class="header-right">
+            <button class="btn btn-outline btn-sm">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              导出
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="openAddWarehouseModal()">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              新增仓库
+            </button>
+          </div>
+        </header>
+        
+        <div class="content">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;">
+            <!-- 左侧：层级树 -->
+            <div class="table-card" style="padding:0;overflow:hidden;">
+              <div style="padding:16px 20px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+                <span style="font-size:14px;font-weight:600;color:#1F2937;">仓库层级结构</span>
+                <span style="font-size:12px;color:#6B7280;">拖拽可调整顺序</span>
+              </div>
+              <div style="padding:16px;max-height:400px;overflow-y:auto;">
+                <!-- 中心仓 -->
+                <div class="warehouse-tree-node" style="margin-bottom:8px;">
+                  <div style="display:flex;align-items:center;padding:12px 16px;background:#EEF2FF;border-radius:8px;cursor:pointer;" onclick="toggleChildren('wh-center')">
+                    <span style="margin-right:8px;color:#6B7280;font-size:12px;">▼</span>
+                    <svg fill="none" stroke="#4F46E5" stroke-width="2" viewBox="0 0 24 24" width="20" height="20" style="margin-right:8px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                    <span style="font-weight:600;color:#1F2937;flex:1;">北京中心仓</span>
+                    <span class="tag" style="background:#DCFCE7;color:#16A34A;font-size:11px;">中心仓</span>
+                    <button class="btn btn-outline btn-sm" style="margin-left:8px;padding:4px 8px;font-size:11px;" onclick="event.stopPropagation();openAddChildModal('wh-center','北京中心仓')">+下级</button>
+                  </div>
+                  <!-- 网格仓 -->
+                  <div style="margin-left:28px;border-left:2px solid #E5E7EB;padding-left:12px;margin-top:8px;">
+                    <div class="warehouse-tree-node" style="margin-bottom:8px;">
+                      <div style="display:flex;align-items:center;padding:10px 14px;background:#FEF3C7;border-radius:8px;cursor:pointer;" onclick="toggleChildren('wh-grid1')">
+                        <span style="margin-right:8px;color:#6B7280;font-size:11px;">▼</span>
+                        <svg fill="none" stroke="#D97706" stroke-width="2" viewBox="0 0 24 24" width="18" height="18" style="margin-right:8px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                        <span style="font-weight:500;color:#1F2937;flex:1;">北京-朝阳网格仓</span>
+                        <span class="tag" style="background:#FEF3C7;color:#D97706;font-size:10px;">网格仓</span>
+                        <button class="btn btn-outline btn-sm" style="margin-left:8px;padding:3px 6px;font-size:10px;" onclick="event.stopPropagation();openAddChildModal('wh-grid1','北京-朝阳网格仓')">+下级</button>
+                      </div>
+                      <!-- 自提点 -->
+                      <div style="margin-left:24px;border-left:2px solid #E5E7EB;padding-left:10px;margin-top:6px;">
+                        <div style="display:flex;align-items:center;padding:8px 12px;background:#F3F4F6;border-radius:6px;cursor:pointer;">
+                          <svg fill="none" stroke="#6B7280" stroke-width="2" viewBox="0 0 24 24" width="16" height="16" style="margin-right:6px;"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                          <span style="font-size:13px;color:#374151;flex:1;">望京街道自提点</span>
+                          <span class="tag" style="background:#F3F4F6;color:#6B7280;font-size:10px;">自提点</span>
+                        </div>
+                        <div style="display:flex;align-items:center;padding:8px 12px;background:#F3F4F6;border-radius:6px;cursor:pointer;margin-top:6px;">
+                          <svg fill="none" stroke="#6B7280" stroke-width="2" viewBox="0 0 24 24" width="16" height="16" style="margin-right:6px;"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                          <span style="font-size:13px;color:#374151;flex:1;">海淀中关村自提点</span>
+                          <span class="tag" style="background:#F3F4F6;color:#6B7280;font-size:10px;">自提点</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="warehouse-tree-node" style="margin-bottom:8px;">
+                      <div style="display:flex;align-items:center;padding:10px 14px;background:#FEF3C7;border-radius:8px;cursor:pointer;" onclick="toggleChildren('wh-grid2')">
+                        <span style="margin-right:8px;color:#6B7280;font-size:11px;">▶</span>
+                        <svg fill="none" stroke="#D97706" stroke-width="2" viewBox="0 0 24 24" width="18" height="18" style="margin-right:8px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                        <span style="font-weight:500;color:#1F2937;flex:1;">北京-顺义网格仓</span>
+                        <span class="tag" style="background:#FEF3C7;color:#D97706;font-size:10px;">网格仓</span>
+                        <button class="btn btn-outline btn-sm" style="margin-left:8px;padding:3px 6px;font-size:10px;" onclick="event.stopPropagation();openAddChildModal('wh-grid2','北京-顺义网格仓')">+下级</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- 上海中心仓 -->
+                <div class="warehouse-tree-node" style="margin-bottom:8px;">
+                  <div style="display:flex;align-items:center;padding:12px 16px;background:#DCFCE7;border-radius:8px;cursor:pointer;" onclick="toggleChildren('wh-shanghai')">
+                    <span style="margin-right:8px;color:#6B7280;font-size:12px;">▶</span>
+                    <svg fill="none" stroke="#16A34A" stroke-width="2" viewBox="0 0 24 24" width="20" height="20" style="margin-right:8px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                    <span style="font-weight:600;color:#1F2937;flex:1;">上海中心仓</span>
+                    <span class="tag" style="background:#DCFCE7;color:#16A34A;font-size:11px;">中心仓</span>
+                    <button class="btn btn-outline btn-sm" style="margin-left:8px;padding:4px 8px;font-size:11px;" onclick="event.stopPropagation();openAddChildModal('wh-shanghai','上海中心仓')">+下级</button>
+                  </div>
+                </div>
+                <!-- 广州中心仓 -->
+                <div class="warehouse-tree-node" style="margin-bottom:8px;">
+                  <div style="display:flex;align-items:center;padding:12px 16px;background:#FEE2E2;border-radius:8px;cursor:pointer;" onclick="toggleChildren('wh-guangzhou')">
+                    <span style="margin-right:8px;color:#6B7280;font-size:12px;">▶</span>
+                    <svg fill="none" stroke="#DC2626" stroke-width="2" viewBox="0 0 24 24" width="20" height="20" style="margin-right:8px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                    <span style="font-weight:600;color:#1F2937;flex:1;">广州中心仓</span>
+                    <span class="tag" style="background:#FEE2E2;color:#DC2626;font-size:11px;">中心仓</span>
+                    <button class="btn btn-outline btn-sm" style="margin-left:8px;padding:4px 8px;font-size:11px;" onclick="event.stopPropagation();openAddChildModal('wh-guangzhou','广州中心仓')">+下级</button>
+                  </div>
+                </div>
+                <!-- 成都中心仓 -->
+                <div class="warehouse-tree-node" style="margin-bottom:8px;">
+                  <div style="display:flex;align-items:center;padding:12px 16px;background:#F3F4F6;border-radius:8px;cursor:pointer;opacity:0.7;" onclick="toggleChildren('wh-chengdu')">
+                    <span style="margin-right:8px;color:#6B7280;font-size:12px;">▶</span>
+                    <svg fill="none" stroke="#9CA3AF" stroke-width="2" viewBox="0 0 24 24" width="20" height="20" style="margin-right:8px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                    <span style="font-weight:600;color:#9CA3AF;flex:1;">成都中心仓（筹建中）</span>
+                    <span class="tag" style="background:#F3F4F6;color:#9CA3AF;font-size:11px;">筹建中</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 右侧：地图占位 -->
+            <div class="table-card" style="padding:0;overflow:hidden;">
+              <div style="padding:16px 20px;border-bottom:1px solid #E5E7EB;">
+                <span style="font-size:14px;font-weight:600;color:#1F2937;">仓库分布地图</span>
+              </div>
+              <div style="height:400px;background:linear-gradient(135deg,#f8fafc 0%,#e2e8f0 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;color:#94a3b8;">
+                <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" width="64" height="64" style="margin-bottom:16px;opacity:0.5;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span style="font-size:14px;">地图展示区域</span>
+                <span style="font-size:12px;margin-top:4px;">显示仓库位置分布及配送范围</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 统计卡片 -->
+          <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;">
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">仓库总数</span></div>
+              <div class="stat-card-value">12</div>
+              <div class="stat-card-change">中心仓 4 / 网格仓 5 / 自提点 3</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">运营中</span></div>
+              <div class="stat-card-value" style="color:#10B981;">9</div>
+              <div class="stat-card-change up">正常运营</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">筹建中</span></div>
+              <div class="stat-card-value" style="color:#F59E0B;">2</div>
+              <div class="stat-card-change">待开业</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">已停用</span></div>
+              <div class="stat-card-value" style="color:#6B7280;">1</div>
+              <div class="stat-card-change">停止运营</div>
+            </div>
+          </div>
+          
+          <!-- 仓库列表表格 -->
+          <div class="table-card">
+            <div class="table-filters">
+              <div class="filter-group">
+                <span class="filter-label">仓库编码</span>
+                <input type="text" class="filter-input" placeholder="输入编码..." style="width:120px;">
+              </div>
+              <div class="filter-group">
+                <span class="filter-label">仓库名称</span>
+                <input type="text" class="filter-input" placeholder="输入名称..." style="width:140px;">
+              </div>
+              <div class="filter-group">
+                <span class="filter-label">节点类型</span>
+                <select class="filter-select">
+                  <option value="">全部</option>
+                  <option>中心仓</option>
+                  <option>网格仓</option>
+                  <option>自提点</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <span class="filter-label">上级仓库</span>
+                <select class="filter-select">
+                  <option value="">全部</option>
+                  <option>北京中心仓</option>
+                  <option>上海中心仓</option>
+                  <option>广州中心仓</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <span class="filter-label">状态</span>
+                <select class="filter-select">
+                  <option value="">全部</option>
+                  <option>运营中</option>
+                  <option>筹建中</option>
+                  <option>已停用</option>
+                </select>
+              </div>
+              <button class="btn btn-primary btn-sm" style="margin-left:8px;">查询</button>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>仓库编码</th>
+                  <th>仓库名称</th>
+                  <th>节点类型</th>
+                  <th>上级仓库</th>
+                  <th>联系人</th>
+                  <th>联系电话</th>
+                  <th>详细地址</th>
+                  <th>状态</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span style="font-family:monospace;font-size:12px;color:#6366F1;font-weight:500;">WH-CENTER-BJ</span></td>
+                  <td><span style="font-weight:500;">北京中心仓</span></td>
+                  <td><span class="tag" style="background:#EEF2FF;color:#4F46E5;">中心仓</span></td>
+                  <td><span style="color:#9CA3AF;">—</span></td>
+                  <td>张伟</td>
+                  <td><span style="font-family:monospace;">138-****-1234</span></td>
+                  <td>北京市朝阳区望京街道仓储中心A区</td>
+                  <td><span class="status status-success">运营中</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" onclick="editWarehouse('WH-CENTER-BJ')">编辑</button>
+                    <button class="btn btn-outline btn-sm" onclick="toggleWarehouseStatus('WH-CENTER-BJ','disabled')">停用</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span style="font-family:monospace;font-size:12px;color:#6366F1;font-weight:500;">WH-GRID-BJ-CY</span></td>
+                  <td><span style="font-weight:500;">北京-朝阳网格仓</span></td>
+                  <td><span class="tag" style="background:#FEF3C7;color:#D97706;">网格仓</span></td>
+                  <td>北京中心仓</td>
+                  <td>李娜</td>
+                  <td><span style="font-family:monospace;">139-****-5678</span></td>
+                  <td>北京市朝阳区望京SOHO T3-15层</td>
+                  <td><span class="status status-success">运营中</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" onclick="editWarehouse('WH-GRID-BJ-CY')">编辑</button>
+                    <button class="btn btn-outline btn-sm" onclick="toggleWarehouseStatus('WH-GRID-BJ-CY','disabled')">停用</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span style="font-family:monospace;font-size:12px;color:#6366F1;font-weight:500;">WH-PICK-BJ-WJ</span></td>
+                  <td><span style="font-weight:500;">望京街道自提点</span></td>
+                  <td><span class="tag" style="background:#F3F4F6;color:#6B7280;">自提点</span></td>
+                  <td>北京-朝阳网格仓</td>
+                  <td>王芳</td>
+                  <td><span style="font-family:monospace;">137-****-9012</span></td>
+                  <td>北京市朝阳区望京街道花园里小区北门</td>
+                  <td><span class="status status-success">运营中</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" onclick="editWarehouse('WH-PICK-BJ-WJ')">编辑</button>
+                    <button class="btn btn-outline btn-sm" onclick="toggleWarehouseStatus('WH-PICK-BJ-WJ','disabled')">停用</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span style="font-family:monospace;font-size:12px;color:#6366F1;font-weight:500;">WH-PICK-BJ-ZGC</span></td>
+                  <td><span style="font-weight:500;">海淀中关村自提点</span></td>
+                  <td><span class="tag" style="background:#F3F4F6;color:#6B7280;">自提点</span></td>
+                  <td>北京-朝阳网格仓</td>
+                  <td>赵敏</td>
+                  <td><span style="font-family:monospace;">136-****-3456</span></td>
+                  <td>北京市海淀区中关村大街1号创新大厦</td>
+                  <td><span class="status status-success">运营中</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" onclick="editWarehouse('WH-PICK-BJ-ZGC')">编辑</button>
+                    <button class="btn btn-outline btn-sm" onclick="toggleWarehouseStatus('WH-PICK-BJ-ZGC','disabled')">停用</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span style="font-family:monospace;font-size:12px;color:#6366F1;font-weight:500;">WH-CENTER-SH</span></td>
+                  <td><span style="font-weight:500;">上海中心仓</span></td>
+                  <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">中心仓</span></td>
+                  <td><span style="color:#9CA3AF;">—</span></td>
+                  <td>陈刚</td>
+                  <td><span style="font-family:monospace;">135-****-7890</span></td>
+                  <td>上海市浦东新区张江高科技园区B栋</td>
+                  <td><span class="status status-success">运营中</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" onclick="editWarehouse('WH-CENTER-SH')">编辑</button>
+                    <button class="btn btn-outline btn-sm" onclick="toggleWarehouseStatus('WH-CENTER-SH','disabled')">停用</button>
+                  </td>
+                </tr>
+                <tr style="opacity:0.6;">
+                  <td><span style="font-family:monospace;font-size:12px;color:#9CA3AF;">WH-CENTER-CD</span></td>
+                  <td><span style="font-weight:500;color:#9CA3AF;">成都中心仓</span></td>
+                  <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">中心仓</span></td>
+                  <td><span style="color:#9CA3AF;">—</span></td>
+                  <td>刘洋</td>
+                  <td><span style="font-family:monospace;color:#9CA3AF;">—</span></td>
+                  <td>成都市高新区天府软件园D栋（装修中）</td>
+                  <td><span class="status" style="color:#F59E0B;">筹建中</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" onclick="editWarehouse('WH-CENTER-CD')">编辑</button>
+                    <button class="btn btn-outline btn-sm" onclick="toggleWarehouseStatus('WH-CENTER-CD','enabled')">启用</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="pagination">
+              <div class="pagination-info">显示 1-6 条，共 12 条</div>
+              <div class="pagination-buttons">
+                <button class="pagination-btn" disabled>‹</button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">›</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 新增/编辑仓库弹窗 -->
+      <div id="modal-warehouse" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:1000;display:none;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:90%;max-width:600px;max-height:85vh;overflow-y:auto;box-shadow:0 25px 80px rgba(0,0,0,0.35);">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="font-size:16px;font-weight:600;color:#1F2937;margin:0;" id="warehouse-modal-title">新增仓库</h3>
+            <button onclick="closeWarehouseModal()" style="width:32px;height:32px;border-radius:50%;border:none;background:#F3F4F6;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">×</button>
+          </div>
+          <div style="padding:24px;overflow-y:auto;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">仓库编码 <span style="color:#EF4444;">*</span></label>
+                <input type="text" class="form-input" placeholder="如：WH-CENTER-BJ" id="warehouse-code" style="font-family:monospace;">
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">仓库名称 <span style="color:#EF4444;">*</span></label>
+                <input type="text" class="form-input" placeholder="输入仓库名称" id="warehouse-name">
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">节点类型 <span style="color:#EF4444;">*</span></label>
+                <select class="form-select" id="warehouse-type">
+                  <option value="">请选择</option>
+                  <option value="center">中心仓</option>
+                  <option value="grid">网格仓</option>
+                  <option value="pickup">自提点</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">上级仓库</label>
+                <select class="form-select" id="warehouse-parent">
+                  <option value="">无（根节点）</option>
+                  <option value="wh-center-bj">北京中心仓</option>
+                  <option value="wh-center-sh">上海中心仓</option>
+                  <option value="wh-center-gz">广州中心仓</option>
+                  <option value="wh-grid-bj-cy">北京-朝阳网格仓</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">仓库类型</label>
+                <select class="form-select" id="warehouse-category">
+                  <option value="">请选择</option>
+                  <option>常温仓</option>
+                  <option>冷藏仓（2-8°C）</option>
+                  <option>冷冻仓（-18°C）</option>
+                  <option>温控仓</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">状态</label>
+                <select class="form-select" id="warehouse-status">
+                  <option value="enabled">运营中</option>
+                  <option value="preparing">筹建中</option>
+                  <option value="disabled">已停用</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">联系人</label>
+                <input type="text" class="form-input" placeholder="输入联系人姓名" id="warehouse-contact">
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">联系电话</label>
+                <input type="tel" class="form-input" placeholder="输入手机号" id="warehouse-phone">
+              </div>
+              <div style="margin-bottom:16px;grid-column:span 2;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">详细地址</label>
+                <input type="text" class="form-input" placeholder="输入详细地址" id="warehouse-address">
+              </div>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button class="btn btn-outline" onclick="closeWarehouseModal()">取消</button>
+            <button class="btn btn-primary" onclick="saveWarehouse()">保存</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 新增下级仓库弹窗 -->
+      <div id="modal-add-child" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:1000;display:none;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:90%;max-width:500px;max-height:85vh;overflow-y:auto;box-shadow:0 25px 80px rgba(0,0,0,0.35);">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="font-size:16px;font-weight:600;color:#1F2937;margin:0;" id="child-modal-title">新增下级仓库</h3>
+            <button onclick="closeAddChildModal()" style="width:32px;height:32px;border-radius:50%;border:none;background:#F3F4F6;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">×</button>
+          </div>
+          <div style="padding:24px;overflow-y:auto;">
+            <div style="margin-bottom:16px;padding:12px 16px;background:#F3F4F6;border-radius:8px;">
+              <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">上级仓库</div>
+              <div style="font-size:14px;font-weight:500;color:#1F2937;" id="parent-warehouse-name">北京中心仓</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">仓库编码 <span style="color:#EF4444;">*</span></label>
+                <input type="text" class="form-input" placeholder="编码" id="child-code" style="font-family:monospace;">
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">仓库名称 <span style="color:#EF4444;">*</span></label>
+                <input type="text" class="form-input" placeholder="名称" id="child-name">
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">节点类型 <span style="color:#EF4444;">*</span></label>
+                <select class="form-select" id="child-type">
+                  <option value="">请选择</option>
+                  <option value="grid">网格仓</option>
+                  <option value="pickup">自提点</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">仓库类型</label>
+                <select class="form-select" id="child-category">
+                  <option value="">请选择</option>
+                  <option>常温仓</option>
+                  <option>冷藏仓（2-8°C）</option>
+                  <option>冷冻仓（-18°C）</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">联系人</label>
+                <input type="text" class="form-input" placeholder="联系人" id="child-contact">
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">联系电话</label>
+                <input type="tel" class="form-input" placeholder="手机号" id="child-phone">
+              </div>
+              <div style="margin-bottom:16px;grid-column:span 2;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">详细地址</label>
+                <input type="text" class="form-input" placeholder="详细地址" id="child-address">
+              </div>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button class="btn btn-outline" onclick="closeAddChildModal()">取消</button>
+            <button class="btn btn-primary" onclick="saveChildWarehouse()">保存</button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+      var currentParentId = '';
+      
+      function openAddWarehouseModal() {
+        document.getElementById('warehouse-modal-title').textContent = '新增仓库';
+        document.getElementById('warehouse-code').value = '';
+        document.getElementById('warehouse-name').value = '';
+        document.getElementById('warehouse-type').value = '';
+        document.getElementById('warehouse-parent').value = '';
+        document.getElementById('warehouse-category').value = '';
+        document.getElementById('warehouse-status').value = 'enabled';
+        document.getElementById('warehouse-contact').value = '';
+        document.getElementById('warehouse-phone').value = '';
+        document.getElementById('warehouse-address').value = '';
+        var m = document.getElementById('modal-warehouse');
+        m.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function editWarehouse(code) {
+        document.getElementById('warehouse-modal-title').textContent = '编辑仓库';
+        document.getElementById('warehouse-code').value = code;
+        var m = document.getElementById('modal-warehouse');
+        m.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function closeWarehouseModal() {
+        var m = document.getElementById('modal-warehouse');
+        m.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+      
+      function openAddChildModal(parentId, parentName) {
+        currentParentId = parentId;
+        document.getElementById('parent-warehouse-name').textContent = parentName;
+        document.getElementById('child-code').value = '';
+        document.getElementById('child-name').value = '';
+        document.getElementById('child-type').value = '';
+        document.getElementById('child-category').value = '';
+        document.getElementById('child-contact').value = '';
+        document.getElementById('child-phone').value = '';
+        document.getElementById('child-address').value = '';
+        var m = document.getElementById('modal-add-child');
+        m.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function closeAddChildModal() {
+        var m = document.getElementById('modal-add-child');
+        m.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+      
+      function toggleWarehouseStatus(code, targetStatus) {
+        var action = targetStatus === 'disabled' ? '停用' : '启用';
+        alert('仓库 ' + code + ' 已' + action);
+      }
+      
+      function toggleChildren(id) {
+        // Simple toggle - in real app would toggle visibility
+        alert('展开/折叠层级 ' + id);
+      }
+      
+      function saveWarehouse() {
+        var name = document.getElementById('warehouse-name').value;
+        if (!name) { alert('请输入仓库名称'); return; }
+        alert('仓库保存成功');
+        closeWarehouseModal();
+      }
+      
+      function saveChildWarehouse() {
+        var name = document.getElementById('child-name').value;
+        if (!name) { alert('请输入仓库名称'); return; }
+        alert('下级仓库保存成功');
+        closeAddChildModal();
+      }
+      </script>

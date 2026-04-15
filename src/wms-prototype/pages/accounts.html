@@ -1,0 +1,389 @@
+      <div id="page-accounts" class="page">
+        <header class="header">
+          <div class="header-left">
+            <h2>PDA账号</h2>
+            <div class="breadcrumb">
+              <span>基础档案</span>
+              <span>/</span>
+              <span>PDA账号</span>
+            </div>
+          </div>
+          <div class="header-right">
+            <button class="btn btn-outline btn-sm">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              导出
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="openAddDeviceModal()">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              新增设备
+            </button>
+          </div>
+        </header>
+        
+        <div class="content">
+          <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;">
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <span class="stat-card-title">设备总数</span>
+              </div>
+              <div class="stat-card-value">48</div>
+              <div class="stat-card-change">覆盖 4 个仓库</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <span class="stat-card-title">在线设备</span>
+              </div>
+              <div class="stat-card-value" style="color:#10b981">32</div>
+              <div class="stat-card-change up">↑ 今日新增 3 台</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <span class="stat-card-title">离线设备</span>
+              </div>
+              <div class="stat-card-value" style="color:#ef4444">16</div>
+              <div class="stat-card-change">需检查维护</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <span class="stat-card-title">异常账号</span>
+              </div>
+              <div class="stat-card-value" style="color:#f59e0b">5</div>
+              <div class="stat-card-change">错密/冻结/停用</div>
+            </div>
+          </div>
+          
+          <div class="table-card">
+            <div class="table-filters">
+              <div class="filter-group">
+                <span class="filter-label">设备MAC/账号</span>
+                <input type="text" class="filter-input" placeholder="搜索MAC地址或账号..." style="width:160px;">
+              </div>
+              <div class="filter-group">
+                <span class="filter-label">启停状态</span>
+                <select class="filter-select">
+                  <option value="">全部</option>
+                  <option value="enabled">已启用</option>
+                  <option value="disabled">已停用</option>
+                  <option value="frozen">已冻结</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <span class="filter-label">在线状态</span>
+                <select class="filter-select">
+                  <option value="">全部</option>
+                  <option value="online">在线</option>
+                  <option value="offline">离线</option>
+                </select>
+              </div>
+              <button class="btn btn-primary btn-sm" style="margin-left:8px;">查询</button>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>设备MAC</th>
+                  <th>型号</th>
+                  <th>绑定人员</th>
+                  <th>账号</th>
+                  <th>错密次数</th>
+                  <th>上线时间</th>
+                  <th>在线状态</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-status="enabled" data-online="online">
+                  <td><span style="font-family:monospace;font-size:12px;color:#6366F1;font-weight:500;">AA:BB:CC:DD:EE:01</span></td>
+                  <td><span class="tag">MC50</span> 斑马 MC50</td>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <div style="width:28px;height:28px;background:#e5e7eb;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#374151;">张</div>
+                      <span>张伟</span>
+                    </div>
+                  </td>
+                  <td><span style="font-family:monospace;">zhangwei01</span></td>
+                  <td><span style="color:#10b981;font-weight:500;">0</span> 次</td>
+                  <td>2026-04-10 08:30</td>
+                  <td><span class="status status-success">在线</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" onclick="resetPwd('AA:BB:CC:DD:EE:01')">重置密码</button>
+                    <button class="btn btn-outline btn-sm" onclick="kickOffline('AA:BB:CC:DD:EE:01')">强踢下线</button>
+                    <button class="btn btn-outline btn-sm" onclick="toggleStatus('AA:BB:CC:DD:EE:01', 'disabled')">停用</button>
+                  </td>
+                </tr>
+                <tr data-status="enabled" data-online="online">
+                  <td><span style="font-family:monospace;font-size:12px;color:#6366F1;font-weight:500;">AA:BB:CC:DD:EE:02</span></td>
+                  <td><span class="tag">MC50</span> 斑马 MC50</td>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <div style="width:28px;height:28px;background:#e5e7eb;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#374151;">李</div>
+                      <span>李娜</span>
+                    </div>
+                  </td>
+                  <td><span style="font-family:monospace;">lina02</span></td>
+                  <td><span style="color:#10b981;font-weight:500;">0</span> 次</td>
+                  <td>2026-04-10 08:25</td>
+                  <td><span class="status status-success">在线</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" onclick="resetPwd('AA:BB:CC:DD:EE:02')">重置密码</button>
+                    <button class="btn btn-outline btn-sm" onclick="kickOffline('AA:BB:CC:DD:EE:02')">强踢下线</button>
+                    <button class="btn btn-outline btn-sm" onclick="toggleStatus('AA:BB:CC:DD:EE:02', 'disabled')">停用</button>
+                  </td>
+                </tr>
+                <tr data-status="frozen" data-online="offline">
+                  <td><span style="font-family:monospace;font-size:12px;color:#6366F1;font-weight:500;">AA:BB:CC:DD:EE:03</span></td>
+                  <td><span class="tag">MC70</span> 斑马 MC70</td>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <div style="width:28px;height:28px;background:#e5e7eb;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#374151;">王</div>
+                      <span>王强</span>
+                    </div>
+                  </td>
+                  <td><span style="font-family:monospace;">wangqiang03</span></td>
+                  <td><span style="color:#ef4444;font-weight:500;">3</span> 次</td>
+                  <td>2026-04-09 18:45</td>
+                  <td><span class="status status-error">离线</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" onclick="unfreeze('AA:BB:CC:DD:EE:03')">解冻</button>
+                    <button class="btn btn-outline btn-sm" onclick="resetPwd('AA:BB:CC:DD:EE:03')">重置密码</button>
+                    <button class="btn btn-outline btn-sm" onclick="toggleStatus('AA:BB:CC:DD:EE:03', 'enabled')">启用</button>
+                  </td>
+                </tr>
+                <tr data-status="disabled" data-online="offline">
+                  <td><span style="font-family:monospace;font-size:12px;color:#9CA3AF;font-weight:500;">AA:BB:CC:DD:EE:04</span></td>
+                  <td><span class="tag" style="background:#F3F4F6;color:#9CA3AF;">MC90</span> 斑马 MC90</td>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <div style="width:28px;height:28px;background:#F3F4F6;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#9CA3AF;">赵</div>
+                      <span style="color:#9CA3AF;">赵鹏</span>
+                    </div>
+                  </td>
+                  <td><span style="font-family:monospace;color:#9CA3AF;">zhaopeng04</span></td>
+                  <td><span style="color:#9CA3AF;">0</span> 次</td>
+                  <td>2026-04-08 17:20</td>
+                  <td><span class="status" style="color:#9CA3AF;">—</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" onclick="toggleStatus('AA:BB:CC:DD:EE:04', 'enabled')">启用</button>
+                  </td>
+                </tr>
+                <tr data-status="enabled" data-online="online">
+                  <td><span style="font-family:monospace;font-size:12px;color:#6366F1;font-weight:500;">AA:BB:CC:DD:EE:05</span></td>
+                  <td><span class="tag">DT40</span> 东集 DT40</td>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <div style="width:28px;height:28px;background:#e5e7eb;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#374151;">陈</div>
+                      <span>陈静</span>
+                    </div>
+                  </td>
+                  <td><span style="font-family:monospace;">chenjing05</span></td>
+                  <td><span style="color:#f59e0b;font-weight:500;">1</span> 次</td>
+                  <td>2026-04-10 08:15</td>
+                  <td><span class="status status-success">在线</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" onclick="resetPwd('AA:BB:CC:DD:EE:05')">重置密码</button>
+                    <button class="btn btn-outline btn-sm" onclick="kickOffline('AA:BB:CC:DD:EE:05')">强踢下线</button>
+                    <button class="btn btn-outline btn-sm" onclick="toggleStatus('AA:BB:CC:DD:EE:05', 'disabled')">停用</button>
+                  </td>
+                </tr>
+                <tr data-status="enabled" data-online="online">
+                  <td><span style="font-family:monospace;font-size:12px;color:#6366F1;font-weight:500;">AA:BB:CC:DD:EE:06</span></td>
+                  <td><span class="tag">MC50</span> 斑马 MC50</td>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <div style="width:28px;height:28px;background:#e5e7eb;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#374151;">周</div>
+                      <span>周涛</span>
+                    </div>
+                  </td>
+                  <td><span style="font-family:monospace;">zhoutao06</span></td>
+                  <td><span style="color:#10b981;font-weight:500;">0</span> 次</td>
+                  <td>2026-04-10 08:00</td>
+                  <td><span class="status status-success">在线</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" onclick="resetPwd('AA:BB:CC:DD:EE:06')">重置密码</button>
+                    <button class="btn btn-outline btn-sm" onclick="kickOffline('AA:BB:CC:DD:EE:06')">强踢下线</button>
+                    <button class="btn btn-outline btn-sm" onclick="toggleStatus('AA:BB:CC:DD:EE:06', 'disabled')">停用</button>
+                  </td>
+                </tr>
+                <tr data-status="enabled" data-online="online">
+                  <td><span style="font-family:monospace;font-size:12px;color:#6366F1;font-weight:500;">AA:BB:CC:DD:EE:07</span></td>
+                  <td><span class="tag">MC70</span> 斑马 MC70</td>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <div style="width:28px;height:28px;background:#e5e7eb;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#374151;">吴</div>
+                      <span>吴昊</span>
+                    </div>
+                  </td>
+                  <td><span style="font-family:monospace;">wuhao07</span></td>
+                  <td><span style="color:#10b981;font-weight:500;">0</span> 次</td>
+                  <td>2026-04-10 07:55</td>
+                  <td><span class="status status-success">在线</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" onclick="resetPwd('AA:BB:CC:DD:EE:07')">重置密码</button>
+                    <button class="btn btn-outline btn-sm" onclick="kickOffline('AA:BB:CC:DD:EE:07')">强踢下线</button>
+                    <button class="btn btn-outline btn-sm" onclick="toggleStatus('AA:BB:CC:DD:EE:07', 'disabled')">停用</button>
+                  </td>
+                </tr>
+                <tr data-status="enabled" data-online="offline">
+                  <td><span style="font-family:monospace;font-size:12px;color:#6366F1;font-weight:500;">AA:BB:CC:DD:EE:08</span></td>
+                  <td><span class="tag">DT40</span> 东集 DT40</td>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <div style="width:28px;height:28px;background:#e5e7eb;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#374151;">郑</div>
+                      <span>郑鑫</span>
+                    </div>
+                  </td>
+                  <td><span style="font-family:monospace;">zhengxin08</span></td>
+                  <td><span style="color:#10b981;font-weight:500;">0</span> 次</td>
+                  <td>2026-04-09 22:30</td>
+                  <td><span class="status status-error">离线</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" onclick="resetPwd('AA:BB:CC:DD:EE:08')">重置密码</button>
+                    <button class="btn btn-outline btn-sm" onclick="toggleStatus('AA:BB:CC:DD:EE:08', 'disabled')">停用</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="pagination">
+              <div class="pagination-info">显示 1-8 条，共 48 条</div>
+              <div class="pagination-buttons">
+                <button class="pagination-btn" disabled>‹</button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <button class="pagination-btn">4</button>
+                <button class="pagination-btn">5</button>
+                <button class="pagination-btn">6</button>
+                <button class="pagination-btn">›</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 新增设备弹窗 -->
+      <div id="modal-add-device" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:1000;display:none;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:90%;max-width:560px;max-height:85vh;overflow-y:auto;box-shadow:0 25px 80px rgba(0,0,0,0.35);">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="font-size:16px;font-weight:600;color:#1F2937;margin:0;">新增设备</h3>
+            <button onclick="closeAddDeviceModal()" style="width:32px;height:32px;border-radius:50%;border:none;background:#F3F4F6;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">×</button>
+          </div>
+          <div style="padding:24px;overflow-y:auto;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div style="margin-bottom:16px;grid-column:span 2;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">设备MAC <span style="color:#EF4444;">*</span></label>
+                <input type="text" class="form-input" placeholder="格式：AA:BB:CC:DD:EE:FF" id="add-device-mac">
+                <span style="font-size:11px;color:#9CA3AF;margin-top:4px;display:block;">必填，格式AA:BB:CC:DD:EE:FF</span>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">设备型号 <span style="color:#EF4444;">*</span></label>
+                <select class="form-select" id="add-device-model">
+                  <option value="">请选择型号</option>
+                  <option>斑马 MC50</option>
+                  <option>斑马 MC70</option>
+                  <option>斑马 MC90</option>
+                  <option>东集 DT40</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">绑定仓库 <span style="color:#EF4444;">*</span></label>
+                <select class="form-select" id="add-device-warehouse">
+                  <option value="">请选择仓库</option>
+                  <option>北京仓</option>
+                  <option>上海仓</option>
+                  <option>广州仓</option>
+                  <option>成都仓</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">绑定人员</label>
+                <select class="form-select" id="add-device-user">
+                  <option value="">暂不绑定</option>
+                  <option>张伟</option>
+                  <option>李娜</option>
+                  <option>王强</option>
+                  <option>赵鹏</option>
+                  <option>陈静</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">登录账号 <span style="color:#EF4444;">*</span></label>
+                <input type="text" class="form-input" placeholder="设置设备登录账号" id="add-device-account">
+              </div>
+              <div style="margin-bottom:16px;grid-column:span 2;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">初始密码 <span style="color:#EF4444;">*</span></label>
+                <input type="password" class="form-input" placeholder="设置初始登录密码" id="add-device-pwd">
+                <span style="font-size:11px;color:#9CA3AF;margin-top:4px;display:block;">8-20字符，含字母+数字</span>
+              </div>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button class="btn btn-outline" onclick="closeAddDeviceModal()">取消</button>
+            <button class="btn btn-primary" onclick="saveAddDevice()">保存</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 设备详情弹窗 -->
+      <div id="modal-device-detail" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:1000;display:none;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:90%;max-width:520px;max-height:85vh;overflow-y:auto;box-shadow:0 25px 80px rgba(0,0,0,0.35);">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="font-size:16px;font-weight:600;color:#1F2937;margin:0;">设备详情</h3>
+            <button onclick="closeDeviceDetailModal()" style="width:32px;height:32px;border-radius:50%;border:none;background:#F3F4F6;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">×</button>
+          </div>
+          <div style="padding:24px;">
+            <div style="text-align:center;margin-bottom:24px;">
+              <div style="width:72px;height:72px;background:#EEF2FF;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:12px;">📱</div>
+              <div style="font-size:16px;font-weight:600;color:#1F2937;margin-bottom:4px;" id="detail-device-mac">AA:BB:CC:DD:EE:01</div>
+              <div style="font-size:14px;color:#6B7280;" id="detail-device-model">斑马 MC50</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div style="margin-bottom:12px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">设备MAC</div>
+                <div style="font-size:14px;color:#1F2937;font-weight:500;font-family:monospace;" id="detail-mac">AA:BB:CC:DD:EE:01</div>
+              </div>
+              <div style="margin-bottom:12px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">型号</div>
+                <div style="font-size:14px;color:#1F2937;font-weight:500;" id="detail-model">斑马 MC50</div>
+              </div>
+              <div style="margin-bottom:12px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">绑定人员</div>
+                <div style="font-size:14px;color:#1F2937;font-weight:500;" id="detail-user">张伟</div>
+              </div>
+              <div style="margin-bottom:12px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">登录账号</div>
+                <div style="font-size:14px;color:#1F2937;font-weight:500;font-family:monospace;" id="detail-account">zhangwei01</div>
+              </div>
+              <div style="margin-bottom:12px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">错密次数</div>
+                <div style="font-size:14px;color:#1F2937;font-weight:500;" id="detail-errcount">0 次</div>
+              </div>
+              <div style="margin-bottom:12px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">启停状态</div>
+                <div style="font-size:14px;color:#1F2937;font-weight:500;" id="detail-enabled">已启用</div>
+              </div>
+              <div style="margin-bottom:12px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">在线状态</div>
+                <div style="font-size:14px;color:#1F2937;font-weight:500;" id="detail-online">在线</div>
+              </div>
+              <div style="margin-bottom:12px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">最后上线</div>
+                <div style="font-size:14px;color:#1F2937;font-weight:500;" id="detail-lasttime">2026-04-10 08:30</div>
+              </div>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button class="btn btn-outline" onclick="closeDeviceDetailModal()">关闭</button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+      function openAddDeviceModal() { var m=document.getElementById('modal-add-device');m.style.display='flex';document.body.style.overflow='hidden'; }
+      function closeAddDeviceModal() { var m=document.getElementById('modal-add-device');m.style.display='none';document.body.style.overflow=''; }
+      function showDeviceDetail(mac,model,user,account,errcount,enabled,online,lasttime) { var m=document.getElementById('modal-device-detail');m.style.display='flex';document.body.style.overflow='hidden'; document.getElementById('detail-mac').textContent=mac||''; document.getElementById('detail-model').textContent=model||''; document.getElementById('detail-user').textContent=user||''; document.getElementById('detail-account').textContent=account||''; document.getElementById('detail-errcount').textContent=(errcount||0)+' 次'; document.getElementById('detail-enabled').textContent=enabled||''; document.getElementById('detail-online').textContent=online||''; document.getElementById('detail-lasttime').textContent=lasttime||''; }
+      function closeDeviceDetailModal() { var m=document.getElementById('modal-device-detail');m.style.display='none';document.body.style.overflow=''; }
+      function resetPwd(mac) { alert('设备 '+mac+' 密码已重置'); }
+      function kickOffline(mac) { alert('设备 '+mac+' 已强制下线'); }
+      function unfreeze(mac) { alert('设备 '+mac+' 已解除冻结'); }
+      function toggleStatus(mac, targetStatus) { var statusText=targetStatus==='enabled'?'启用':'停用'; alert('设备 '+mac+' 已'+statusText); }
+      function saveAddDevice() { alert('设备添加成功');closeAddDeviceModal(); }
+      </script>

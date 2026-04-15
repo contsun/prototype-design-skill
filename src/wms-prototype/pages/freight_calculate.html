@@ -1,0 +1,239 @@
+      <div id="page-freight_calculate" class="page">
+        <header class="header">
+          <div class="header-left">
+            <h2>运费计算</h2>
+            <div class="breadcrumb"><span>首页</span><span>/</span><span>物流管理</span><span>/</span><span>运费计算</span></div>
+          </div>
+          <div class="header-right">
+            <button class="btn btn-outline btn-sm">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              导出
+            </button>
+            <button class="btn btn-primary btn-sm">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+              新增规则
+            </button>
+          </div>
+        </header>
+        <div class="content">
+          <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;">
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">运费规则</span></div>
+              <div class="stat-card-value">28</div>
+              <div class="stat-card-change">已配置</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">本月运费</span></div>
+              <div class="stat-card-value">¥ 128.5K</div>
+              <div class="stat-card-change up">+8.6%</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">平均单价</span></div>
+              <div class="stat-card-value">¥ 12.8</div>
+              <div class="stat-card-change">/单</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">运费核算</span></div>
+              <div class="stat-card-value" style="color:#10B981;">正常</div>
+              <div class="stat-card-change">无异常</div>
+            </div>
+          </div>
+          
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+            <!-- 运费计算器 -->
+            <div class="table-card">
+              <div class="table-header"><span class="table-title">🧮 运费快速计算</span></div>
+              <div style="padding:20px;">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                  <div class="filter-group" style="margin-bottom:0;">
+                    <label class="filter-label">出发地</label>
+                    <select class="filter-select">
+                      <option>北京市朝阳区</option>
+                      <option>北京市海淀区</option>
+                      <option>北京市丰台区</option>
+                      <option>上海市浦东新区</option>
+                      <option>广州市天河区</option>
+                    </select>
+                  </div>
+                  <div class="filter-group" style="margin-bottom:0;">
+                    <label class="filter-label">目的地</label>
+                    <select class="filter-select">
+                      <option>北京市朝阳区</option>
+                      <option>北京市海淀区</option>
+                      <option>北京市东城区</option>
+                      <option>北京市西城区</option>
+                      <option>北京市丰台区</option>
+                    </select>
+                  </div>
+                  <div class="filter-group" style="margin-bottom:0;">
+                    <label class="filter-label">重量(kg)</label>
+                    <input type="number" class="filter-input" placeholder="输入重量" value="5">
+                  </div>
+                  <div class="filter-group" style="margin-bottom:0;">
+                    <label class="filter-label">体积(m³)</label>
+                    <input type="number" class="filter-input" placeholder="输入体积" value="0.1">
+                  </div>
+                  <div class="filter-group" style="margin-bottom:0;">
+                    <label class="filter-label">承运商</label>
+                    <select class="filter-select">
+                      <option>全部</option>
+                      <option>顺丰速运</option>
+                      <option>达达同城</option>
+                      <option>德邦物流</option>
+                      <option>京东物流</option>
+                    </select>
+                  </div>
+                  <div class="filter-group" style="margin-bottom:0;">
+                    <label class="filter-label">配送类型</label>
+                    <select class="filter-select">
+                      <option>标准配送</option>
+                      <option>当日达</option>
+                      <option>次日达</option>
+                      <option>定时达</option>
+                    </select>
+                  </div>
+                </div>
+                <button class="btn btn-primary" style="width:100%;margin-top:16px;">计算运费</button>
+                
+                <div style="margin-top:20px;padding:16px;background:#F0FDF4;border-radius:8px;border:1px solid #BBF7D0;">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+                    <span style="color:#6B7280;">最低报价</span>
+                    <span style="font-size:24px;font-weight:700;color:#16A34A;">¥ 12.00</span>
+                  </div>
+                  <div style="font-size:12px;color:#9CA3AF;margin-bottom:12px;">达达同城 | 预计2小时内送达</div>
+                  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-size:12px;">
+                    <div style="text-align:center;padding:8px;background:white;border-radius:6px;">
+                      <div style="font-weight:600;color:#374151;">¥ 12.00</div>
+                      <div style="color:#6B7280;">达达同城</div>
+                    </div>
+                    <div style="text-align:center;padding:8px;background:white;border-radius:6px;">
+                      <div style="font-weight:600;color:#374151;">¥ 15.00</div>
+                      <div style="color:#6B7280;">顺丰速运</div>
+                    </div>
+                    <div style="text-align:center;padding:8px;background:white;border-radius:6px;">
+                      <div style="font-weight:600;color:#374151;">¥ 18.00</div>
+                      <div style="color:#6B7280;">京东物流</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 运费规则配置 -->
+            <div class="table-card">
+              <div class="table-header"><span class="table-title">⚙️ 运费规则配置</span></div>
+              <div style="padding:20px;">
+                <div style="display:flex;flex-direction:column;gap:12px;">
+                  <div style="padding:12px;background:#F3F4F6;border-radius:8px;display:flex;justify-content:space-between;align-items:center;">
+                    <div>
+                      <div style="font-weight:500;color:#374151;margin-bottom:4px;">顺丰速运 - 同城首重</div>
+                      <div style="font-size:12px;color:#6B7280;">首重1kg内 ¥12，续重¥2/kg</div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <span class="tag" style="background:#DCFCE7;color:#16A34A;">启用</span>
+                      <button class="btn btn-outline btn-sm">编辑</button>
+                    </div>
+                  </div>
+                  <div style="padding:12px;background:#F3F4F6;border-radius:8px;display:flex;justify-content:space-between;align-items:center;">
+                    <div>
+                      <div style="font-weight:500;color:#374151;margin-bottom:4px;">达达同城 - 急速达</div>
+                      <div style="font-size:12px;color:#6B7280;">首重3kg内 ¥8，续重¥1.5/kg</div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <span class="tag" style="background:#DCFCE7;color:#16A34A;">启用</span>
+                      <button class="btn btn-outline btn-sm">编辑</button>
+                    </div>
+                  </div>
+                  <div style="padding:12px;background:#F3F4F6;border-radius:8px;display:flex;justify-content:space-between;align-items:center;">
+                    <div>
+                      <div style="font-weight:500;color:#374151;margin-bottom:4px;">德邦物流 - 跨城快递</div>
+                      <div style="font-size:12px;color:#6B7280;">首重1kg内 ¥15，续重¥5/kg</div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <span class="tag" style="background:#DCFCE7;color:#16A34A;">启用</span>
+                      <button class="btn btn-outline btn-sm">编辑</button>
+                    </div>
+                  </div>
+                  <div style="padding:12px;background:#F3F4F6;border-radius:8px;display:flex;justify-content:space-between;align-items:center;">
+                    <div>
+                      <div style="font-weight:500;color:#374151;margin-bottom:4px;">京东物流 - 次日达</div>
+                      <div style="font-size:12px;color:#6B7280;">首重1kg内 ¥10，续重¥3/kg</div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <span class="tag" style="background:#FEE2E2;color:#DC2626;">禁用</span>
+                      <button class="btn btn-outline btn-sm">编辑</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="table-card">
+            <div class="table-header"><span class="table-title">📋 运费结算记录</span></div>
+            <table>
+              <thead><tr><th>结算单号</th><th>承运商</th><th>结算周期</th><th>配送单数</th><th>总重量(kg)</th><th>应付金额</th><th>实付金额</th><th>差异</th><th>结算状态</th><th>操作</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><span style="font-family:monospace;font-size:11px;">FR202604001</span></td>
+                  <td><span style="font-weight:500;">顺丰速运</span></td>
+                  <td>2026-04-01 ~ 2026-04-10</td>
+                  <td>1,286单</td>
+                  <td>8,562kg</td>
+                  <td><span style="font-weight:600;">¥ 45,620</span></td>
+                  <td><span style="font-weight:600;">¥ 45,280</span></td>
+                  <td><span style="color:#10B981;">-¥ 340</span></td>
+                  <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">已结算</span></td>
+                  <td><button class="btn btn-outline btn-sm">详情</button></td>
+                </tr>
+                <tr>
+                  <td><span style="font-family:monospace;font-size:11px;">FR202604002</span></td>
+                  <td><span style="font-weight:500;">达达同城</span></td>
+                  <td>2026-04-01 ~ 2026-04-10</td>
+                  <td>2,156单</td>
+                  <td>5,892kg</td>
+                  <td><span style="font-weight:600;">¥ 32,480</span></td>
+                  <td><span style="font-weight:600;">¥ 32,480</span></td>
+                  <td><span style="color:#10B981;">¥ 0</span></td>
+                  <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">已结算</span></td>
+                  <td><button class="btn btn-outline btn-sm">详情</button></td>
+                </tr>
+                <tr style="background:#FEF3C7;">
+                  <td><span style="font-family:monospace;font-size:11px;">FR202604003</span></td>
+                  <td><span style="font-weight:500;">德邦物流</span></td>
+                  <td>2026-04-01 ~ 2026-04-10</td>
+                  <td>428单</td>
+                  <td>12,568kg</td>
+                  <td><span style="font-weight:600;">¥ 68,420</span></td>
+                  <td><span style="font-weight:600;">—</span></td>
+                  <td><span style="color:#F59E0B;">待确认</span></td>
+                  <td><span class="tag" style="background:#FEF3C7;color:#D97706;">核对中</span></td>
+                  <td><button class="btn btn-primary btn-sm">确认结算</button></td>
+                </tr>
+                <tr>
+                  <td><span style="font-family:monospace;font-size:11px;">FR202604004</span></td>
+                  <td><span style="font-weight:500;">京东物流</span></td>
+                  <td>2026-04-01 ~ 2026-04-10</td>
+                  <td>856单</td>
+                  <td>6,428kg</td>
+                  <td><span style="font-weight:600;">¥ 28,560</span></td>
+                  <td><span style="font-weight:600;">¥ 28,560</span></td>
+                  <td><span style="color:#10B981;">¥ 0</span></td>
+                  <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">已结算</span></td>
+                  <td><button class="btn btn-outline btn-sm">详情</button></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="pagination">
+              <div class="pagination-info">显示 1-4 条，共 12 条</div>
+              <div class="pagination-buttons">
+                <button class="pagination-btn" disabled>‹</button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <button class="pagination-btn">›</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

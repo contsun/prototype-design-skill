@@ -1,0 +1,287 @@
+      <div id="page-statistics_inventory" class="page">
+        <header class="header">
+          <div class="header-left">
+            <h2>库存报表</h2>
+            <div class="breadcrumb"><span>首页</span><span>/</span><span>数据统计</span><span>/</span><span>库存报表</span></div>
+          </div>
+          <div class="header-right">
+            <select class="filter-select" style="margin-right:8px;">
+              <option>2026年4月</option>
+              <option>2026年3月</option>
+              <option>2026年2月</option>
+            </select>
+            <select class="filter-select" style="margin-right:8px;">
+              <option>全部仓库</option>
+              <option>北京仓</option>
+              <option>上海仓</option>
+              <option>广州仓</option>
+              <option>成都仓</option>
+            </select>
+            <button class="btn btn-outline btn-sm">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              导出
+            </button>
+          </div>
+        </header>
+        <div class="content">
+          <div class="stats-grid" style="grid-template-columns:repeat(5,1fr);margin-bottom:24px;">
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">总库存</span></div>
+              <div class="stat-card-value">125.6K</div>
+              <div class="stat-card-change">件</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">库存金额</span></div>
+              <div class="stat-card-value">¥ 2,856K</div>
+              <div class="stat-card-change up">+5.2%</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">周转天数</span></div>
+              <div class="stat-card-value" style="color:#10B981;">8.6天</div>
+              <div class="stat-card-change down">-1.2天</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">库位使用率</span></div>
+              <div class="stat-card-value" style="color:#4F46E5;">86.5%</div>
+              <div class="stat-card-change up">+2.3%</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">滞销库存</span></div>
+              <div class="stat-card-value" style="color:#EF4444;">1.8%</div>
+              <div class="stat-card-change">需关注</div>
+            </div>
+          </div>
+          
+          <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px;">
+            <!-- 库存分布 -->
+            <div class="table-card">
+              <div class="table-header"><span class="table-title">📦 库存分布（按仓库）</span></div>
+              <table>
+                <thead><tr><th>仓库</th><th>SKU数</th><th>库存件数</th><th>库存金额</th><th>库位使用率</th><th>周转天数</th><th>呆滞率</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td><span style="font-weight:500;">📍 北京仓</span></td>
+                    <td>1,568</td>
+                    <td><span style="font-weight:600;">48,560件</span></td>
+                    <td><span style="font-weight:600;">¥ 1,125,600</span></td>
+                    <td><div style="display:flex;align-items:center;gap:8px;"><div class="progress" style="width:80px;"><div class="progress-bar" style="width:92%;"></div></div><span style="color:#10B981;font-weight:500;">92%</span></div></td>
+                    <td><span style="color:#10B981;">7.2天</span></td>
+                    <td><span style="color:#10B981;">1.2%</span></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-weight:500;">📍 上海仓</span></td>
+                    <td>1,286</td>
+                    <td><span style="font-weight:600;">38,420件</span></td>
+                    <td><span style="font-weight:600;">¥ 856,400</span></td>
+                    <td><div style="display:flex;align-items:center;gap:8px;"><div class="progress" style="width:80px;"><div class="progress-bar" style="width:85%;"></div></div><span style="color:#10B981;font-weight:500;">85%</span></div></td>
+                    <td><span style="color:#10B981;">8.5天</span></td>
+                    <td><span style="color:#10B981;">1.5%</span></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-weight:500;">📍 广州仓</span></td>
+                    <td>1,128</td>
+                    <td><span style="font-weight:600;">28,560件</span></td>
+                    <td><span style="font-weight:600;">¥ 628,500</span></td>
+                    <td><div style="display:flex;align-items:center;gap:8px;"><div class="progress" style="width:80px;"><div class="progress-bar" style="width:78%;"></div></div><span style="color:#F59E0B;font-weight:500;">78%</span></div></td>
+                    <td><span style="color:#F59E0B;">9.2天</span></td>
+                    <td><span style="color:#F59E0B;">2.1%</span></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-weight:500;">📍 成都仓</span></td>
+                    <td>856</td>
+                    <td><span style="font-weight:600;">12,480件</span></td>
+                    <td><span style="font-weight:600;">¥ 245,600</span></td>
+                    <td><div style="display:flex;align-items:center;gap:8px;"><div class="progress" style="width:80px;"><div class="progress-bar" style="width:65%;"></div></div><span style="color:#F59E0B;font-weight:500;">65%</span></div></td>
+                    <td><span style="color:#F59E0B;">10.5天</span></td>
+                    <td><span style="color:#EF4444;">2.8%</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <!-- 库存周转分析 -->
+            <div class="table-card">
+              <div class="table-header"><span class="table-title">📊 周转分析</span></div>
+              <div style="padding:20px;">
+                <div style="text-align:center;margin-bottom:20px;">
+                  <div style="font-size:48px;font-weight:700;color:#4F46E5;line-height:1;">8.6</div>
+                  <div style="color:#6B7280;font-size:13px;">平均周转天数</div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                  <div style="padding:12px;background:#F0FDF4;border-radius:8px;text-align:center;">
+                    <div style="font-size:20px;font-weight:600;color:#16A34A;">7.2天</div>
+                    <div style="font-size:11px;color:#6B7280;margin-top:4px;">北京仓最优</div>
+                  </div>
+                  <div style="padding:12px;background:#FEF3C7;border-radius:8px;text-align:center;">
+                    <div style="font-size:20px;font-weight:600;color:#D97706;">10.5天</div>
+                    <div style="font-size:11px;color:#6B7280;margin-top:4px;">成都仓最慢</div>
+                  </div>
+                </div>
+                <div style="margin-top:16px;font-size:12px;color:#6B7280;">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+                    <span>优（≤7天）</span>
+                    <span style="color:#10B981;">68.5%</span>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+                    <span>良（7-10天）</span>
+                    <span style="color:#4F46E5;">25.2%</span>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;">
+                    <span>差（＞10天）</span>
+                    <span style="color:#EF4444;">6.3%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="table-card" style="margin-bottom:16px;">
+            <div class="table-header"><span class="table-title">🔄 库存变动明细</span></div>
+            <table>
+              <thead><tr><th>变动单号</th><th>变动类型</th><th>SKU</th><th>商品名称</th><th>仓库</th><th>变动数量</th><th>变动前库存</th><th>变动后库存</th><th>变动时间</th><th>操作人</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><span style="font-family:monospace;font-size:11px;">CHG-2026-0410-8923</span></td>
+                  <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">采购入库</span></td>
+                  <td><span style="font-family:monospace;">SKU-001234</span></td>
+                  <td><span style="font-weight:500;">有机西红柿 500g</span></td>
+                  <td>北京仓</td>
+                  <td><span style="color:#10B981;font-weight:500;">+200</span></td>
+                  <td>1,056</td>
+                  <td>1,256</td>
+                  <td>2026-04-10 14:35</td>
+                  <td>王强</td>
+                </tr>
+                <tr>
+                  <td><span style="font-family:monospace;font-size:11px;">CHG-2026-0410-8922</span></td>
+                  <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">配送出库</span></td>
+                  <td><span style="font-family:monospace;">SKU-005678</span></td>
+                  <td><span style="font-weight:500;">新鲜鸡蛋 30枚装</span></td>
+                  <td>北京仓</td>
+                  <td><span style="color:#EF4444;font-weight:500;">-85</span></td>
+                  <td>420</td>
+                  <td>335</td>
+                  <td>2026-04-10 14:28</td>
+                  <td>张伟</td>
+                </tr>
+                <tr>
+                  <td><span style="font-family:monospace;font-size:11px;">CHG-2026-0410-8921</span></td>
+                  <td><span class="tag" style="background:#DBEAFE;color:#2563EB;">调拨入库</span></td>
+                  <td><span style="font-family:monospace;">SKU-003456</span></td>
+                  <td><span style="font-weight:500;">东北大米 5kg</span></td>
+                  <td>上海仓</td>
+                  <td><span style="color:#10B981;font-weight:500;">+120</span></td>
+                  <td>580</td>
+                  <td>700</td>
+                  <td>2026-04-10 14:15</td>
+                  <td>李娜</td>
+                </tr>
+                <tr>
+                  <td><span style="font-family:monospace;font-size:11px;">CHG-2026-0410-8920</span></td>
+                  <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">售后退件</span></td>
+                  <td><span style="font-family:monospace;">SKU-007890</span></td>
+                  <td><span style="font-weight:500;">纯牛奶 1L</span></td>
+                  <td>广州仓</td>
+                  <td><span style="color:#10B981;font-weight:500;">+12</span></td>
+                  <td>286</td>
+                  <td>298</td>
+                  <td>2026-04-10 14:05</td>
+                  <td>赵鹏</td>
+                </tr>
+                <tr>
+                  <td><span style="font-family:monospace;font-size:11px;">CHG-2026-0410-8919</span></td>
+                  <td><span class="tag" style="background:#FEF3C7;color:#D97706;">盘点调整</span></td>
+                  <td><span style="font-family:monospace;">SKU-004321</span></td>
+                  <td><span style="font-weight:500;">洗发水 750ml</span></td>
+                  <td>北京仓</td>
+                  <td><span style="color:#F59E0B;font-weight:500;">-3</span></td>
+                  <td>156</td>
+                  <td>153</td>
+                  <td>2026-04-10 13:52</td>
+                  <td>钱七</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="pagination">
+              <div class="pagination-info">显示 1-5 条，共 156 条</div>
+              <div class="pagination-buttons">
+                <button class="pagination-btn" disabled>‹</button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <button class="pagination-btn">›</button>
+              </div>
+            </div>
+          </div>
+          
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <!-- 滞销库存预警 -->
+            <div class="table-card">
+              <div class="table-header"><span class="table-title" style="color:#EF4444;">⚠️ 滞销库存预警（＞30天未动）</span></div>
+              <table>
+                <thead><tr><th>SKU</th><th>商品名称</th><th>库存数量</th><th>库龄</th><th>金额</th><th>操作</th></tr></thead>
+                <tbody>
+                  <tr style="background:#FEE2E2;">
+                    <td><span style="font-family:monospace;">SKU-008901</span></td>
+                    <td><span style="font-weight:500;">过季服装 A款</span></td>
+                    <td>856件</td>
+                    <td><span style="color:#DC2626;font-weight:600;">45天</span></td>
+                    <td><span style="font-weight:600;">¥ 25,680</span></td>
+                    <td><button class="btn btn-outline btn-sm">处理</button></td>
+                  </tr>
+                  <tr style="background:#FEF3C7;">
+                    <td><span style="font-family:monospace;">SKU-007856</span></td>
+                    <td><span style="font-weight:500;">临期食品礼包</span></td>
+                    <td>328件</td>
+                    <td><span style="color:#D97706;font-weight:600;">35天</span></td>
+                    <td><span style="font-weight:600;">¥ 9,840</span></td>
+                    <td><button class="btn btn-outline btn-sm">处理</button></td>
+                  </tr>
+                  <tr style="background:#FEF3C7;">
+                    <td><span style="font-family:monospace;">SKU-006543</span></td>
+                    <td><span style="font-weight:500;">清仓处理商品B</span></td>
+                    <td>520件</td>
+                    <td><span style="color:#D97706;font-weight:600;">32天</span></td>
+                    <td><span style="font-weight:600;">¥ 15,600</span></td>
+                    <td><button class="btn btn-outline btn-sm">处理</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <!-- 安全库存预警 -->
+            <div class="table-card">
+              <div class="table-header"><span class="table-title" style="color:#F59E0B;">🔔 安全库存预警（低于阈值）</span></div>
+              <table>
+                <thead><tr><th>SKU</th><th>商品名称</th><th>当前库存</th><th>安全库存</th><th>可售天数</th><th>操作</th></tr></thead>
+                <tbody>
+                  <tr style="background:#FEF3C7;">
+                    <td><span style="font-family:monospace;">SKU-001234</span></td>
+                    <td><span style="font-weight:500;">有机西红柿 500g</span></td>
+                    <td><span style="color:#DC2626;font-weight:600;">156件</span></td>
+                    <td>200件</td>
+                    <td><span style="color:#DC2626;">2天</span></td>
+                    <td><button class="btn btn-primary btn-sm">补货</button></td>
+                  </tr>
+                  <tr style="background:#FEF3C7;">
+                    <td><span style="font-family:monospace;">SKU-005678</span></td>
+                    <td><span style="font-weight:500;">新鲜鸡蛋 30枚装</span></td>
+                    <td><span style="color:#D97706;font-weight:600;">235件</span></td>
+                    <td>300件</td>
+                    <td><span style="color:#D97706;">3天</span></td>
+                    <td><button class="btn btn-primary btn-sm">补货</button></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-family:monospace;">SKU-003456</span></td>
+                    <td><span style="font-weight:500;">东北大米 5kg</span></td>
+                    <td><span style="color:#D97706;font-weight:600;">480件</span></td>
+                    <td>500件</td>
+                    <td><span style="color:#D97706;">5天</span></td>
+                    <td><button class="btn btn-outline btn-sm">备货</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>

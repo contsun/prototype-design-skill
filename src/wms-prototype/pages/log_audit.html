@@ -1,0 +1,178 @@
+      <div id="page-log_audit" class="page">
+        <header class="header">
+          <div class="header-left">
+            <h2>操作审计日志</h2>
+            <div class="breadcrumb"><span>首页</span><span>/</span><span>日志中心</span><span>/</span><span>操作审计日志</span></div>
+          </div>
+          <div class="header-right">
+            <button class="btn btn-outline btn-sm">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              导出
+            </button>
+          </div>
+        </header>
+        <div class="content">
+          <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;">
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">今日操作</span></div>
+              <div class="stat-card-value">1,286</div>
+              <div class="stat-card-change up">+156</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">异常操作</span></div>
+              <div class="stat-card-value" style="color:#EF4444;">12</div>
+              <div class="stat-card-change down">需关注</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">高危操作</span></div>
+              <div class="stat-card-value" style="color:#DC2626;">3</div>
+              <div class="stat-card-change down">已拦截</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">登录次数</span></div>
+              <div class="stat-card-value">328</div>
+              <div class="stat-card-change">今日</div>
+            </div>
+          </div>
+          
+          <div class="table-card">
+            <div class="table-filters">
+              <div class="filter-group">
+                <label class="filter-label">操作人</label>
+                <input type="text" class="filter-input" placeholder="搜索操作人...">
+              </div>
+              <div class="filter-group">
+                <label class="filter-label">操作类型</label>
+                <select class="filter-select">
+                  <option>全部</option>
+                  <option>登录</option>
+                  <option>新增</option>
+                  <option>编辑</option>
+                  <option>删除</option>
+                  <option>审批</option>
+                  <option>导出</option>
+                  <option>配置变更</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label class="filter-label">模块</label>
+                <select class="filter-select">
+                  <option>全部模块</option>
+                  <option>基础档案</option>
+                  <option>作业配置</option>
+                  <option>库存中心</option>
+                  <option>单据中心</option>
+                  <option>异常管理</option>
+                  <option>系统管理</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label class="filter-label">时间范围</label>
+                <select class="filter-select">
+                  <option>今天</option>
+                  <option>近7天</option>
+                  <option>近30天</option>
+                  <option>自定义</option>
+                </select>
+              </div>
+            </div>
+            <table>
+              <thead><tr><th>日志ID</th><th>操作人</th><th>操作类型</th><th>模块</th><th>操作内容</th><th>IP地址</th><th>操作时间</th><th>操作</th></tr></thead>
+              <tbody>
+                <tr style="background:#FEE2E2;">
+                  <td><span style="font-family:monospace;">LOG-2026-0410-0892</span></td>
+                  <td><span style="font-weight:500;">admin</span></td>
+                  <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">删除</span></td>
+                  <td>基础档案</td>
+                  <td style="max-width:300px;">删除仓管人员"张伟"的档案记录</td>
+                  <td><span style="font-family:monospace;">192.168.1.105</span></td>
+                  <td>2026-04-10 14:32:15</td>
+                  <td><button class="btn btn-outline btn-sm">详情</button></td>
+                </tr>
+                <tr style="background:#FEF3C7;">
+                  <td><span style="font-family:monospace;">LOG-2026-0410-0891</span></td>
+                  <td><span style="font-weight:500;">李娜</span></td>
+                  <td><span class="tag" style="background:#FEF3C7;color:#D97706;">配置变更</span></td>
+                  <td>作业配置</td>
+                  <td style="max-width:300px;">修改波次策略"智能波次-01"的触发方式</td>
+                  <td><span style="font-family:monospace;">192.168.1.108</span></td>
+                  <td>2026-04-10 14:28:42</td>
+                  <td><button class="btn btn-outline btn-sm">详情</button></td>
+                </tr>
+                <tr>
+                  <td><span style="font-family:monospace;">LOG-2026-0410-0890</span></td>
+                  <td><span style="font-weight:500;">王强</span></td>
+                  <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">审批</span></td>
+                  <td>单据中心</td>
+                  <td style="max-width:300px;">审批采购入库单 RK-2026-0410-025 通过</td>
+                  <td><span style="font-family:monospace;">192.168.1.112</span></td>
+                  <td>2026-04-10 14:25:33</td>
+                  <td><button class="btn btn-outline btn-sm">详情</button></td>
+                </tr>
+                <tr>
+                  <td><span style="font-family:monospace;">LOG-2026-0410-0889</span></td>
+                  <td><span style="font-weight:500;">张伟</span></td>
+                  <td><span class="tag" style="background:#DBEAFE;color:#2563EB;">新增</span></td>
+                  <td>库存中心</td>
+                  <td style="max-width:300px;">新建盘点计划单 PD-2026-0410-005</td>
+                  <td><span style="font-family:monospace;">192.168.1.115</span></td>
+                  <td>2026-04-10 14:20:18</td>
+                  <td><button class="btn btn-outline btn-sm">详情</button></td>
+                </tr>
+                <tr>
+                  <td><span style="font-family:monospace;">LOG-2026-0410-0888</span></td>
+                  <td><span style="font-weight:500;">赵鹏</span></td>
+                  <td><span class="tag" style="background:#EEF2FF;color:#4F46E5;">编辑</span></td>
+                  <td>基础档案</td>
+                  <td style="max-width:300px;">编辑商品"新鲜有机苹果"的库存预警阈值</td>
+                  <td><span style="font-family:monospace;">192.168.1.118</span></td>
+                  <td>2026-04-10 14:18:56</td>
+                  <td><button class="btn btn-outline btn-sm">详情</button></td>
+                </tr>
+                <tr>
+                  <td><span style="font-family:monospace;">LOG-2026-0410-0887</span></td>
+                  <td><span style="font-weight:500;">admin</span></td>
+                  <td><span class="tag" style="background:#F3F4F6;color:#6B7280;">登录</span></td>
+                  <td>系统管理</td>
+                  <td style="max-width:300px;">用户 admin 登录系统</td>
+                  <td><span style="font-family:monospace;">10.0.0.1</span></td>
+                  <td>2026-04-10 14:15:00</td>
+                  <td><button class="btn btn-outline btn-sm">详情</button></td>
+                </tr>
+                <tr>
+                  <td><span style="font-family:monospace;">LOG-2026-0410-0886</span></td>
+                  <td><span style="font-weight:500;">李娜</span></td>
+                  <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">导出</span></td>
+                  <td>单据中心</td>
+                  <td style="max-width:300px;">导出采购管理列表 Excel</td>
+                  <td><span style="font-family:monospace;">192.168.1.108</span></td>
+                  <td>2026-04-10 14:12:28</td>
+                  <td><button class="btn btn-outline btn-sm">详情</button></td>
+                </tr>
+                <tr style="background:#FEE2E2;">
+                  <td><span style="font-family:monospace;">LOG-2026-0410-0885</span></td>
+                  <td><span style="font-weight:500;">钱七</span></td>
+                  <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">删除</span></td>
+                  <td>异常管理</td>
+                  <td style="max-width:300px;">尝试删除客诉工单 EX-2026-0408-042（无权限，已拦截）</td>
+                  <td><span style="font-family:monospace;">192.168.1.120</span></td>
+                  <td>2026-04-10 14:10:15</td>
+                  <td><button class="btn btn-outline btn-sm">详情</button></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="pagination">
+              <div class="pagination-info">显示 1-8 条，共 1,286 条</div>
+              <div class="pagination-buttons">
+                <button class="pagination-btn" disabled>‹</button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <button class="pagination-btn">4</button>
+                <button class="pagination-btn">...</button>
+                <button class="pagination-btn">›</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

@@ -1,0 +1,440 @@
+      <div id="page-sorting" class="page">
+        <header class="header">
+          <div class="header-left">
+            <h2>分拣单据</h2>
+            <div class="breadcrumb">
+              <span>基础档案</span>
+              <span>/</span>
+              <span>作业配置</span>
+              <span>/</span>
+              <span>分拣单据</span>
+            </div>
+          </div>
+          <div class="header-right">
+            <button class="btn btn-outline btn-sm" onclick="exportSorting()">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              导出
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="openAddSortingModal()">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              新建分拣
+            </button>
+          </div>
+        </header>
+        
+        <div class="content">
+          <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;">
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">待分拣</span></div>
+              <div class="stat-card-value" style="color:#EF4444;">36</div>
+              <div class="stat-card-change down">需处理</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">分拣中</span></div>
+              <div class="stat-card-value" style="color:#F59E0B;">18</div>
+              <div class="stat-card-change warning">进行中</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">已完成</span></div>
+              <div class="stat-card-value" style="color:#10B981;">245</div>
+              <div class="stat-card-change up">今日</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header"><span class="stat-card-title">完成率</span></div>
+              <div class="stat-card-value">87.2%</div>
+              <div class="stat-card-change">正常</div>
+            </div>
+          </div>
+          
+          <div class="table-card">
+            <div class="table-filters">
+              <div class="filter-group">
+                <span class="filter-label">分拣单号</span>
+                <input type="text" class="filter-input" placeholder="输入分拣单号..." style="width:150px;">
+              </div>
+              <div class="filter-group">
+                <span class="filter-label">波次号</span>
+                <input type="text" class="filter-input" placeholder="输入波次号..." style="width:150px;">
+              </div>
+              <div class="filter-group">
+                <span class="filter-label">线路</span>
+                <select class="filter-select" style="width:130px;">
+                  <option value="">全部线路</option>
+                  <option>北京-朝阳线路</option>
+                  <option>北京-海淀线路</option>
+                  <option>上海-浦东线路</option>
+                  <option>上海-浦西线路</option>
+                  <option>广州-天河线路</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <span class="filter-label">分拣状态</span>
+                <select class="filter-select">
+                  <option value="">全部</option>
+                  <option>待分拣</option>
+                  <option>分拣中</option>
+                  <option>已完成</option>
+                  <option>异常</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <span class="filter-label">仓库</span>
+                <select class="filter-select">
+                  <option value="">全部仓库</option>
+                  <option>北京仓</option>
+                  <option>上海仓</option>
+                  <option>广州仓</option>
+                </select>
+              </div>
+              <button class="btn btn-primary btn-sm" style="margin-left:8px;">查询</button>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>分拣单号</th>
+                  <th>波次号</th>
+                  <th>线路</th>
+                  <th>仓库</th>
+                  <th>环节</th>
+                  <th>分拣员</th>
+                  <th>已分拣/异常</th>
+                  <th>创建时间</th>
+                  <th>状态</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span style="font-family:monospace;font-weight:500;">FJ-2026-0410-001</span></td>
+                  <td><span style="color:#4F46E5;">BC-2026-0410-01</span></td>
+                  <td>北京-朝阳线路</td>
+                  <td>北京仓</td>
+                  <td><span class="tag" style="background:#DCFCE7;color:#16A34A;">集货</span></td>
+                  <td>张伟</td>
+                  <td>
+                    <div style="display:flex;flex-direction:column;gap:2px;">
+                      <span style="font-size:12px;color:#10B981;">已分拣 128/128</span>
+                      <span style="font-size:11px;color:#EF4444;">异常 0</span>
+                    </div>
+                  </td>
+                  <td>2026-04-10 09:30</td>
+                  <td><span class="status status-success">已完成</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" onclick="showSortingDetail('FJ-2026-0410-001')">详情</button>
+                    <button class="btn btn-outline btn-sm" style="margin-left:4px;" onclick="reSorting('FJ-2026-0410-001')">重新分拣</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span style="font-family:monospace;font-weight:500;">FJ-2026-0410-002</span></td>
+                  <td><span style="color:#4F46E5;">BC-2026-0410-01</span></td>
+                  <td>北京-朝阳线路</td>
+                  <td>北京仓</td>
+                  <td><span class="tag" style="background:#FEF3C7;color:#D97706;">播种</span></td>
+                  <td>李娜</td>
+                  <td>
+                    <div style="display:flex;flex-direction:column;gap:2px;">
+                      <span style="font-size:12px;color:#F59E0B;">已分拣 62/96</span>
+                      <span style="font-size:11px;color:#EF4444;">异常 2</span>
+                    </div>
+                  </td>
+                  <td>2026-04-10 09:45</td>
+                  <td><span class="status status-warning">分拣中</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" onclick="showSortingDetail('FJ-2026-0410-002')">详情</button>
+                    <button class="btn btn-outline btn-sm" style="margin-left:4px;" onclick="markException('FJ-2026-0410-002')">标记异常</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span style="font-family:monospace;font-weight:500;">FJ-2026-0410-003</span></td>
+                  <td><span style="color:#4F46E5;">BC-2026-0410-02</span></td>
+                  <td>上海-浦东线路</td>
+                  <td>上海仓</td>
+                  <td><span class="tag" style="background:#DBEAFE;color:#2563EB;">拣货</span></td>
+                  <td>王强</td>
+                  <td>
+                    <div style="display:flex;flex-direction:column;gap:2px;">
+                      <span style="font-size:12px;color:#6B7280;">已分拣 0/156</span>
+                      <span style="font-size:11px;color:#EF4444;">异常 0</span>
+                    </div>
+                  </td>
+                  <td>2026-04-10 10:00</td>
+                  <td><span class="status status-default">待分拣</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" onclick="showSortingDetail('FJ-2026-0410-003')">详情</button>
+                    <button class="btn btn-outline btn-sm" style="margin-left:4px;" onclick="startSorting('FJ-2026-0410-003')">开始</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span style="font-family:monospace;font-weight:500;">FJ-2026-0410-004</span></td>
+                  <td><span style="color:#4F46E5;">BC-2026-0410-02</span></td>
+                  <td>上海-浦东线路</td>
+                  <td>上海仓</td>
+                  <td><span class="tag" style="background:#DBEAFE;color:#2563EB;">拣货</span></td>
+                  <td>赵鹏</td>
+                  <td>
+                    <div style="display:flex;flex-direction:column;gap:2px;">
+                      <span style="font-size:12px;color:#F59E0B;">已分拣 23/78</span>
+                      <span style="font-size:11px;color:#EF4444;">异常 1</span>
+                    </div>
+                  </td>
+                  <td>2026-04-10 10:15</td>
+                  <td><span class="status status-warning">分拣中</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" onclick="showSortingDetail('FJ-2026-0410-004')">详情</button>
+                    <button class="btn btn-outline btn-sm" style="margin-left:4px;" onclick="markException('FJ-2026-0410-004')">标记异常</button>
+                  </td>
+                </tr>
+                <tr style="background:#FEF2F2;">
+                  <td><span style="font-family:monospace;font-weight:500;color:#DC2626;">FJ-2026-0410-005</span></td>
+                  <td><span style="color:#DC2626;">紧急-0410-01</span></td>
+                  <td>北京-海淀线路</td>
+                  <td>北京仓</td>
+                  <td><span class="tag" style="background:#FEE2E2;color:#DC2626;">集货</span></td>
+                  <td>张伟</td>
+                  <td>
+                    <div style="display:flex;flex-direction:column;gap:2px;">
+                      <span style="font-size:12px;color:#F59E0B;">已分拣 22/45</span>
+                      <span style="font-size:11px;color:#EF4444;font-weight:500;">异常 5</span>
+                    </div>
+                  </td>
+                  <td>2026-04-10 10:30</td>
+                  <td><span class="status status-error">异常</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" onclick="showSortingDetail('FJ-2026-0410-005')">详情</button>
+                    <button class="btn btn-primary btn-sm" style="margin-left:4px;" onclick="handleException('FJ-2026-0410-005')">处理</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="pagination">
+              <div class="pagination-info">显示 1-5 条，共 36 条</div>
+              <div class="pagination-buttons">
+                <button class="pagination-btn" disabled>‹</button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <button class="pagination-btn">4</button>
+                <button class="pagination-btn">›</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 新建分拣弹窗 -->
+      <div id="modal-add-sorting" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:90%;max-width:560px;max-height:85vh;overflow-y:auto;box-shadow:0 25px 80px rgba(0,0,0,0.35);">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="font-size:16px;font-weight:600;color:#1F2937;margin:0;">新建分拣</h3>
+            <button onclick="closeAddSortingModal()" style="width:32px;height:32px;border-radius:50%;border:none;background:#F3F4F6;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">×</button>
+          </div>
+          <div style="padding:24px;overflow-y:auto;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">分拣单号</label>
+                <input type="text" class="form-input" placeholder="系统自动生成" disabled style="background:#F3F4F6;font-family:monospace;">
+                <span style="font-size:11px;color:#9CA3AF;margin-top:4px;display:block;">系统自动生成</span>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">仓库 <span style="color:#EF4444;">*</span></label>
+                <select class="form-select" id="sorting-warehouse">
+                  <option value="">请选择仓库</option>
+                  <option>北京仓</option>
+                  <option>上海仓</option>
+                  <option>广州仓</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">线路 <span style="color:#EF4444;">*</span></label>
+                <select class="form-select" id="sorting-line">
+                  <option value="">请选择线路</option>
+                  <option>北京-朝阳线路</option>
+                  <option>北京-海淀线路</option>
+                  <option>上海-浦东线路</option>
+                  <option>上海-浦西线路</option>
+                  <option>广州-天河线路</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">波次号</label>
+                <select class="form-select" id="sorting-wave">
+                  <option value="">请选择波次</option>
+                  <option>BC-2026-0410-01</option>
+                  <option>BC-2026-0410-02</option>
+                  <option>BC-2026-0410-03</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">分拣环节 <span style="color:#EF4444;">*</span></label>
+                <select class="form-select" id="sorting-stage">
+                  <option value="">请选择环节</option>
+                  <option value="pick">拣货</option>
+                  <option value="sort">播种</option>
+                  <option value="collect">集货</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">分拣员</label>
+                <select class="form-select" id="sorting-operator">
+                  <option value="">请选择分拣员</option>
+                  <option>张伟</option>
+                  <option>李娜</option>
+                  <option>王强</option>
+                  <option>赵鹏</option>
+                </select>
+              </div>
+              <div style="margin-bottom:16px;grid-column:span 2;">
+                <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">备注</label>
+                <textarea class="form-input" style="resize:vertical;min-height:60px;" rows="2" placeholder="输入备注信息（选填）" id="sorting-remark"></textarea>
+              </div>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button class="btn btn-outline" onclick="closeAddSortingModal()">取消</button>
+            <button class="btn btn-primary" onclick="saveAddSorting()">确认创建</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 分拣详情弹窗 -->
+      <div id="modal-sorting-detail" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:12px;width:90%;max-width:640px;max-height:85vh;overflow-y:auto;box-shadow:0 25px 80px rgba(0,0,0,0.35);">
+          <div style="padding:20px 24px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;">
+            <h3 style="font-size:16px;font-weight:600;color:#1F2937;margin:0;">分拣单详情</h3>
+            <button onclick="closeSortingDetailModal()" style="width:32px;height:32px;border-radius:50%;border:none;background:#F3F4F6;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">×</button>
+          </div>
+          <div style="padding:24px;overflow-y:auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:44px;height:44px;background:#EEF2FF;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;">📋</div>
+                <div>
+                  <div style="font-size:15px;font-weight:600;color:#1F2937;" id="detail-sorting-no">FJ-2026-0410-002</div>
+                  <div style="font-size:12px;color:#6B7280;margin-top:2px;">2026-04-10 09:45 创建</div>
+                </div>
+              </div>
+              <span class="status status-warning" id="detail-sorting-status">分拣中</span>
+            </div>
+            
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;">
+              <div style="padding:12px;background:#F9FAFB;border-radius:8px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">波次号</div>
+                <div style="font-size:13px;font-weight:500;color:#4F46E5;" id="detail-sorting-wave">BC-2026-0410-01</div>
+              </div>
+              <div style="padding:12px;background:#F9FAFB;border-radius:8px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">仓库</div>
+                <div style="font-size:13px;font-weight:500;color:#374151;" id="detail-sorting-warehouse">北京仓</div>
+              </div>
+              <div style="padding:12px;background:#F9FAFB;border-radius:8px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">线路</div>
+                <div style="font-size:13px;font-weight:500;color:#374151;" id="detail-sorting-line">北京-朝阳线路</div>
+              </div>
+              <div style="padding:12px;background:#F9FAFB;border-radius:8px;">
+                <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">环节</div>
+                <div style="font-size:13px;font-weight:500;color:#374151;" id="detail-sorting-stage">播种</div>
+              </div>
+            </div>
+            
+            <div style="margin-bottom:20px;">
+              <div style="font-size:13px;font-weight:500;color:#374151;margin-bottom:10px;">分拣进度</div>
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+                <div style="flex:1;height:8px;background:#E5E7EB;border-radius:4px;overflow:hidden;">
+                  <div style="width:65%;height:100%;background:#F59E0B;border-radius:4px;"></div>
+                </div>
+                <span style="font-size:13px;font-weight:600;color:#F59E0B;min-width:45px;">65%</span>
+              </div>
+              <div style="display:flex;gap:16px;font-size:12px;">
+                <span style="color:#10B981;">✓ 已分拣：62 件</span>
+                <span style="color:#EF4444;">✗ 异常：2 件</span>
+                <span style="color:#6B7280;">○ 剩余：34 件</span>
+              </div>
+            </div>
+            
+            <div style="margin-bottom:16px;">
+              <div style="font-size:13px;font-weight:500;color:#374151;margin-bottom:10px;">分拣员</div>
+              <div style="display:flex;align-items:center;gap:10px;padding:12px;background:#F9FAFB;border-radius:8px;">
+                <div style="width:36px;height:36px;background:#DBEAFE;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;">👤</div>
+                <div>
+                  <div style="font-size:14px;font-weight:500;color:#374151;">李娜</div>
+                  <div style="font-size:12px;color:#6B7280;">负责播种环节</div>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <div style="font-size:13px;font-weight:500;color:#374151;margin-bottom:10px;">异常记录</div>
+              <div style="border:1px solid #FCA5A5;background:#FEF2F2;border-radius:8px;padding:12px;">
+                <div style="font-size:12px;color:#DC2626;margin-bottom:8px;">⚠️ 发现 2 件异常商品</div>
+                <div style="font-size:12px;color:#374151;line-height:1.6;">
+                  <div>• 商品「新疆红枣 500g」条码无法识别</div>
+                  <div>• 商品「有机小米 1kg」数量与系统不符（实到3件，系统5件）</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="padding:16px 24px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:12px;">
+            <button class="btn btn-outline" onclick="closeSortingDetailModal()">关闭</button>
+            <button class="btn btn-outline" onclick="markException()">标记异常</button>
+            <button class="btn btn-primary" onclick="closeSortingDetailModal()">确认</button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+      function openAddSortingModal() {
+        var m = document.getElementById('modal-add-sorting');
+        m.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function closeAddSortingModal() {
+        var m = document.getElementById('modal-add-sorting');
+        m.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+      
+      function showSortingDetail(no) {
+        var m = document.getElementById('modal-sorting-detail');
+        m.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function closeSortingDetailModal() {
+        var m = document.getElementById('modal-sorting-detail');
+        m.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+      
+      function saveAddSorting() {
+        var warehouse = document.getElementById('sorting-warehouse').value;
+        var line = document.getElementById('sorting-line').value;
+        if (!warehouse || !line) {
+          alert('请选择仓库和线路');
+          return;
+        }
+        alert('分拣单创建成功');
+        closeAddSortingModal();
+      }
+      
+      function startSorting(no) {
+        alert('分拣单 ' + no + ' 开始分拣');
+      }
+      
+      function markException(no) {
+        if (!no) no = '当前分拣单';
+        alert('打开异常标记：' + no);
+      }
+      
+      function reSorting(no) {
+        if (confirm('确定要对分拣单 ' + no + ' 进行重新分拣？')) {
+          alert('已触发重新分拣');
+        }
+      }
+      
+      function handleException(no) {
+        alert('处理分拣异常：' + no);
+      }
+      
+      function exportSorting() {
+        alert('导出分拣单据');
+      }
+      </script>
