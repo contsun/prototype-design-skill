@@ -131,6 +131,8 @@ AI：好的，我来调整...
 
 ## 🤝 贡献
 
+设计风格用引用了VoltAgent大神的设计能力，项目文档：[awesome-design](https://github.com/VoltAgent/awesome-design-md)
+项目约束结构引用了卡兹卡大神的约束先行原则。感谢两位大神。
 欢迎提交 Issue 和 PR！
 
 ## 📄 License
