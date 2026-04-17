@@ -79,7 +79,7 @@ prototype-design/
 
 ## 鸣谢
 
-技能中引用了VoltAgent的https://github.com/VoltAgent/awesome-design-md技能。
+技能中引用了VoltAgent的https://github.com/VoltAgent/awesome-design-md 技能。
 约束文件里面参考了卡兹克大神的约束先行原则。
 
 ---
