@@ -5,7 +5,7 @@ description: |
   包括标准页面结构、统计卡片、筛选条件、数据表格、弹窗设计。
   适用场景：(1) 创建新的管理页面原型 (2) 对照业务文档实现功能模块 
   (3) 设计弹窗和详情页 (4) 构建带看板和列表视图的页面。
-  **样式选择**：使用 awesome-design-md 技能中的58+设计系统。
+  **样式选择**：内置58+设计系统，直接引用 `references/design-systems/` 目录。
   使用时指定 DESIGN_SYSTEM=<名称> 即可应用对应设计风格。
 origin: openclaw
 last_updated: 2026-04-14
@@ -33,7 +33,7 @@ cd project
 ```
 
 ### 2. 设计系统选择
-使用 `awesome-design-md` 技能中的设计系统：
+内置设计系统（`references/design-systems/`）：
 - 默认：`figma-DESIGN.md`
 - 管理后台：`linear-DESIGN.md`
 - 简约专业：`vercel-DESIGN.md`
@@ -59,7 +59,7 @@ project/
 
 ## 设计系统选择
 
-**重要**：具体样式规范引用 `awesome-design-md` 技能。
+**重要**：设计系统文件位于 `references/design-systems/` 目录。
 
 ### 使用步骤
 
@@ -70,7 +70,7 @@ project/
 
 2. **读取对应 DESIGN.md**
    ```bash
-   cat /Users/ai/.openclaw/workspace/awesome-design-md/design-systems/figma-DESIGN.md
+   cat references/design-systems/figma-DESIGN.md
    ```
 
 3. **应用设计规范**
@@ -628,8 +628,7 @@ WMS 原型是单页 HTML（`index.html`），3700+ divs：
 
 ## 相关资源
 
-- **awesome-design-md** 技能：58+ 设计系统完整规范
-  - 位置：`/Users/ai/.openclaw/workspace/awesome-design-md/`
+- **内置设计系统**：`references/design-systems/` 目录包含58+设计系统完整规范
   - 包含：Figma、Linear、Stripe、Vercel、Notion 等
 - **字段规范**：[field-norms.md](references/field-norms.md) - 各模块标准字段定义
 
@@ -661,7 +660,7 @@ WMS 原型是单页 HTML（`index.html`），3700+ divs：
 
 **必须运行同步脚本**：
 ```bash
-cd /Users/ai/.openclaw/workspace/wms-prototype
+cd your-project-directory
 python3 << 'PYEOF'
 import os
 import re
@@ -719,7 +718,7 @@ PYEOF
 
 **启动本地服务器**（如果未运行）：
 ```bash
-cd /Users/ai/.openclaw/workspace/wms-prototype
+cd your-project-directory
 npx http-server -p 8080 &
 ```
 
@@ -751,7 +750,7 @@ agent-browser close
 ### 🔴 第四步：提交代码
 
 ```bash
-cd /Users/ai/.openclaw/workspace/wms-prototype
+cd your-project-directory
 git add -A
 git commit -m "fix: 描述修改内容"
 ```
