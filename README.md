@@ -71,6 +71,17 @@ prototype-design/
 
 详见 SKILL.md 中的「经验沉淀」章节，包含 WMS 项目实战经验。
 
+## 示例
+<img width="2880" height="1800" alt="img_v3_0210k_a74f4de6-0026-474a-9ffb-97f6fd95bd1g" src="https://github.com/user-attachments/assets/43f07627-8b50-4fd1-ab92-9ac78e77c302" />
+<img width="2880" height="1800" alt="img_v3_0210k_3c0f3cac-f140-43fe-9109-184bef032d0g" src="https://github.com/user-attachments/assets/fbc112bd-9a3f-4668-b25d-b794d16cdbba" />
+<img width="2880" height="1800" alt="img_v3_0210k_1bd68845-fb25-4f48-83ef-61c15ce9c5ag" src="https://github.com/user-attachments/assets/94bfa56f-e0f7-4a1c-9d50-567874a7907d" />
+
+
+## 鸣谢
+
+技能中引用了VoltAgent的https://github.com/VoltAgent/awesome-design-md技能。
+约束文件里面参考了卡兹克大神的约束先行原则。
+
 ---
 
 **版本**：1.0.0  
